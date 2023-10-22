@@ -1,7 +1,7 @@
 # <p align="center">MsunPv to HA</p>
   
 Une intégration par le biais d'un fichier .yaml pour faire communiquer le routeur solaire MsunPv de [Ard-tek](https://ard-tek.com/) et Home Assistant.</br>
-Précision préalable, ce fichier est codé pour une version 2 entrées, 2 sorties du MsunPv avec PowPV en négatif et les compteurs EnConso, EnInj, EnPV_J, EnPV_P en négatifs également. Tout cela est bien sur facilement adaptable pour un MsunPv 4 entrées, 4 sorties ou des valeurs positives.</br></br></br>
+Précision préalable, le code de ce fichier est pour une version 2 entrées, 2 sorties du MsunPv avec PowPV en négatif et les compteurs EnConso, EnInj, EnPV_J, EnPV_P en négatifs également (Projet MS_PV2_2b). Tout cela est bien sur facilement adaptable pour un MsunPv 4 entrées, 4 sorties ou des valeurs positives.</br></br></br>
 
 
 ## 🛠️ Installation
@@ -51,7 +51,7 @@ Le but est de récupérer les infos fournit par le MsunPv à l'adresse http://IP
 ```
 Les infos qui nous interressent sont les dans lignes 'inAns', 'cmdPos' et 'chOutVal' et à partir de celles-ci on crée des sensors Home Assistant afin de pouvoir soit les afficher soit les exploiter dans des automatisations ou scripts.
 
-Le code permettant de les récupérer est le suivant :
+La partie du code permettant de les récupérer est la suivante :
 
 ```yml
 rest:
@@ -74,7 +74,7 @@ La ligne :
     scan_interval: 20 #Temps de récupération des données ici fixé à 20 secondes
 ```
 
-Permet de faire cette récupération toutes les 20 secondes. Vous pouvez la modifier pour récupérer plus ou moins souvent les infos. Attention toutefois à ne pas descendre trop bas. (Je n'ai aucun soucis de mon coté avec 20 secondes depuis plusieurs mois mais il faut dire que j'ai une très bonne connexion wifi entre ma box et le MsunPv)
+Permet de faire cette récupération toutes les 20 secondes. Vous pouvez la modifier pour récupérer plus ou moins souvent les infos.</br></br>
 
 Une fois les infos récupérées on les traite pour créer les différents sensors
 
@@ -132,3 +132,19 @@ Si par exemple vous n'avez pas de sonde de température branchée sur le MsunPv 
 #        unit_of_measurement: "°C"
 ```
 Vous pouvez bien sur faire de même pour tous les capteurs qui ne vous interressent pas.
+
+On peut voir dans le code que les sensors sont regroupés en 3 parties.
+
+- Les 'entrées' qui concernent les différentes sondes branchées sur le MsunPv
+- Les 'compteurs' qui remontent les valeurs des compteurs internes du MsunPv
+- Les 'commandes' qui permettent d'envoyer des ordres au MsunPv</br></br>
+
+A partir de là on peut créer des cartes dans Home Assistant pour afficher les valeurs que l'on souhaite :</br></br>
+![](images/cartes_base_msunpv.jpg)
+Intégrer les compteurs dans le dashboard energy de Home Assistant :</br></br>
+![](images/dashboard_energy_msunpv.jpg)
+Envoyer des ordres au routeur à l'aide des services :</br></br>
+![](images/exemple_service.png)
+Ou encore Par le biais d'automatisations :</br></br>
+![](images/exemple_automatisation.png)
+</br></br></br>
