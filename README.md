@@ -1,7 +1,7 @@
 # <p align="center">MsunPv to HA</p>
   
-<p align="center">Une intégration au format .yaml pour faire communiquer le routeur solaire MsunPv de [Ard-tek](https://ard-tek.com/) et Home Assistant.</p>
-<p align="center">Précision préalable, ce fichier est codé pour une version 2 entrées, 2 sorties du MsunPv avec PowPV en négatif et les compteurs EnConso, EnInj, EnPV_J, EnPV_P en négatifs également. Tout cela est bien sur facilement adaptable pour un MsunPv 4 entrées, 4 sorties ou des valeurs positives.</p>
+Une intégration par le biais d'un fichier .yaml pour faire communiquer le routeur solaire MsunPv de [Ard-tek](https://ard-tek.com/) et Home Assistant.</br>
+Précision préalable, ce fichier est codé pour une version 2 entrées, 2 sorties du MsunPv avec PowPV en négatif et les compteurs EnConso, EnInj, EnPV_J, EnPV_P en négatifs également. Tout cela est bien sur facilement adaptable pour un MsunPv 4 entrées, 4 sorties ou des valeurs positives.</br></br></br>
 
 
 ## 🛠️ Installation
@@ -9,7 +9,7 @@
 - Télécharger le fichier 'msunpv.yaml'.
 - Créer un dossier nommé 'packages' a la racine du dossier 'config' de Home Assistant.
 - Copier le fichier téléchargé 'msunpv.yaml' dans le dossier 'packages'.
-- Ouvrir le fichier 'msunpv.yaml' et remplacer dans celui-ci 'IP_DU_MSUNPV' par l'adresse ip de votre MsunPv <span style="color:orange">partout où cela est nécessaire</span> dans le fichier puis sauvegarder.
+- Ouvrir le fichier 'msunpv.yaml' et remplacer dans celui-ci 'IP_DU_MSUNPV' par l'adresse ip de votre MsunPv **partout où cela est nécessaire dans le fichier** puis sauvegarder.
 
     ```yml
     - resource: http://IP_DU_MSUNPV/status.xml
@@ -31,7 +31,7 @@
 - Après le redémarrage vous devriez voir apparaitre de nouveaux sensors dans Home Assistant
 
     ![](images/some_sensors_created.jpg)
-
+</br></br></br>
 
 
 ## 🧑🏻‍💻 Comment ça fonctionne ?
