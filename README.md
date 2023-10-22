@@ -1,6 +1,6 @@
 # <p align="center">MsunPv to HA</p>
   
-<p align="center">Une intégration au format .yaml pour intégrer le routeur solaire MsunPv de [Ard-tek](https://ard-tek.com/) à Home Assistant.</p>
+<p align="center">Une intégration au format .yaml pour intégrer le routeur solaire MsunPv de https://ard-tek.com/ à Home Assistant.</p>
 
 ## 🛠️ Installation
 
