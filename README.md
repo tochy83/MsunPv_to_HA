@@ -26,7 +26,7 @@
     ```
       packages: !include_dir_named packages
     ```
-    A la suite dessous de celle-ci
+    En dessous de celle-ci
 - Sauvegarder et redémarrer complétement Home Assistant.
 - Après le redémarrage vous devriez voir apparaitre de nouveaux sensors dans Home Assistant
 
