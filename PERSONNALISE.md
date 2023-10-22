@@ -99,7 +99,7 @@ Je remplace simplement la ligne :
 ```
 Par :
 ```yml
-      - name: msunpv_outbal #% routage cumulus
+      - name: msunpv_outbal #puissance routage cumulus
         unique_id: "msunpv_outbal"
         state: >-
           {{ (state_attr('sensor.msunpv_xml', 'inAns')|replace(" ","")|replace(",",".")).split(";")[2] |float }}
