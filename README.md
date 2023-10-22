@@ -18,15 +18,26 @@ Précision préalable, le code de ce fichier est pour une version 2 entrées, 2 
     ```yml
     - resource: http://192.168.0.111/status.xml
 - Ajouter dans le fichier 'configuration.yaml' de Home Assistant les lignes suivantes
+
     ```yml
     homeassistant:
       packages: !include_dir_named packages
     ```
-    Si la ligne 'homeassistant:' n'est pas déja présente sinon ajouter juste
+
+    Si la ligne 'homeassistant:' n'existe pas déja sinon ajouter simplement
+
     ```yml
       packages: !include_dir_named packages
     ```
-    En dessous de celle-ci
+
+    En dessous de celles-ci pour obtenir (par ex.)
+
+    ```yml
+    homeassistant:
+      customize: !include customize.yaml
+      packages: !include_dir_named packages
+    ```
+
 - Sauvegarder et redémarrer complétement Home Assistant.
 - Après le redémarrage vous devriez voir apparaitre de nouveaux sensors dans Home Assistant
 
@@ -146,5 +157,5 @@ Intégrer les compteurs dans le dashboard energy de Home Assistant :</br></br>
 Envoyer des ordres au routeur à l'aide des services :</br></br>
 ![](images/exemple_service.png)
 Ou encore Par le biais d'automatisations :</br></br>
-![](images/exemple_automatisation.png)
+![](some_sensors_created.jpg)
 </br></br></br>
