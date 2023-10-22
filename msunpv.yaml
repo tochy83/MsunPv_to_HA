@@ -1,0 +1,144 @@
+# Intégration de récupération et configuration des sensors msunpv pour le routeur solaire MsunPv de Ard-tek
+#
+# Précision préalable, ce fichier est codé pour une version 2 entrées, 2 sorties du MsunPv avec PowPV en négatif et les compteurs EnConso, EnInj, EnPV_J, EnPV_P en négatifs également.
+# Tout cela est bien sur facilement adaptable pour un MsunPv 4 entrées, 4 sorties ou des valeurs positives.
+#
+# Ne pas oublier de remplacer IP_DU_MSUNPV par l'adresse ip de votre MsunPv partout où c'est nécessaire dans le fichier.
+
+rest:
+  #Récupération des données
+  - resource: http://IP_DU_MSUNPV/status.xml
+    scan_interval: 20
+    method: GET
+    sensor:
+      - name: "msunpv_xml"
+        json_attributes_path: "$.xml"
+        value_template: "OK"
+        json_attributes:
+          - "inAns"
+          - "cmdPos"
+          - "cptVals"
+
+template:
+  - sensor:
+      #Les entrées
+      - name: msunpv_powreso #Puissance réseau
+        unique_id: "msunpv_powreso"
+        state: >-
+          {{ (state_attr('sensor.msunpv_xml', 'inAns')|replace(" ","")|replace(",",".")).split(";")[0] |float }}
+        device_class: power
+        unit_of_measurement: "W"
+
+      - name: msunpv_powpv #Puissance panneaux
+        unique_id: "msunpv_powpv"
+        state: >-
+          {{ (state_attr('sensor.msunpv_xml', 'inAns')|replace(" ","")|replace(",",".")).split(";")[1] |float }}
+        device_class: power
+        unit_of_measurement: "W"
+
+      - name: msunpv_outbal #% routage cumulus
+        unique_id: "msunpv_outbal"
+        state: >-
+          {{ (state_attr('sensor.msunpv_xml', 'inAns')|replace(" ","")|replace(",",".")).split(";")[2] |int }}
+        unit_of_measurement: "%"
+
+      - name: msunpv_outrad #% routage radiateur
+        unique_id: "msunpv_outrad"
+        state: >-
+          {{ (state_attr('sensor.msunpv_xml', 'inAns')|replace(" ","")|replace(",",".")).split(";")[3] |int }}
+        unit_of_measurement: "%"
+
+      - name: msunpv_voltres #Tension réseau
+        unique_id: "msunpv_voltres"
+        state: >-
+          {{ (state_attr('sensor.msunpv_xml', 'inAns')|replace(" ","")|replace(",",".")).split(";")[4] |float }}
+        unit_of_measurement: "V"
+
+      - name: msunpv_t_bal1 #Température cumulus
+        unique_id: "msunpv_t_bal1"
+        state: >-
+          {{ (state_attr('sensor.msunpv_xml', 'inAns')|replace(" ","")|replace(",",".")).split(";")[5] |float }}
+        unit_of_measurement: "°C"
+
+      - name: msunpv_t_sdb #Température salle de bain
+        unique_id: "msunpv_t_sdb"
+        state: >-
+          {{ (state_attr('sensor.msunpv_xml', 'inAns')|replace(" ","")|replace(",",".")).split(";")[6] |float }}
+        unit_of_measurement: "°C"
+
+      - name: msunpv_t_amb #Température ambiante
+        unique_id: "msunpv_t_amb"
+        state: >-
+          {{ (state_attr('sensor.msunpv_xml', 'inAns')|replace(" ","")|replace(",",".")).split(";")[7] |float }}
+        unit_of_measurement: "°C"
+
+      #Les compteurs
+      - name: msunpv_enconso #Consommation réseau journalière
+        unique_id: "msunpv_enconso"
+        state: >-
+          {% set cptVals =state_attr('sensor.msunpv_xml', 'cptVals')|replace(" ","") %}
+          {{ cptVals.split(";")[0]|int(base=16)/10 |float }}
+        unit_of_measurement: "Wh"
+        device_class: energy
+
+      - name: msunpv_eninj #Production injectée journalière
+        unique_id: "msunpv_eninj"
+        state: >-
+          {% set cptVals =state_attr('sensor.msunpv_xml', 'cptVals')|replace(" ","") %}
+          {{ (0 if cptVals.split(";")[1]|int(base=16)|int == 0 else ((0xFFFFFFFF - cptVals.split(";")[1]|int(base=16)) * -1)/10) |float }}
+        unit_of_measurement: "Wh"
+        device_class: energy
+
+      - name: msunpv_enpv_j #Production panneaux journalière
+        unique_id: "msunpv_enpv_j"
+        state: >-
+          {% set cptVals =state_attr('sensor.msunpv_xml', 'cptVals')|replace(" ","") %}
+          {{ (0 if cptVals.split(";")[2]|int(base=16)|int == 0 else ((0xFFFFFFFF - cptVals.split(";")[2]|int(base=16)) * -1)/10) |float }}
+        unit_of_measurement: "Wh"
+        device_class: energy
+
+      - name: msunpv_enpv_p #Production panneaux totale
+        unique_id: "msunpv_enpv_p"
+        state: >-
+          {% set cptVals =state_attr('sensor.msunpv_xml', 'cptVals')|replace(" ","") %}
+          {{ (0 if cptVals.split(";")[3]|int(base=16)|int == 0 else ((0xFFFFFFFF - cptVals.split(";")[3]|int(base=16)) * -1)/10) |float }}
+        unit_of_measurement: "Wh"
+        device_class: energy
+
+      #Les commandes manu/auto/test routeur
+      - name: msunpv_cmdpos
+        unique_id: "msunpv_cmdpos"
+        state: >-
+          {{ state_attr('sensor.msunpv_xml', 'cmdPos') }}
+
+      # template sensors for dashboard energy
+      - name: "energie_enconso" #Consommation journalière
+        unit_of_measurement: "kWh"
+        state: "{{ (states('sensor.msunpv_enconso')|float /1000) }}"
+        device_class: energy
+        state_class: total_increasing
+
+      - name: "energie_enpv_j" #Production panneaux journalière
+        unit_of_measurement: "kWh"
+        state: "{{ (states('sensor.msunpv_enpv_j')|float /1000 *-1) }}"
+        device_class: energy
+        state_class: total_increasing
+
+      - name: "energie_eninj" #Production injectée journalière
+        unit_of_measurement: "kWh"
+        state: "{{ (states('sensor.msunpv_eninj')|float /1000 *-1) }}"
+        device_class: energy
+        state_class: total_increasing
+
+shell_command:
+  #Commandes msunpv
+  msunpv_manubal_on: "curl -X POST -d 'parS=1;0;0;0;0;0;0;2;' http://IP_DU_MSUNPV/index.xml"
+  msunpv_autobal_on: "curl -X POST -d 'parS=2;0;0;0;0;0;0;2;' http://IP_DU_MSUNPV/index.xml"
+  msunpv_manurad_on: "curl -X POST -d 'parS=4;0;0;0;0;0;0;2;' http://IP_DU_MSUNPV/index.xml"
+  msunpv_autorad_on: "curl -X POST -d 'parS=8;0;0;0;0;0;0;2;' http://IP_DU_MSUNPV/index.xml"
+  msunpv_manubal_manurad_on: "curl -X POST -d 'parS=5;0;0;0;0;0;0;2;' http://IP_DU_MSUNPV/index.xml"
+  msunpv_manubal_autorad_on: "curl -X POST -d 'parS=9;0;0;0;0;0;0;2;' http://IP_DU_MSUNPV/index.xml"
+  msunpv_autobal_manurad_on: "curl -X POST -d 'parS=6;0;0;0;0;0;0;2;' http://IP_DU_MSUNPV/index.xml"
+  msunpv_autobal_autorad_on: "curl -X POST -d 'parS=10;0;0;0;0;0;0;2;' http://IP_DU_MSUNPV/index.xml"
+  msunpv_reset_commandes: "curl -X POST -d 'parS=0;0;0;0;0;0;0;2;' http://IP_DU_MSUNPV/index.xml"
+  msunpv_arret_routage: "curl -X POST -d 'parS=0;0;0;0;0;0;0;1;' http://IP_DU_MSUNPV/index.xml"
