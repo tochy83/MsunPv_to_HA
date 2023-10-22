@@ -1,7 +1,8 @@
 # <p align="center">MsunPv to HA</p>
   
 <p align="center">Une intégration au format .yaml pour faire communiquer le routeur solaire MsunPv de https://ard-tek.com/ et Home Assistant.</p>
-<p align="center">Précision préalable, ce fichier est codé pour une version 2 entrées, 2 sorties du MsunPv avec PowPV en négatif et les compteurs EnConso, EnInj, EnPV_J, EnPV_P en négatifs également. Tout cela est bien sur facilement adaptable pour un MsunPv 4 entrées, 4 sorties ou des valeurs positives.</p></br></br></br>
+<p align="center">Précision préalable, ce fichier est codé pour une version 2 entrées, 2 sorties du MsunPv avec PowPV en négatif et les compteurs EnConso, EnInj, EnPV_J, EnPV_P en négatifs également. Tout cela est bien sur facilement adaptable pour un MsunPv 4 entrées, 4 sorties ou des valeurs positives.</p>
+
 
 ## 🛠️ Installation
 
@@ -10,31 +11,32 @@
 - Copier le fichier téléchargé 'msunpv.yaml' dans le dossier 'packages'.
 - Ouvrir le fichier 'msunpv.yaml' et remplacer dans celui-ci 'IP_DU_MSUNPV' par l'adresse ip de votre MsunPv <span style="color:orange">partout où cela est nécessaire</span> dans le fichier puis sauvegarder.
 
-    ```
+    ```yml
     - resource: http://IP_DU_MSUNPV/status.xml
     ```
     Devient, si l'adresse ip de votre MsunPv est '192.168.0.111'
-    ```
+    ```yml
     - resource: http://192.168.0.111/status.xml
 - Ajouter dans le fichier 'configuration.yaml' de Home Assistant les lignes suivantes
-    ```
+    ```yml
     homeassistant:
       packages: !include_dir_named packages
     ```
     Si la ligne 'homeassistant:' n'est pas déja présente sinon ajouter juste
-    ```
+    ```yml
       packages: !include_dir_named packages
     ```
     En dessous de celle-ci
 - Sauvegarder et redémarrer complétement Home Assistant.
 - Après le redémarrage vous devriez voir apparaitre de nouveaux sensors dans Home Assistant
 
-    ![](images/some_sensors_created.jpg)</br></br></br></br>
+    ![](images/some_sensors_created.jpg)
+
 
 
 ## 🧑🏻‍💻 Comment ça fonctionne ?
 Le but est de récupérer les infos fournit par le MsunPv à l'adresse http://IP_DU_MSUNPV/status.xml
-```
+```xml
 <xml>
     <rtcc>20:05:56 DI</rtcc>
     <rssi>100;-41</rssi>
@@ -51,7 +53,7 @@ Les infos qui nous interressent sont les dans lignes 'inAns', 'cmdPos' et 'chOut
 
 Le code permettant de les récupérer est le suivant :
 
-```
+```yml
 rest:
   #Récupération des données
   - resource: http://IP_DU_MSUNPV/status.xml
@@ -68,7 +70,7 @@ rest:
 ```
 La ligne :
 
-```
+```yml
     scan_interval: 20 #Temps de récupération des données ici fixé à 20 secondes
 ```
 
@@ -76,7 +78,7 @@ Permet de faire cette récupération toutes les 20 secondes. Vous pouvez la modi
 
 Une fois les infos récupérées on les traite pour créer les différents sensors
 
-```
+```yml
 template:
   - sensor:
       #Les entrées
@@ -104,7 +106,7 @@ etc...
 ```
 Si par exemple vous n'avez pas de sonde de température branchée sur le MsunPv vous pouvez commenter les lignes les concernant comme ceci :
 
-```
+```yml
       - name: msunpv_voltres #Tension réseau
         unique_id: "msunpv_voltres"
         state: >-
