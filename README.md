@@ -28,6 +28,6 @@
 - Sauvegarder et redémarrer complétement Home Assistant.
 - Après le redémarrage vous devriez voir apparaitre de nouveaux sensors dans Home Assistant
 
-    ![](https://i.goopics.net/wi8tq1.jpg)
+    ![](images/some_sensors_created.jpg)
 
 
