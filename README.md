@@ -4,7 +4,7 @@
 - [Introduction](#introduction)
 - [Fonctionnalités](#-fonctionnalités)
 - [Installation](#%EF%B8%8F-installation)
-- [comment-ça-fonctionne-?](#-comment-%C3%A7a-fonctionne-)
+- [Comment ça fonctionne ?](#-comment-%C3%A7a-fonctionne-)
 - [FAQ](#faq)
 </br>
 
