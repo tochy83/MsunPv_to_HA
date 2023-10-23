@@ -100,7 +100,7 @@ La ligne :
 
 Permet de faire cette récupération toutes les 20 secondes. Vous pouvez la modifier pour récupérer plus ou moins souvent les infos.</br></br>
 
-Une fois les infos récupérées on les traite pour créer les différents sensors
+Une fois les infos récupérées on les traite pour créer les différents sensors.
 
 ```yml
 template:
@@ -159,9 +159,9 @@ Vous pouvez bien sur faire de même pour tous les capteurs qui ne vous interress
 
 On peut voir dans le code que les sensors sont regroupés en 3 parties.
 
-- Les 'entrées' qui concernent les différentes sondes branchées sur le MsunPv
-- Les 'compteurs' qui remontent les valeurs des compteurs internes du MsunPv
-- Les 'commandes' qui permettent d'envoyer des ordres au MsunPv</br></br>
+- Les 'entrées' qui concernent les différentes sondes branchées sur le MsunPv.
+- Les 'compteurs' qui remontent les valeurs des compteurs internes du MsunPv.
+- Les 'commandes' qui permettent d'envoyer des ordres au MsunPv.</br></br>
 
 A partir de là on peut créer des cartes dans Home Assistant pour afficher les valeurs que l'on souhaite :</br></br>
 ![](images/cartes_base_msunpv.jpg)
@@ -173,5 +173,5 @@ Ou encore Par le biais d'automatisations :</br></br>
 ![](some_sensors_created.jpg)
 </br></br>
 ## FAQ
-- Voir le fichier FAQ
+- Voir le fichier FAQ.
 </br></br></br>
