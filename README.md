@@ -22,7 +22,7 @@ Précision préalable, le code de ce fichier est pour une version 2 entrées, 2 
 ## 🛠️ Installation
 - Télécharger le fichier 'msunpv.yaml'.
 - Créer un dossier nommé 'packages' a la racine du dossier 'config' de Home Assistant.
-- Copier le fichier téléchargé 'msunpv.yaml' dans le dossier 'packages'.
+- Copier le fichier téléchargé 'msunpv.yaml' dans le dossier 'packages' créé précédemment.
 - Ouvrir le fichier 'msunpv.yaml' et remplacer dans celui-ci 'IP_DU_MSUNPV' par l'adresse ip de votre MsunPv **partout où cela est nécessaire dans le fichier** puis sauvegarder.
 
     ```yml
