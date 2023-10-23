@@ -175,5 +175,8 @@ Ou encore Par le biais d'automatisations :</br></br>
 ![](images/exemple_automatisation.png)
 </br></br>
 ## FAQ
-- Voir le fichier FAQ.
+- Accédez à la [FAQ](/FAQ.md#faq)
+- [C'est bien beau ton truc mais mes compteurs sont en positifs, comment je fais ?](/FAQ.md#cest-bien-beau-ton-truc-mais-mes-compteurs-sont-en-positifs-comment-je-fais-)
+- [J'ai une sonde qui mesure la puissance du cumulus, comment je fais ?](/FAQ.md#jai-une-sonde-qui-mesure-la-puissance-du-cumulus-comment-je-fais-)
+- [Moi j'ai une version 4entrées et 4 sorties, comment je fais ?](/FAQ.md#moi-jai-une-version-4entr%C3%A9es-et-4-sorties-comment-je-fais-)
 </br></br></br>
