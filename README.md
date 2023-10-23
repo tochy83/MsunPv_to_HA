@@ -170,7 +170,7 @@ Intégrer les compteurs dans le dashboard energy de Home Assistant :</br></br>
 Envoyer des ordres au routeur à l'aide des services :</br></br>
 ![](images/exemple_service.png)
 Ou encore Par le biais d'automatisations :</br></br>
-![](some_sensors_created.jpg)
+![](images/exemple_automatisation.png)
 </br></br>
 ## FAQ
 - Voir le fichier FAQ.
