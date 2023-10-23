@@ -166,7 +166,7 @@ Qui une fois reduite au infos qui nous interresse nous donne :
       <typAns>PowReso:PowPV:OutBal:OutRad:VoltResT_Bal1:T_SDB:T_Amb:S9:S10:S11:S12:S13:S14:S15:S16:</typAns>
       <typCpt>EnConso:EnInj:EnPV_J:EnPV_P:Compt 5:Compt 6:Compt 7:Compt 8:</typCpt>
 ```
-On sait donc maintenant que si je veux récupérer la valeur de 'Outbal' il faudra que je récupère la 3éme valeur de la ligne correspondante dans le fichier 'status.xml'. Outbal pourrais très bien s'appeler tartampion que celà fonctionnerai de la même façon.
+On sait donc maintenant que si je veux récupérer la valeur de 'Outbal' il faudra que je récupère la 3éme valeur de la ligne correspondante dans le fichier 'status.xml'. Outbal pourrais très bien s'appeler 'tartampion' que cela fonctionnerai de la même façon.
 </br>De la même manière si je veux la valeur du compteur 'Compt 6' je récupère la 5éme valeur de la ligne correspondante dans le fichier 'status.xml'.
 </br>Les correspondance sont :
 | index.xml | <=> | status.xml | 
