@@ -1,11 +1,25 @@
-# <p align="center">MsunPv to HA</p>
-  
+# MsunPv to HA
+</br>
+
+- [Introduction](#introduction)
+- [Fonctionnalités](#-fonctionnalités)
+- [Installation](#%EF%B8%8F-installation)
+- [comment-ça-fonctionne-?](#-comment-%C3%A7a-fonctionne-)
+- [FAQ](#faq)
+</br>
+
+## Introduction
 Une intégration par le biais d'un fichier .yaml pour faire communiquer le routeur solaire MsunPv de [Ard-tek](https://ard-tek.com/) et Home Assistant.</br>
 Précision préalable, le code de ce fichier est pour une version 2 entrées, 2 sorties du MsunPv avec PowPV en négatif et les compteurs EnConso, EnInj, EnPV_J, EnPV_P en négatifs également (Projet MS_PV2_2b). Tout cela est bien sur facilement adaptable pour un MsunPv 4 entrées, 4 sorties ou des valeurs positives.</br></br></br>
 
+## 🧐 Fonctionnalités
+- Récupére les infos fournies par le MsunPv (Puissances, % de routage, températures, tension)
+- Récupére les valeurs des compteurs interne du MsunPv
+- Permet d'intégrer les compteurs de consomation, de production et d'injection du MsunPv au 'dashboard energie' de Home Assistant
+- Permet d'envoyer des ordre au MsunPv (ex. activer manubal pour forcer la chauffe du cumulus)
+</br>
 
 ## 🛠️ Installation
-
 - Télécharger le fichier 'msunpv.yaml'.
 - Créer un dossier nommé 'packages' a la racine du dossier 'config' de Home Assistant.
 - Copier le fichier téléchargé 'msunpv.yaml' dans le dossier 'packages'.
@@ -50,7 +64,6 @@ Le but est de récupérer les infos fournit par le MsunPv à l'adresse http://IP
 ```xml
 <xml>
     <rtcc>20:05:56 DI</rtcc>
-    <rssi>100;-41</rssi>
     <paramSys>20:05:57;22/10/2023;On;01:00;0,0;MS_PV2_2b;5.0.1;0000220;104a;104a;00:00;00:00</paramSys>
     <inAns>326,4;75,5; 0; 0;233,3;0,0;0,0;0,0; 0; 0; 0; 0; 0; 0; 0; 0;</inAns>
     <survMm>0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;</survMm>
@@ -158,4 +171,7 @@ Envoyer des ordres au routeur à l'aide des services :</br></br>
 ![](images/exemple_service.png)
 Ou encore Par le biais d'automatisations :</br></br>
 ![](some_sensors_created.jpg)
+</br></br>
+## FAQ
+- Voir le fichier FAQ
 </br></br></br>
