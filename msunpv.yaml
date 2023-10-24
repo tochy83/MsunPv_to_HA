@@ -6,9 +6,9 @@
 # Ne pas oublier de remplacer IP_DU_MSUNPV par l'adresse ip de votre MsunPv partout où c'est nécessaire dans le fichier.
 
 rest:
-  #Récupération des données
+### Récupération des données
   - resource: http://IP_DU_MSUNPV/status.xml
-    scan_interval: 20
+    scan_interval: 20 #Temps de récupération des données ici fixé à 20 secondes
     method: GET
     sensor:
       - name: "msunpv_xml"
@@ -19,9 +19,10 @@ rest:
           - "cmdPos"
           - "cptVals"
 
+### Tous les sensors créés avec mise en forme des données
 template:
   - sensor:
-      #Les entrées
+####### Les entrées
       - name: msunpv_powreso #Puissance réseau
         unique_id: "msunpv_powreso"
         state: >-
@@ -72,7 +73,7 @@ template:
           {{ (state_attr('sensor.msunpv_xml', 'inAns')|replace(" ","")|replace(",",".")).split(";")[7] |float }}
         unit_of_measurement: "°C"
 
-      #Les compteurs
+####### Les compteurs
       - name: msunpv_enconso #Consommation réseau journalière
         unique_id: "msunpv_enconso"
         state: >-
@@ -105,33 +106,37 @@ template:
         unit_of_measurement: "Wh"
         device_class: energy
 
-      #Les commandes manu/auto/test routeur
-      - name: msunpv_cmdpos
-        unique_id: "msunpv_cmdpos"
-        state: >-
-          {{ state_attr('sensor.msunpv_xml', 'cmdPos') }}
-
-      # template sensors for dashboard energy
+####### Template sensors pour le dashboard energy. J'aurai très bien pu modifier directement les compteurs
+      # mais comme j'ai fait le choix de créer de nouveaux sensors pour garder les compteurs tels qu'ils etaient à la base c'est à dire en négatif sur ma configuration.
       - name: "energie_enconso" #Consommation journalière
+        unique_id: "msunpv_energie_enconso"
         unit_of_measurement: "kWh"
         state: "{{ (states('sensor.msunpv_enconso')|float /1000) }}"
         device_class: energy
         state_class: total_increasing
 
       - name: "energie_enpv_j" #Production panneaux journalière
+        unique_id: "msunpv_energie_enpv_j"
         unit_of_measurement: "kWh"
         state: "{{ (states('sensor.msunpv_enpv_j')|float /1000 *-1) }}"
         device_class: energy
         state_class: total_increasing
 
       - name: "energie_eninj" #Production injectée journalière
+        unique_id: "msunpv_energie_eninj"
         unit_of_measurement: "kWh"
         state: "{{ (states('sensor.msunpv_eninj')|float /1000 *-1) }}"
         device_class: energy
         state_class: total_increasing
 
+####### L'état des commandes manu/auto/test routeur
+      - name: msunpv_cmdpos
+        unique_id: "msunpv_cmdpos"
+        state: >-
+          {{ state_attr('sensor.msunpv_xml', 'cmdPos') }}
+
+### Les commandes utilisables pour piloter le MsunPv
 shell_command:
-  #Commandes msunpv
   msunpv_manubal_on: "curl -X POST -d 'parS=1;0;0;0;0;0;0;2;' http://IP_DU_MSUNPV/index.xml"
   msunpv_autobal_on: "curl -X POST -d 'parS=2;0;0;0;0;0;0;2;' http://IP_DU_MSUNPV/index.xml"
   msunpv_manurad_on: "curl -X POST -d 'parS=4;0;0;0;0;0;0;2;' http://IP_DU_MSUNPV/index.xml"
