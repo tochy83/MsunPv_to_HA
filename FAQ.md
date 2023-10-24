@@ -161,22 +161,34 @@ Et plus particulièrement ces lignes qui vont nous indiquer quelle est la positi
       <typAns>PowReso;1;6:PowPV;1;6:OutBal;0;3:OutRad;0;3:VoltRes;1;4:T_Bal1;1;18:T_SDB;1;18:T_Amb;1;18:S9;0;0:S10;0;0:S11;0;0:S12;0;0:S13;0;0:S14;0;0:S15;0;0:S16;0;0:</typAns>
       <typCpt>EnConso;1;16:EnInj;1;16:EnPV_J;1;16:EnPV_P;1;16:Compt 5;0;0:Compt 6;0;0:Compt 7;0;0:Compt 8;0;0:</typCpt>
 ```
-Qui une fois reduite au infos qui nous interresse nous donne :
+Qui une fois reduites aux infos qui nous interressent nous donne :
 ```yml
-      <typAns>PowReso:PowPV:OutBal:OutRad:VoltResT_Bal1:T_SDB:T_Amb:S9:S10:S11:S12:S13:S14:S15:S16:</typAns>
+      <typAns>PowReso:PowPV:OutBal:OutRad:VoltRes:T_Bal1:T_SDB:T_Amb:S9:S10:S11:S12:S13:S14:S15:S16:</typAns>
       <typCpt>EnConso:EnInj:EnPV_J:EnPV_P:Compt 5:Compt 6:Compt 7:Compt 8:</typCpt>
 ```
-On sait donc maintenant que si je veux récupérer la valeur de 'Outbal' il faudra que je récupère la 3éme valeur de la ligne correspondante dans le fichier 'status.xml'. Outbal pourrais très bien s'appeler 'tartampion' que cela fonctionnerai de la même façon.
-</br>De la même manière si je veux la valeur du compteur 'Compt 6' je récupère la 5éme valeur de la ligne correspondante dans le fichier 'status.xml'.
-</br>Les correspondance sont :
+On va présenter tout ça dans un tableau pour une meilleure lisibilité et rajouter les lignes contenant les valeurs à récupérer en fonction de la correspondance suivante :
+
 | index.xml | <=> | status.xml | 
 | --------- | --- | ---------- | 
 | typAns | <=> | inAns |
 | typCpt | <=> | cptVals |
 
-'inAns' correspondant aux 'entrées' et 'cptVals' aus compteurs.
+'inAns' correspondant aux 'entrées' et 'cptVals' aux compteurs, ce qui nous donne ce tableau :
 
-</br>Exemple de code pour récupérer la valeur de 'Compt 5' qui n'ai pas dans la version mSunPv2_2 de base et imaginons que cela corresponde au compteur de la pince qui mesure la puissance en W envoyée au cumulus chaque jour, le code à ajouter serait :
+| Position dans la liste | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 |
+| - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - |
+| **typAns** | PowReso | PowPV | OutBal | OutRad | VoltRes | T_Bal1 | T_SDB | T_Amb | S9 | S10 | S11 | S12 | S13 | S14 | S15 | S16 |
+| **inAns** | 0,2 | -609,5 | 44 | 0 | 233,8 | 0 | 0 | 0 | 0 | 0 | 0 |  0 | 0 | 0 | 0 | 0 | 0 |
+|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| **typCpt** | EnConso | EnInj | EnPV_J | EnPV_P | Compt_5 | Compt_6 | Compt_7 | Compt_8 |
+| **cptVals** | 6333 | fffffff6 | ffff4e6a | fdd33e02 | 0 | 0 | 0 | 0 |
+
+On sait donc maintenant que si je veux récupérer la valeur de 'Outbal' il faudra que je récupère la 3éme colonne du tableau.
+</br>De la même manière si je veux la valeur du compteur 'Compt 6' je récupère la 5éme colonne du tableau.
+
+</br>**Et comment on traduit ça en sensor ?**</br>
+
+Exemple de code pour récupérer la valeur de 'Compt 5' qui n'ai pas dans la version mSunPv2_2 de base et imaginons que cela corresponde au compteur de la pince qui mesure la puissance en W envoyée au cumulus chaque jour, le code à ajouter serait :
 ```yml
       - name: msunpv_encumulus #Consommation cumulus journalière
         unique_id: "msunpv_encumulus"
@@ -186,11 +198,21 @@ On sait donc maintenant que si je veux récupérer la valeur de 'Outbal' il faud
         unit_of_measurement: "Wh"
         device_class: energy
 ```
-On peut noté que j'ai mis [4] :
+
+La ligne ci dessous sert à mettre en forme la ligne 'cptVals' en supprimant les espaces inutiles.
+```yml
+          {% set cptVals =state_attr('sensor.msunpv_xml', 'cptVals')|replace(" ","") %}
+```
+
+La ligne ci dessous sert à récupérer la valeur et à la convertir.
 ```yml
           {{ cptVals.split(";")[4]|int(base=16)/10 |float }}
 ```
-Alors que je veux récupérer la 5ème valeur de la liste ! Ceci est du au fait que le premier élément d'une liste est l'élément 0, le ssecond est l'élément 1 et ainsi de suite. Du coup pour le 5ème je mets 4 entre les corchets.
+Le [4] correspond à la position dans la liste de la valeur que nous voulons récupérer, dans le tableau que nous avons créer.
+Le |int(base=16) assure la conversion de la valeur hexadecimale du compteur valeur en decimale. Les compteurs sont stockés en hexadecimal sur le MsunPv et du coup sans partie décimale.</br>
+Si je prends le compteur dans le tableau au dessus sa valeur hex est de 6333 qui une fois converti donne 25395.</br>
+Le /10 |float est pour récupérer la décimale de la valeur du compteur. Du coup l'exemple juste au dessus devient 2539,5 qui est la valeur affichée sur ma page web du MsunPv.
+
 </br>Si la puissance est en kW :
 ```yml
       - name: msunpv_encumulus #Consommation cumulus journalière
@@ -211,5 +233,11 @@ Alors que je veux récupérer la 5ème valeur de la liste ! Ceci est du au fait 
         unit_of_measurement: "kWh"
         device_class: energy
 ```
-Pour le 'name' du sensor vous pouvez mettre ce que bon vous semble ainsi que pour son 'unique_id'. Il faut juste que 'unique_id' soit unique par contre.
+Pour le 'name' du sensor vous pouvez mettre ce que bon vous semble ainsi que pour son 'unique_id'. Il faut juste que 'unique_id' soit unique par contre.</br>
 
+</br>**L'information à retenir est :**</br>
+- Je crée un petit tableau pour savoir ce que je veux ajouter comme sensor
+- Si le sensor que je veux ajouter est du type 'entrées', je copie dans le 'yaml' un sensor de type 'entrées' et je le colle à la suite des autres sensors 'entrées' puis je modifie le chiffre entre crochets pour correspondre à celui que je souhaite ajouter. Je modifie également le nom, l'unique_id et l'unité de mesure.
+- Si le sensor que je veux ajouter est du type 'compteurs', je copie dans le 'yaml' un sensor de type 'compteurs' et je le colle à la suite des autres sensors 'compteurs' puis je modifie le chiffre entre crochets pour correspondre à celui que je souhaite ajouter. Je modifie également le nom, l'unique_id et l'unité de mesure.
+
+**Rien de bien compliqué en somme**
