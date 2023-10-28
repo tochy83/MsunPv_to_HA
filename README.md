@@ -11,8 +11,8 @@
 </br>
 
 ## Introduction
-Une intégration par le biais d'un fichier .yaml pour faire communiquer le routeur solaire MsunPv de [Ard-tek](https://ard-tek.com/) et Home Assistant.</br>
-Précision préalable, le code de ce fichier est pour une version 2 entrées, 2 sorties du MsunPv avec PowPV en négatif et les compteurs EnConso, EnInj, EnPV_J, EnPV_P en négatifs également (Projet MS_PV2_2b). Tout cela est bien sur facilement adaptable pour un MsunPv 4 entrées, 4 sorties ou des valeurs positives.</br></br></br>
+Une intégration par le biais d'un fichier .yaml pour faire communiquer le routeur solaire MsunPv de [Ard-tek](https://ard-tek.com/) et Home Assistant.</br></br>
+Précision préalable, le code de ce fichier a été écrit à la base pour une version 2 entrées, 2 sorties du MsunPv avec PowPV en négatif et les compteurs EnConso, EnInj, EnPV_J, EnPV_P en négatifs également (Projet MS_PV2_2b). Je l'ai décliné (par déduction) en une version 4 entrées, 4 sorties avec les compteurs en négatifs également (Projet MS_PV4_4b). Tout cela est bien sur facilement adaptable si vous êtes sur une configuration différente sur votre MsunPv (ex. compteurs en positifs).</br></br></br>
 
 ## 🧐 Fonctionnalités
 - Récupére les infos fournies par le MsunPv (Puissances, % de routage, températures, tension)
@@ -22,10 +22,10 @@ Précision préalable, le code de ce fichier est pour une version 2 entrées, 2 
 </br>
 
 ## 🛠️ Installation
-- Télécharger le fichier 'msunpv.yaml'.
+- Télécharger les fichiers 'msunpv_2_2.yaml' et 'msunpv_scripts_2_2.yaml' ou les fichiers 'msunpv_4_4.yaml' et 'msunpv_scripts_4_4.yaml' selon que vous disposiez d'une version 2 sorties ou 4 sorties.
 - Créer un dossier nommé 'packages' a la racine du dossier 'config' de Home Assistant.
-- Copier le fichier téléchargé 'msunpv.yaml' dans le dossier 'packages' créé précédemment.
-- Ouvrir le fichier 'msunpv.yaml' et remplacer dans celui-ci 'IP_DU_MSUNPV' par l'adresse ip de votre MsunPv **partout où cela est nécessaire dans le fichier** puis sauvegarder.
+- Copier les fichier téléchargés 'msunpv_x_x.yaml' et 'msunpv_scripts_x_x.yaml' dans le dossier 'packages' créé précédemment.
+- Ouvrir le fichier 'msunpv_x_x.yaml' et remplacer dans celui-ci 'IP_DU_MSUNPV' par l'adresse ip de votre MsunPv **partout où cela est nécessaire dans le fichier** puis sauvegarder.
 
     ```yml
     - resource: http://IP_DU_MSUNPV/status.xml
