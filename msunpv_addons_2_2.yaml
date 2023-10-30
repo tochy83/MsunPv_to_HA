@@ -1,0 +1,124 @@
+# Addons pour afficher les programmations horaires des différentes sorties pour la version 2 entrées, 2 sorties du MsunPv.
+#
+# Ne pas oublier de remplacer IP_DU_MSUNPV par l'adresse ip de votre MsunPv partout où c'est nécessaire dans le fichier.
+
+
+### Récupération des données
+rest:
+  - resource: http://IP_DU_MSUNPV/param.xml?typmod=5
+    scan_interval: 600
+    method: GET
+    sensor:
+      - name: "msunpv_proghoraire_xml"
+        json_attributes_path: "$.xml"
+        value_template: "OK"
+        json_attributes:
+          - "parMod0"
+          
+### Tous les sensors créés avec mise en forme des données
+template:
+  - sensor:
+####### Les timers pour la sortie cumulus
+      - name: msunpv_timerballon_1 #Timer 1 cumulus
+        unique_id: "msunpv_timerballon_1"
+        state: >-
+          {% set timers = state_attr('sensor.msunpv_proghoraire_xml', 'parMod0')|replace(";4;35","")|replace(";0;36","")|replace(";0;3","")|regex_replace(find='([A-Z])\w+[;]', replace='') %}
+          {% set on = timers.split(":")[0]|int %}
+          {% set off = timers.split(":")[1]|int%}
+          {% if on != off %}
+            {% set heures_on = (on // 60) |string %}
+            {% set minutes_on = ('%02d'%(on % 60)) |string %}
+            {% set heures_off = (off // 60) |string %}
+            {% set minutes_off = ('%02d'%(off % 60)) |string %}
+            {% set timer = heures_on+'h'+minutes_on+' à '+heures_off+'h'+minutes_off %}
+          {% else %}
+            {% set timer = 'N/A' %}
+          {% endif %}
+          {{ timer }}
+          
+      - name: msunpv_timerballon_2 #Timer 2 cumulus
+        unique_id: "msunpv_timerballon_2"
+        state: >-
+          {% set timers = state_attr('sensor.msunpv_proghoraire_xml', 'parMod0')|replace(";4;35","")|replace(";0;36","")|replace(";0;3","")|regex_replace(find='([A-Z])\w+[;]', replace='') %}
+          {% set on = timers.split(":")[2]|int %}
+          {% set off = timers.split(":")[3]|int%}
+          {% if on != off %}
+            {% set heures_on = (on // 60) |string %}
+            {% set minutes_on = ('%02d'%(on % 60)) |string %}
+            {% set heures_off = (off // 60) |string %}
+            {% set minutes_off = ('%02d'%(off % 60)) |string %}
+            {% set timer = heures_on+'h'+minutes_on+' à '+heures_off+'h'+minutes_off %}
+          {% else %}
+            {% set timer = 'N/A' %}
+          {% endif %}
+          {{ timer }}
+ 
+      - name: msunpv_timerballon_3 #Timer 3 cumulus
+        unique_id: "msunpv_timerballon_3"
+        state: >-
+          {% set timers = state_attr('sensor.msunpv_proghoraire_xml', 'parMod0')|replace(";4;35","")|replace(";0;36","")|replace(";0;3","")|regex_replace(find='([A-Z])\w+[;]', replace='') %}
+          {% set on = timers.split(":")[4]|int %}
+          {% set off = timers.split(":")[5]|int%}
+          {% if on != off %}
+            {% set heures_on = (on // 60) |string %}
+            {% set minutes_on = ('%02d'%(on % 60)) |string %}
+            {% set heures_off = (off // 60) |string %}
+            {% set minutes_off = ('%02d'%(off % 60)) |string %}
+            {% set timer = heures_on+'h'+minutes_on+' à '+heures_off+'h'+minutes_off %}
+          {% else %}
+            {% set timer = 'N/A' %}
+          {% endif %}
+          {{ timer }}
+ 
+      - name: msunpv_timerballon_4 #Timer 4 cumulus
+        unique_id: "msunpv_timerballon_4"
+        state: >-
+          {% set timers = state_attr('sensor.msunpv_proghoraire_xml', 'parMod0')|replace(";4;35","")|replace(";0;36","")|replace(";0;3","")|regex_replace(find='([A-Z])\w+[;]', replace='') %}
+          {% set on = timers.split(":")[6]|int %}
+          {% set off = timers.split(":")[7]|int%}
+          {% if on != off %}
+            {% set heures_on = (on // 60) |string %}
+            {% set minutes_on = ('%02d'%(on % 60)) |string %}
+            {% set heures_off = (off // 60) |string %}
+            {% set minutes_off = ('%02d'%(off % 60)) |string %}
+            {% set timer = heures_on+'h'+minutes_on+' à '+heures_off+'h'+minutes_off %}
+          {% else %}
+            {% set timer = 'N/A' %}
+          {% endif %}
+          {{ timer }}
+
+      - name: msunpv_timerballon_jours #Jours des timers cumulus
+        unique_id: "msunpv_timerballon_jours"
+        state: >-
+          {% set jours = state_attr('sensor.msunpv_proghoraire_xml', 'parMod0')|replace(";4;35","")|replace(";0;36","")|replace(";0;3","")|regex_replace(find='([A-Z])\w+[;]', replace='') %}
+          {% set jours = (jours.split(":")[10])|int %}
+          {% set jours = ('%07d'%('{:b}'.format(jours)|int))|regex_findall(find='\d{1}') %}
+          {% set jour = ['dimanche, ', 'lundi, ', 'mardi, ', 'mercredi, ', 'jeudi, ', 'vendredi, ', 'samedi, '] %}
+          {% set liste_jours = namespace(liste = '') -%}
+          {%- set counter = namespace(count = 0) -%}
+          {%- for i in jours -%}
+            {%- if i == '1' -%}
+              {%- set liste_jours.liste = liste_jours.liste+jour[loop.index0] -%}
+              {%- set counter.count = counter.count +1 -%}
+            {%- endif -%}
+          {%- endfor -%}
+          {% if counter.count == 7 %}
+            {{ 'Tous les jours' }}
+          {% else %}
+            {{ 'Tous les '+liste_jours.liste[:-2] }}  
+          {% endif %}
+        
+      - name: msunpv_timerballon_count #Nombre de timer cumulus
+        unique_id: "msunpv_timerballon_count"
+        state: >-
+          {% set nb_timers = 0 %}
+          {% set nb_timers = nb_timers + 1 if not is_state('sensor.msunpv_timerballon_1', 'N/A') else nb_timers %}
+          {% set nb_timers = nb_timers + 1 if not is_state('sensor.msunpv_timerballon_2', 'N/A') else nb_timers %}
+          {% set nb_timers = nb_timers + 1 if not is_state('sensor.msunpv_timerballon_3', 'N/A') else nb_timers %}
+          {% set nb_timers = nb_timers + 1 if not is_state('sensor.msunpv_timerballon_4', 'N/A') else nb_timers %}
+          {{ nb_timers }}
+
+####### Les timers pour la sortie 2
+
+
+

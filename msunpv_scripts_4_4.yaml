@@ -10,7 +10,7 @@ script:
           option: |-
             {% if states('sensor.msunpv_cmd_s1') in ['1','5','9'] %}
               {{ states('sensor.msunpv_cmd_s1')|int -1 }}
-            {% elseif states('sensor.msunpv_cmd_s1') in ['2','6','10'] %}
+            {% elif states('sensor.msunpv_cmd_s1') in ['2','6','10'] %}
               {{ states('sensor.msunpv_cmd_s1')|int -2 }}
             {% else %}
               {{ states('sensor.msunpv_cmd_s1')|int }}
@@ -39,7 +39,7 @@ script:
           option: |-
             {% if states('sensor.msunpv_cmd_s1') in ['0','4','8'] %}
               {{ states('sensor.msunpv_cmd_s1')|int +1 }}
-            {% elseif states('sensor.msunpv_cmd_s1') in ['2','6','10'] %}
+            {% elif states('sensor.msunpv_cmd_s1') in ['2','6','10'] %}
               {{ states('sensor.msunpv_cmd_s1')|int -1 }}
             {% else %}
               {{ states('sensor.msunpv_cmd_s1')|int }}
@@ -68,7 +68,7 @@ script:
           option: |-
             {% if states('sensor.msunpv_cmd_s1') in ['1','5','9'] %}
               {{ states('sensor.msunpv_cmd_s1')|int +1 }}
-            {% elseif states('sensor.msunpv_cmd_s1') in ['0','4','8'] %}
+            {% elif states('sensor.msunpv_cmd_s1') in ['0','4','8'] %}
               {{ states('sensor.msunpv_cmd_s1')|int +2 }}
             {% else %}
               {{ states('sensor.msunpv_cmd_s1')|int }}
@@ -97,7 +97,7 @@ script:
           option: |-
             {% if states('sensor.msunpv_cmd_s1') in ['4','5','6'] %}
               {{ states('sensor.msunpv_cmd_s1')|int -4 }}
-            {% elseif states('sensor.msunpv_cmd_s1') in ['8','9','10'] %}
+            {% elif states('sensor.msunpv_cmd_s1') in ['8','9','10'] %}
               {{ states('sensor.msunpv_cmd_s1')|int -8 }}
             {% else %}
               {{ states('sensor.msunpv_cmd_s1')|int }}
@@ -126,7 +126,7 @@ script:
           option: |-
             {% if states('sensor.msunpv_cmd_s1') in ['0','1','2'] %}
               {{ states('sensor.msunpv_cmd_s1')|int +4 }}
-            {% elseif states('sensor.msunpv_cmd_s1') in ['8','9','10'] %}
+            {% elif states('sensor.msunpv_cmd_s1') in ['8','9','10'] %}
               {{ states('sensor.msunpv_cmd_s1')|int -4 }}
             {% else %}
               {{ states('sensor.msunpv_cmd_s1')|int }}
@@ -155,7 +155,7 @@ script:
           option: |-
             {% if states('sensor.msunpv_cmd_s1') in ['4','5','6'] %}
               {{ states('sensor.msunpv_cmd_s1')|int +4 }}
-            {% elseif states('sensor.msunpv_cmd_s1') in ['0','1','2'] %}
+            {% elif states('sensor.msunpv_cmd_s1') in ['0','1','2'] %}
               {{ states('sensor.msunpv_cmd_s1')|int +8 }}
             {% else %}
               {{ states('sensor.msunpv_cmd_s1')|int }}
@@ -184,7 +184,7 @@ script:
           option: |-
             {% if states('sensor.msunpv_cmd_s3') in ['1','5','9'] %}
               {{ states('sensor.msunpv_cmd_s3')|int -1 }}
-            {% elseif states('sensor.msunpv_cmd_s3') in ['2','6','10'] %}
+            {% elif states('sensor.msunpv_cmd_s3') in ['2','6','10'] %}
               {{ states('sensor.msunpv_cmd_s3')|int -2 }}
             {% else %}
               {{ states('sensor.msunpv_cmd_s3')|int }}
@@ -213,7 +213,7 @@ script:
           option: |-
             {% if states('sensor.msunpv_cmd_s3') in ['0','4','8'] %}
               {{ states('sensor.msunpv_cmd_s3')|int +1 }}
-            {% elseif states('sensor.msunpv_cmd_s3') in ['2','6','10'] %}
+            {% elif states('sensor.msunpv_cmd_s3') in ['2','6','10'] %}
               {{ states('sensor.msunpv_cmd_s3')|int -1 }}
             {% else %}
               {{ states('sensor.msunpv_cmd_s3')|int }}
@@ -242,7 +242,7 @@ script:
           option: |-
             {% if states('sensor.msunpv_cmd_s3') in ['1','5','9'] %}
               {{ states('sensor.msunpv_cmd_s3')|int +1 }}
-            {% elseif states('sensor.msunpv_cmd_s3') in ['0','4','8'] %}
+            {% elif states('sensor.msunpv_cmd_s3') in ['0','4','8'] %}
               {{ states('sensor.msunpv_cmd_s3')|int +2 }}
             {% else %}
               {{ states('sensor.msunpv_cmd_s3')|int }}
@@ -271,7 +271,7 @@ script:
           option: |-
             {% if states('sensor.msunpv_cmd_s3') in ['4','5','6'] %}
               {{ states('sensor.msunpv_cmd_s3')|int -4 }}
-            {% elseif states('sensor.msunpv_cmd_s3') in ['8','9','10'] %}
+            {% elif states('sensor.msunpv_cmd_s3') in ['8','9','10'] %}
               {{ states('sensor.msunpv_cmd_s3')|int -8 }}
             {% else %}
               {{ states('sensor.msunpv_cmd_s3')|int }}
@@ -300,7 +300,7 @@ script:
           option: |-
             {% if states('sensor.msunpv_cmd_s3') in ['0','1','2'] %}
               {{ states('sensor.msunpv_cmd_s3')|int +4 }}
-            {% elseif states('sensor.msunpv_cmd_s3') in ['8','9','10'] %}
+            {% elif states('sensor.msunpv_cmd_s3') in ['8','9','10'] %}
               {{ states('sensor.msunpv_cmd_s3')|int -4 }}
             {% else %}
               {{ states('sensor.msunpv_cmd_s3')|int }}
@@ -329,7 +329,7 @@ script:
           option: |-
             {% if states('sensor.msunpv_cmd_s3') in ['4','5','6'] %}
               {{ states('sensor.msunpv_cmd_s3')|int +4 }}
-            {% elseif states('sensor.msunpv_cmd_s3') in ['0','1','2'] %}
+            {% elif states('sensor.msunpv_cmd_s3') in ['0','1','2'] %}
               {{ states('sensor.msunpv_cmd_s3')|int +8 }}
             {% else %}
               {{ states('sensor.msunpv_cmd_s3')|int }}
