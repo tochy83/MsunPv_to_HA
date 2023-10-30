@@ -23,16 +23,6 @@ Précision préalable, le code de ce fichier a été écrit à la base pour une 
 
 ## 🛠️ Installation
 - Télécharger les fichiers 'msunpv_2_2.yaml' et 'msunpv_scripts_2_2.yaml' ou les fichiers 'msunpv_4_4.yaml' et 'msunpv_scripts_4_4.yaml' selon que vous disposiez d'une version 2 sorties ou 4 sorties.
-- Créer un dossier nommé 'packages' a la racine du dossier 'config' de Home Assistant.
-- Copier les fichier téléchargés 'msunpv_x_x.yaml' et 'msunpv_scripts_x_x.yaml' dans le dossier 'packages' créé précédemment.
-- Ouvrir le fichier 'msunpv_x_x.yaml' et remplacer dans celui-ci 'IP_DU_MSUNPV' par l'adresse ip de votre MsunPv **partout où cela est nécessaire dans le fichier** puis sauvegarder.
-
-    ```yml
-    - resource: http://IP_DU_MSUNPV/status.xml
-    ```
-    Devient, si l'adresse ip de votre MsunPv est '192.168.0.111'
-    ```yml
-    - resource: http://192.168.0.111/status.xml
 - Ajouter dans le fichier 'configuration.yaml' de Home Assistant les lignes suivantes
 
     ```yml
@@ -53,6 +43,18 @@ Précision préalable, le code de ce fichier a été écrit à la base pour une 
       customize: !include customize.yaml
       packages: !include_dir_named packages
     ```
+
+- Créer un dossier nommé 'packages' a la racine du dossier 'config' de Home Assistant.
+- Créer dans le dossier nommé 'packages' que vous venez de créer un dossier nommé 'msunpv'.
+- Copier les fichier téléchargés 'msunpv_x_x.yaml' et 'msunpv_scripts_x_x.yaml' dans le dossier 'msunpv' créé précédemment.
+- Ouvrir le fichier 'msunpv_x_x.yaml' et remplacer dans celui-ci 'IP_DU_MSUNPV' par l'adresse ip de votre MsunPv **partout où cela est nécessaire dans le fichier** puis sauvegarder.
+
+    ```yml
+    - resource: http://IP_DU_MSUNPV/status.xml
+    ```
+    Devient, si l'adresse ip de votre MsunPv est '192.168.0.111'
+    ```yml
+    - resource: http://192.168.0.111/status.xml
 
 - Sauvegarder et redémarrer complétement Home Assistant.
 - Après le redémarrage vous devriez voir apparaitre de nouveaux sensors dans Home Assistant
