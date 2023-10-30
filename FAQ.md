@@ -11,9 +11,6 @@
 - [Moi j'ai une version 4entrées et 4 sorties, comment je fais ?](/FAQ.md#moi-jai-une-version-4entr%C3%A9es-et-4-sorties-comment-je-fais-)
 </br></br></br>
 
-
-
-
 ## C'est bien beau ton truc mais mes compteurs sont en positifs, comment je fais ?
 Une première solution serait de passer vos compteurs en négatif par l'outil msapp_pv fournit sur le site [Ard-tek](https://ard-tek.com/) pour paramétrer en profondeur le MsunPv.</br></br>
 
@@ -76,13 +73,13 @@ Et les remplacer par celles-ci :
 </br>De même pour les sensors du dashboard energy où il faut remplacer les lignes :
 
 ```yml
-      - name: "energie_enpv_j" #Production panneaux journalière
+      - name: "energie_msunpv_enpv_j" #Production panneaux journalière
         unit_of_measurement: "kWh"
         state: "{{ (states('sensor.msunpv_enpv_j')|float /1000 *-1) }}"
         device_class: energy
         state_class: total_increasing
 
-      - name: "energie_eninj" #Production injectée journalière
+      - name: "energie_msunpv_eninj" #Production injectée journalière
         unit_of_measurement: "kWh"
         state: "{{ (states('sensor.msunpv_eninj')|float /1000 *-1) }}"
         device_class: energy
@@ -91,13 +88,13 @@ Et les remplacer par celles-ci :
 Par :
 
 ```yml
-      - name: "energie_enpv_j" #Production panneaux journalière
+      - name: "energie_msunpv_enpv_j" #Production panneaux journalière
         unit_of_measurement: "kWh"
         state: "{{ (states('sensor.msunpv_enpv_j')|float /1000) }}"
         device_class: energy
         state_class: total_increasing
 
-      - name: "energie_eninj" #Production injectée journalière
+      - name: "energie_msunpv_eninj" #Production injectée journalière
         unit_of_measurement: "kWh"
         state: "{{ (states('sensor.msunpv_eninj')|float /1000) }}"
         device_class: energy
