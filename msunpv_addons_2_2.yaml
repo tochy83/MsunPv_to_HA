@@ -1,3 +1,4 @@
+# Name : msunpv_addons_2_2.yaml
 # Addons pour afficher les programmations horaires des différentes sorties pour la version 2 entrées, 2 sorties du MsunPv.
 #
 # Ne pas oublier de remplacer IP_DU_MSUNPV par l'adresse ip de votre MsunPv partout où c'est nécessaire dans le fichier.
@@ -14,6 +15,7 @@ rest:
         value_template: "OK"
         json_attributes:
           - "parMod0"
+          - "parMod1"
           
 ### Tous les sensors créés avec mise en forme des données
 template:
@@ -119,6 +121,103 @@ template:
           {{ nb_timers }}
 
 ####### Les timers pour la sortie 2
+      - name: msunpv_timers2_1 #Timer 1 sortie 2
+        unique_id: "msunpv_timers2_1"
+        state: >-
+          {% set timers = state_attr('sensor.msunpv_proghoraire_xml', 'parMod1')|replace(";4;35","")|replace(";0;36","")|replace(";0;3","")|regex_replace(find='([A-Z])\w+[;]', replace='') %}
+          {% set on = timers.split(":")[0]|int %}
+          {% set off = timers.split(":")[1]|int%}
+          {% if on != off %}
+            {% set heures_on = (on // 60) |string %}
+            {% set minutes_on = ('%02d'%(on % 60)) |string %}
+            {% set heures_off = (off // 60) |string %}
+            {% set minutes_off = ('%02d'%(off % 60)) |string %}
+            {% set timer = heures_on+'h'+minutes_on+' à '+heures_off+'h'+minutes_off %}
+          {% else %}
+            {% set timer = 'N/A' %}
+          {% endif %}
+          {{ timer }}
+          
+      - name: msunpv_timers2_2 #Timer 2 sortie 2
+        unique_id: "msunpv_timers2_2"
+        state: >-
+          {% set timers = state_attr('sensor.msunpv_proghoraire_xml', 'parMod1')|replace(";4;35","")|replace(";0;36","")|replace(";0;3","")|regex_replace(find='([A-Z])\w+[;]', replace='') %}
+          {% set on = timers.split(":")[2]|int %}
+          {% set off = timers.split(":")[3]|int%}
+          {% if on != off %}
+            {% set heures_on = (on // 60) |string %}
+            {% set minutes_on = ('%02d'%(on % 60)) |string %}
+            {% set heures_off = (off // 60) |string %}
+            {% set minutes_off = ('%02d'%(off % 60)) |string %}
+            {% set timer = heures_on+'h'+minutes_on+' à '+heures_off+'h'+minutes_off %}
+          {% else %}
+            {% set timer = 'N/A' %}
+          {% endif %}
+          {{ timer }}
+ 
+      - name: msunpv_timers2_3 #Timer 3 sortie 2
+        unique_id: "msunpv_timers2_3"
+        state: >-
+          {% set timers = state_attr('sensor.msunpv_proghoraire_xml', 'parMod1')|replace(";4;35","")|replace(";0;36","")|replace(";0;3","")|regex_replace(find='([A-Z])\w+[;]', replace='') %}
+          {% set on = timers.split(":")[4]|int %}
+          {% set off = timers.split(":")[5]|int%}
+          {% if on != off %}
+            {% set heures_on = (on // 60) |string %}
+            {% set minutes_on = ('%02d'%(on % 60)) |string %}
+            {% set heures_off = (off // 60) |string %}
+            {% set minutes_off = ('%02d'%(off % 60)) |string %}
+            {% set timer = heures_on+'h'+minutes_on+' à '+heures_off+'h'+minutes_off %}
+          {% else %}
+            {% set timer = 'N/A' %}
+          {% endif %}
+          {{ timer }}
+ 
+      - name: msunpv_timers2_4 #Timer 4 sortie 2
+        unique_id: "msunpv_timers2_4"
+        state: >-
+          {% set timers = state_attr('sensor.msunpv_proghoraire_xml', 'parMod1')|replace(";4;35","")|replace(";0;36","")|replace(";0;3","")|regex_replace(find='([A-Z])\w+[;]', replace='') %}
+          {% set on = timers.split(":")[6]|int %}
+          {% set off = timers.split(":")[7]|int%}
+          {% if on != off %}
+            {% set heures_on = (on // 60) |string %}
+            {% set minutes_on = ('%02d'%(on % 60)) |string %}
+            {% set heures_off = (off // 60) |string %}
+            {% set minutes_off = ('%02d'%(off % 60)) |string %}
+            {% set timer = heures_on+'h'+minutes_on+' à '+heures_off+'h'+minutes_off %}
+          {% else %}
+            {% set timer = 'N/A' %}
+          {% endif %}
+          {{ timer }}
 
+      - name: msunpv_timers2_jours #Jours des timers sortie 2
+        unique_id: "msunpv_timers2_jours"
+        state: >-
+          {% set jours = state_attr('sensor.msunpv_proghoraire_xml', 'parMod1')|replace(";4;35","")|replace(";0;36","")|replace(";0;3","")|regex_replace(find='([A-Z])\w+[;]', replace='') %}
+          {% set jours = (jours.split(":")[10])|int %}
+          {% set jours = ('%07d'%('{:b}'.format(jours)|int))|regex_findall(find='\d{1}') %}
+          {% set jour = ['dimanche, ', 'lundi, ', 'mardi, ', 'mercredi, ', 'jeudi, ', 'vendredi, ', 'samedi, '] %}
+          {% set liste_jours = namespace(liste = '') -%}
+          {%- set counter = namespace(count = 0) -%}
+          {%- for i in jours -%}
+            {%- if i == '1' -%}
+              {%- set liste_jours.liste = liste_jours.liste+jour[loop.index0] -%}
+              {%- set counter.count = counter.count +1 -%}
+            {%- endif -%}
+          {%- endfor -%}
+          {% if counter.count == 7 %}
+            {{ 'Tous les jours' }}
+          {% else %}
+            {{ 'Tous les '+liste_jours.liste[:-2] }}  
+          {% endif %}
+        
+      - name: msunpv_timers2_count #Nombre de timer sortie 2
+        unique_id: "msunpv_timers2_count"
+        state: >-
+          {% set nb_timers = 0 %}
+          {% set nb_timers = nb_timers + 1 if not is_state('sensor.msunpv_timers2_1', 'N/A') else nb_timers %}
+          {% set nb_timers = nb_timers + 1 if not is_state('sensor.msunpv_timers2_2', 'N/A') else nb_timers %}
+          {% set nb_timers = nb_timers + 1 if not is_state('sensor.msunpv_timers2_3', 'N/A') else nb_timers %}
+          {% set nb_timers = nb_timers + 1 if not is_state('sensor.msunpv_timers2_4', 'N/A') else nb_timers %}
+          {{ nb_timers }}
 
 

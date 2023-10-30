@@ -1,3 +1,4 @@
+# Name : msunpv_scripts_2_2.yaml
 # Intégration de récupération et configuration des sensors msunpv pour le routeur solaire MsunPv de Ard-tek
 #
 # Précision préalable, ce fichier est codé pour une version 2 entrées, 2 sorties du MsunPv avec PowPV en négatif et les compteurs EnConso, EnInj, EnPV_J, EnPV_P en négatifs également
