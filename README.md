@@ -7,6 +7,7 @@
 - [Fonctionnalités](#-fonctionnalités)
 - [Installation](#%EF%B8%8F-installation)
 - [Comment ça fonctionne ?](#-comment-%C3%A7a-fonctionne-)
+- [Exemple du résultat dans mon dashboard Home Assistant](#exemple-du-r%C3%A9sultat-dans-mon-dashboard-home-assistant)
 - [FAQ](#faq)
 </br>
 
