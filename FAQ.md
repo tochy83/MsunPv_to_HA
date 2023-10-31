@@ -102,7 +102,7 @@ Par :
 ```
 </br></br>
 ## J'ai une sonde qui mesure la puissance du cumulus, comment je fais ?
-Je remplace simplement la ligne :
+De base sur une la version 2 entrées, 2 sorties la mesure pour le cumulus se fait en pourcentage, mais on peut très bien y adjoindre une pince de mesure pour exprimer cette entrée en W. Dans ce cas là, je remplace simplement la ligne :
 ```yml
       - name: msunpv_outbal #% routage cumulus
         unique_id: "msunpv_outbal"
@@ -118,7 +118,8 @@ Par :
           {{ (state_attr('sensor.msunpv_xml', 'inAns')|replace(" ","")|replace(",",".")).split(";")[2] |float }}
         unit_of_measurement: "W"
 ```
-L'unité de mesure devient W à la place de % et la valeur devient un nombre décimal et non plus un nombre entier.
+L'unité de mesure devient W à la place de % et la valeur devient un nombre décimal et non plus un nombre entier (En ayant tout de même pris soin de faire la modif dans msapp_pv avant bien sur).
+</br></br>A l'inverse sur une version 4 entrées, 4 sorties de base la mesure s'exprime en W, mais si l'on à mis de pince de mesure sur celui, on peut très bien faire l'opération inverse (En ayant tout de même pris soin de faire la modif dans msapp_pv avant également).
 
 </br></br>
 ## Et si je veux faire apparaitre un capteur autre que ceux déjà présent, comment je fais ?
@@ -209,9 +210,9 @@ La ligne ci dessous sert à récupérer la valeur et à la convertir.
           {{ cptVals.split(";")[4]|int(base=16)/10 |float }}
 ```
 Le [4] correspond à la position dans la liste de la valeur que nous voulons récupérer, dans le tableau que nous avons créer.
-Le |int(base=16) assure la conversion de la valeur hexadecimale du compteur valeur en decimale. Les compteurs sont stockés en hexadecimal sur le MsunPv et du coup sans partie décimale.</br>
-Si je prends le compteur dans le tableau au dessus sa valeur hex est de 6333 qui une fois converti donne 25395.</br>
-Le /10 |float est pour récupérer la décimale de la valeur du compteur. Du coup l'exemple juste au dessus devient 2539,5 qui est la valeur affichée sur ma page web du MsunPv.
+Le |int(base=16) assure la conversion de la valeur hexadecimale du compteur valeur en decimale. Les compteurs sont stockés en hexadecimal sur le MsunPv et du coup sans partie décimale.
+</br></br>Si je prends le compteur EnConso dans le tableau au dessus sa valeur hex est de 6333 qui une fois converti donne 25395.</br>
+Le /10 |float est pour récupérer la décimale de la valeur du compteur. Du coup l'exemple EnConso devient 2539,5 qui est la valeur affichée sur ma page web du MsunPv.
 
 </br>Si la puissance est en kW :
 ```yml
@@ -243,3 +244,4 @@ Le /10 |float est pour récupérer la décimale de la valeur du compteur. Du cou
 - Si le sensor que je veux ajouter est du type 'compteurs', je copie dans le 'yaml' un sensor de type 'compteurs' et je le colle à la suite des autres sensors 'compteurs' puis je modifie le chiffre entre crochets pour correspondre à celui que je souhaite ajouter. Je modifie également le nom, l'unique_id, le device_class et l'unité de mesure si besoin.
 
 **Rien de bien compliqué en somme**
+</br></br>J'ai essayé de faire le plus complet possible, mais il se peut qu'il manque des infos. N'hésitez pas à poser vos questions [sur la page dédié dans le forum ArdTek](https://ard-tek.com/index.php/forum/vos-installations-mspv/1127-tuto-home-assistant-et-msunpv)
