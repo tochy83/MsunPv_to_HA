@@ -10,7 +10,7 @@
 ### Récupération des données
 rest:
   - resource: http://IP_DU_MSUNPV/status.xml
-    scan_interval: 20 #Temps de récupération des données ici fixé à 20 secondes
+    scan_interval: 30 #Temps de récupération des données ici fixé à 30 secondes
     method: GET
     sensor:
       - name: "msunpv_xml"
