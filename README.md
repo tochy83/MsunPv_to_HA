@@ -171,11 +171,11 @@ On peut voir dans le code que les sensors sont regroupés en 3 parties.
 A partir de là on peut créer des cartes dans Home Assistant pour afficher les valeurs que l'on souhaite :</br></br>
 ![](images/cartes_base_msunpv.jpg)
 </br></br>- Intégrer les compteurs dans le dashboard energy de Home Assistant :</br></br>
-![](images/dashboard_energy_msunpv.jpg)
+    ![](images/dashboard_energy_msunpv.jpg)
 </br></br>- Envoyer des ordres au routeur à l'aide des services :</br></br>
-![](images/exemple_service.png)
+    ![](images/exemple_scripts_commandes.jpg)
 </br></br>- Ou encore Par le biais d'automatisations :</br></br>
-![](images/exemple_automatisation.png)
+    ![](images/exemple_automatisation_commandes.jpg)
 </br></br>
 ## FAQ
 - Accédez à la [FAQ](/FAQ.md#faq)
