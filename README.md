@@ -85,7 +85,7 @@ La partie du code permettant de les récupérer est la suivante :
 rest:
   #Récupération des données
   - resource: http://IP_DU_MSUNPV/status.xml
-    scan_interval: 20 #Temps de récupération des données ici fixé à 20 secondes
+    scan_interval: 30 #Temps de récupération des données ici fixé à 30 secondes
     method: GET
     sensor:
       - name: "msunpv_xml"
@@ -99,10 +99,10 @@ rest:
 La ligne :
 
 ```yml
-    scan_interval: 20 #Temps de récupération des données ici fixé à 20 secondes
+    scan_interval: 30 #Temps de récupération des données ici fixé à 30 secondes
 ```
 
-Permet de faire cette récupération toutes les 20 secondes. Vous pouvez la modifier pour récupérer plus ou moins souvent les infos.</br></br>
+Permet de faire cette récupération toutes les 30 secondes. Vous pouvez la modifier pour récupérer plus ou moins souvent les infos.</br></br>
 
 Une fois les infos récupérées on les traite pour créer les différents sensors.
 
