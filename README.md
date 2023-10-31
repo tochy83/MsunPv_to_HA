@@ -47,6 +47,7 @@ Précision préalable, le code de ce fichier a été écrit à la base pour une 
 - Créer un dossier nommé 'packages' a la racine du dossier 'config' de Home Assistant.
 - Créer dans le dossier nommé 'packages' que vous venez de créer un dossier nommé 'msunpv'.
 - Copier les fichier téléchargés 'msunpv_x_x.yaml' et 'msunpv_scripts_x_x.yaml' dans le dossier 'msunpv' créé précédemment.
+    >La création du dossier 'msunpv' n'est pas obligatoire et on pourrait très bien mettre les fichiers directement dans le dossier 'packages'. C'est juste une question d'organistion pour que tous les fichiers concernant le MsunPv se retrouvent tous au même endroit, ce qui me parait plus simple pour les retrouver.
 - Ouvrir le fichier 'msunpv_x_x.yaml' et remplacer dans celui-ci 'IP_DU_MSUNPV' par l'adresse ip de votre MsunPv **partout où cela est nécessaire dans le fichier** puis sauvegarder.
 
     ```yml
