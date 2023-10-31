@@ -8,7 +8,7 @@
 - [Comment installer msunpv.yaml](https://youtu.be/zj8lhvfRkjQ) Une vidéo qui montre comment installer l'intégration en moins de 5 minutes (lien Youtube).
 - [C'est bien beau ton truc mais mes compteurs sont en positifs, comment je fais ?](/FAQ.md#cest-bien-beau-ton-truc-mais-mes-compteurs-sont-en-positifs-comment-je-fais-)
 - [J'ai une sonde qui mesure la puissance du cumulus, comment je fais ?](/FAQ.md#jai-une-sonde-qui-mesure-la-puissance-du-cumulus-comment-je-fais-)
-- [Moi j'ai une version 4entrées et 4 sorties, comment je fais ?](/FAQ.md#moi-jai-une-version-4entr%C3%A9es-et-4-sorties-comment-je-fais-)
+- [Et si je veux faire apparaitre un capteur autre que ceux déjà présent, comment je fais ?](/FAQ.md#et-si-je-veux-faire-apparaitre-un-capteur-autre-que-ceux-d%C3%A9j%C3%A0-pr%C3%A9sent-comment-je-fais-)
 </br></br></br>
 
 ## C'est bien beau ton truc mais mes compteurs sont en positifs, comment je fais ?
@@ -121,8 +121,8 @@ Par :
 L'unité de mesure devient W à la place de % et la valeur devient un nombre décimal et non plus un nombre entier.
 
 </br></br>
-## Moi j'ai une version 4entrées et 4 sorties, comment je fais ?
-Sur un MsunPv4_4, il y'a plus d'entrées, plus de sortie et donc forcement plus de sensors potentiels à créer. Pour savoir comment les rajouter il faut recupérer les fichiers 'http://IP_DU_MSUNPV/index.xml' et 'http://IP_DU_MSUNPV/status.xml' qui vont permettre de comprendre qu'est ce qu'il faut récupérer.
+## Et si je veux faire apparaitre un capteur autre que ceux déjà présent, comment je fais ?
+Pour savoir comment les rajouter il faut recupérer les fichiers 'http://IP_DU_MSUNPV/index.xml' et 'http://IP_DU_MSUNPV/status.xml' qui vont permettre de comprendre qu'est ce qu'il faut récupérer.
 
 - index.xml :
 ```yml
@@ -147,7 +147,6 @@ This XML file does not appear to have any style information associated with it. 
 This XML file does not appear to have any style information associated with it. The document tree is shown below.
 <xml>
       <rtcc>16:12:45 LU</rtcc>
-      <rssi>100;-37</rssi>
       <paramSys>16:12:46;23/10/2023;On;01:00;0,0;MS_PV2_2b;5.0.1;0000220;104a;104a;00:00;00:00</paramSys>
       <inAns>0,2;-609,5;44; 0;233,8;0,0;0,0;0,0; 0; 0; 0; 0; 0; 0; 0; 0;</inAns>
       <survMm>0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;</survMm>
@@ -191,13 +190,13 @@ On sait donc maintenant que si je veux récupérer la valeur de 'Outbal' il faud
 
 Exemple de code pour récupérer la valeur de 'Compt 5' qui n'ai pas dans la version mSunPv2_2 de base et imaginons que cela corresponde au compteur de la pince qui mesure la puissance en W envoyée au cumulus chaque jour, le code à ajouter serait :
 ```yml
-      - name: msunpv_encumulus #Consommation cumulus journalière
-        unique_id: "msunpv_encumulus"
+      - name: msunpv_powcumulus #Consommation cumulus journalière
+        unique_id: "msunpv_powcumulus"
         state: >-
           {% set cptVals =state_attr('sensor.msunpv_xml', 'cptVals')|replace(" ","") %}
           {{ cptVals.split(";")[4]|int(base=16)/10 |float }}
         unit_of_measurement: "Wh"
-        device_class: energy
+        device_class: power
 ```
 
 La ligne ci dessous sert à mettre en forme la ligne 'cptVals' en supprimant les espaces inutiles.
@@ -216,29 +215,31 @@ Le /10 |float est pour récupérer la décimale de la valeur du compteur. Du cou
 
 </br>Si la puissance est en kW :
 ```yml
-      - name: msunpv_encumulus #Consommation cumulus journalière
-        unique_id: "msunpv_encumulus"
+      - name: msunpv_powcumulus #Consommation cumulus journalière
+        unique_id: "msunpv_powcumulus"
         state: >-
           {% set cptVals =state_attr('sensor.msunpv_xml', 'cptVals')|replace(" ","") %}
           {{ cptVals.split(";")[4]|int(base=16)/10 |float }}
         unit_of_measurement: "kWh"
-        device_class: energy
+        device_class: power
 ```
 </br>Et si la puissance est en W et que je veux ma valeur en kWh, je divise par 1000 et je fais un arrondi à 3 chiffre après la virgule :
 ```yml
-      - name: msunpv_encumulus #Consommation cumulus journalière
-        unique_id: "msunpv_encumulus"
+      - name: msunpv_powcumulus #Consommation cumulus journalière
+        unique_id: "msunpv_powcumulus"
         state: >-
           {% set cptVals =state_attr('sensor.msunpv_xml', 'cptVals')|replace(" ","") %}
           {{ (cptVals.split(";")[4]|int(base=16)/10 |float /1000)|round(3) }}
         unit_of_measurement: "kWh"
-        device_class: energy
+        device_class: power
 ```
-Pour le 'name' du sensor vous pouvez mettre ce que bon vous semble ainsi que pour son 'unique_id'. Il faut juste que 'unique_id' soit unique par contre.</br>
+
+>Pour le 'name' du sensor vous pouvez mettre ce que bon vous semble ainsi que pour son 'unique_id'. Il faut juste que 'unique_id' soit unique par contre.
+
 
 </br>**L'information à retenir est :**</br>
 - Je crée un petit tableau pour savoir ce que je veux ajouter comme sensor
 - Si le sensor que je veux ajouter est du type 'entrées', je copie dans le 'yaml' un sensor de type 'entrées' et je le colle à la suite des autres sensors 'entrées' puis je modifie le chiffre entre crochets pour correspondre à celui que je souhaite ajouter. Je modifie également le nom, l'unique_id et l'unité de mesure.
-- Si le sensor que je veux ajouter est du type 'compteurs', je copie dans le 'yaml' un sensor de type 'compteurs' et je le colle à la suite des autres sensors 'compteurs' puis je modifie le chiffre entre crochets pour correspondre à celui que je souhaite ajouter. Je modifie également le nom, l'unique_id et l'unité de mesure.
+- Si le sensor que je veux ajouter est du type 'compteurs', je copie dans le 'yaml' un sensor de type 'compteurs' et je le colle à la suite des autres sensors 'compteurs' puis je modifie le chiffre entre crochets pour correspondre à celui que je souhaite ajouter. Je modifie également le nom, l'unique_id, le device_class et l'unité de mesure si besoin.
 
 **Rien de bien compliqué en somme**
