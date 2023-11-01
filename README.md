@@ -91,7 +91,7 @@ Le but est de récupérer les infos fournit par le MsunPv à l'adresse http://IP
     <chOutVal>0;0;0;ff;:0,0;0,0;0,0;0,0;</chOutVal>
 </xml>
 ```
-Les infos qui nous interressent sont les dans lignes 'inAns', 'cmdPos' et 'chOutVal' et à partir de celles-ci on crée des sensors Home Assistant afin de pouvoir soit les afficher soit les exploiter dans des automatisations ou scripts.
+Les infos qui nous interressent sont les dans lignes 'inAns', 'cmdPos' et 'cptVals' et à partir de celles-ci on crée des sensors Home Assistant afin de pouvoir soit les afficher soit les exploiter dans des automatisations ou scripts.
 
 La partie du code permettant de les récupérer est la suivante :
 
