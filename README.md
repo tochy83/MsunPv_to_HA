@@ -18,14 +18,14 @@ Précision préalable, le code de ce fichier a été écrit à la base pour une 
 ## 🧐 Fonctionnalités
 - Récupére les infos fournies par le MsunPv (Puissances, % de routage, températures, tension ...)
 - Récupére les valeurs des compteurs interne du MsunPv
-- Permet d'intégrer les compteurs de consomation, de production et d'injection du MsunPv au 'dashboard energie' de Home Assistant
-- Permet d'envoyer des ordre au MsunPv (ex. activer manubal pour forcer la chauffe du cumulus)
+- Permet d'intégrer les compteurs de consommation, de production et d'injection du MsunPv au 'dashboard energie' de Home Assistant
+- Permet d'envoyer des ordres au MsunPv (ex. activer manubal pour forcer la chauffe du cumulus)
 </br>
 
 ## 🛠️ Installation
-- Télécharger les fichiers 'msunpv_2_2.yaml', 'msunpv_scripts_2_2.yaml' et 'msunpv_addons_2_2.yaml' ou les fichiers 'msunpv_4_4.yaml', 'msunpv_scripts_4_4.yaml' et 'msunpv_addons_4_4.yaml' selon que vous disposiez d'une version 2 sorties ou 4 sorties et selon vos besoins.
+- Télécharger les fichiers 'msunpv_2_2.yaml', 'msunpv_scripts_2_2.yaml' et 'msunpv_addons_2_2.yaml' ou les fichiers 'msunpv_4_4.yaml', 'msunpv_scripts_4_4.yaml' et 'msunpv_addons_4_4.yaml' selon que vous disposez d'une version 2 sorties ou 4 sorties et selon vos besoins.
     >Le fichier 'msunpv_x_x.yaml' récupère toutes les infos nécessaires au fonctionnement et crée les sensors pour Home Assistant.</br>
-    >Le fichier 'msunpv_scripts_x_x.yaml' contient touts les scripts pour commander le MsunPv depuis Home Assistant (Il est inutile si vous ne souhaitez pas le faire).</br>
+    >Le fichier 'msunpv_scripts_x_x.yaml' contient tous les scripts pour commander le MsunPv depuis Home Assistant (Il est inutile si vous ne souhaitez pas le faire).</br>
     >Le fichier 'msunpv_addons_x_x.yaml' contient les sensors permettant de visualiser les programmations horaires du MsunPv depuis Home Assistant (Il est inutile si vous ne souhaitez pas les afficher).
 - Ajouter dans le fichier 'configuration.yaml' de Home Assistant les lignes suivantes
 
@@ -48,10 +48,10 @@ Précision préalable, le code de ce fichier a été écrit à la base pour une 
       packages: !include_dir_named packages
     ```
 
-- Créer un dossier nommé 'packages' a la racine du dossier 'config' de Home Assistant.
+- Créer un dossier nommé 'packages' à la racine du dossier 'config' de Home Assistant.
 - Créer dans le dossier nommé 'packages' que vous venez de créer un dossier nommé 'msunpv'.
-- Copier les fichier téléchargés 'msunpv_x_x.yaml' et 'msunpv_scripts_x_x.yaml' dans le dossier 'msunpv' créé précédemment.
-    >La création du dossier 'msunpv' n'est pas obligatoire et on pourrait très bien mettre les fichiers directement dans le dossier 'packages'. C'est juste une question d'organistion pour que tous les fichiers concernant le MsunPv se retrouvent tous au même endroit, ce qui me parait plus simple pour les retrouver.
+- Copier les fichiers téléchargés 'msunpv_x_x.yaml' et 'msunpv_scripts_x_x.yaml' dans le dossier 'msunpv' créé précédemment.
+    >La création du dossier 'msunpv' n'est pas obligatoire et on pourrait très bien mettre les fichiers directement dans le dossier 'packages'. C'est juste une question d'organisation pour que tous les fichiers concernant le MsunPv se retrouvent tous au même endroit, ce qui me parait plus simple pour les retrouver.
 - Ouvrir le fichier 'msunpv_x_x.yaml' et remplacer dans celui-ci 'IP_DU_MSUNPV' par l'adresse ip de votre MsunPv **partout où cela est nécessaire dans le fichier** puis sauvegarder.
 
     ```yml
