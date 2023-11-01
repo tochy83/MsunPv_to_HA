@@ -16,14 +16,17 @@ Une intégration par le biais d'un fichier .yaml pour faire communiquer le route
 Précision préalable, le code de ce fichier a été écrit à la base pour une version 2 entrées, 2 sorties du MsunPv avec PowPV en négatif et les compteurs EnConso, EnInj, EnPV_J, EnPV_P en négatifs également (Projet MS_PV2_2b). Je l'ai décliné (par déduction) en une version 4 entrées, 4 sorties avec les compteurs en négatifs également (Projet MS_PV4_4b). Tout cela est bien sur facilement adaptable si vous êtes sur une configuration différente sur votre MsunPv (ex. compteurs en positifs).</br></br></br>
 
 ## 🧐 Fonctionnalités
-- Récupére les infos fournies par le MsunPv (Puissances, % de routage, températures, tension)
+- Récupére les infos fournies par le MsunPv (Puissances, % de routage, températures, tension ...)
 - Récupére les valeurs des compteurs interne du MsunPv
 - Permet d'intégrer les compteurs de consomation, de production et d'injection du MsunPv au 'dashboard energie' de Home Assistant
 - Permet d'envoyer des ordre au MsunPv (ex. activer manubal pour forcer la chauffe du cumulus)
 </br>
 
 ## 🛠️ Installation
-- Télécharger les fichiers 'msunpv_2_2.yaml' et 'msunpv_scripts_2_2.yaml' ou les fichiers 'msunpv_4_4.yaml' et 'msunpv_scripts_4_4.yaml' selon que vous disposiez d'une version 2 sorties ou 4 sorties.
+- Télécharger les fichiers 'msunpv_2_2.yaml', 'msunpv_scripts_2_2.yaml' et 'msunpv_addons_2_2.yaml' ou les fichiers 'msunpv_4_4.yaml', 'msunpv_scripts_4_4.yaml' et 'msunpv_addons_4_4.yaml' selon que vous disposiez d'une version 2 sorties ou 4 sorties et selon vos besoins.
+    >Le fichier 'msunpv_x_x.yaml' récupère toutes les infos nécessaires au fonctionnement et crée les sensors pour Home Assistant.</br>
+    >Le fichier 'msunpv_scripts_x_x.yaml' contient touts les scripts pour commander le MsunPv depuis Home Assistant (Il est inutile si vous ne souhaitez pas le faire).</br>
+    >Le fichier 'msunpv_addons_x_x.yaml' contient les sensors permettant de visualiser les programmations horaires du MsunPv depuis Home Assistant (Il est inutile si vous ne souhaitez pas les afficher).
 - Ajouter dans le fichier 'configuration.yaml' de Home Assistant les lignes suivantes
 
     ```yml
@@ -62,6 +65,15 @@ Précision préalable, le code de ce fichier a été écrit à la base pour une 
 - Après le redémarrage vous devriez voir apparaitre de nouveaux sensors dans Home Assistant
 
     ![](images/some_sensors_created.jpg)
+
+- A partir de là on peut créer des cartes dans Home Assistant pour afficher les valeurs que l'on souhaite :</br></br>
+    ![](images/cartes_base_msunpv.jpg)
+</br></br>- Intégrer les compteurs dans le dashboard energy de Home Assistant :</br></br>
+    ![](images/dashboard_energy_msunpv.jpg)
+</br></br>- Envoyer des ordres au routeur à l'aide des services :</br></br>
+    ![](images/exemple_scripts_commandes.jpg)
+</br></br>- Ou encore Par le biais d'automatisations :</br></br>
+    ![](images/exemple_automatisation_commandes.jpg)
 </br></br></br>
 
 
@@ -161,23 +173,15 @@ Si par exemple vous n'avez pas de sonde de température branchée sur le MsunPv 
 #          {{ (state_attr('sensor.msunpv_xml', 'inAns')|replace(" ","")|replace(",",".")).split(";")[7] |float }}
 #        unit_of_measurement: "°C"
 ```
-Vous pouvez bien sur faire de même pour tous les capteurs qui ne vous interressent pas. Je vous encourage d'ailleurs à le faire car il n'ya rien de plus chiant que de devoir parcourir toute une liste de sensors inutiles quand on en cherche un en particulier.
+Vous pouvez bien sur faire de même pour tous les capteurs qui ne vous interressent pas. Je vous encourage d'ailleurs à le faire car il n'y a rien de plus chiant que de devoir parcourir toute une liste de sensors inutiles quand on en cherche un en particulier.
 
-On peut voir dans le code que les sensors sont regroupés en 3 parties.
+</br></br>Pour faciliter la lecture du code (fichier 'msunpv_x_x.yaml') j'ai regroupé les sensors en 3 catégories :
 
 - Les 'entrées' qui concernent les différentes sondes branchées sur le MsunPv.
 - Les 'compteurs' qui remontent les valeurs des compteurs internes du MsunPv.
 - Les 'commandes' qui permettent d'envoyer des ordres au MsunPv.</br></br>
 
-A partir de là on peut créer des cartes dans Home Assistant pour afficher les valeurs que l'on souhaite :</br></br>
-![](images/cartes_base_msunpv.jpg)
-</br></br>- Intégrer les compteurs dans le dashboard energy de Home Assistant :</br></br>
-    ![](images/dashboard_energy_msunpv.jpg)
-</br></br>- Envoyer des ordres au routeur à l'aide des services :</br></br>
-    ![](images/exemple_scripts_commandes.jpg)
-</br></br>- Ou encore Par le biais d'automatisations :</br></br>
-    ![](images/exemple_automatisation_commandes.jpg)
-</br></br>
+
 ## Exemple du résultat dans mon dashboard Home Assistant
 
 ![](images/pageha_msunpv.jpg)
