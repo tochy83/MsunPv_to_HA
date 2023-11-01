@@ -60,7 +60,7 @@ Précision préalable, le code de ce fichier a été écrit à la base pour une 
     Devient, si l'adresse ip de votre MsunPv est '192.168.0.111'
     ```yml
     - resource: http://192.168.0.111/status.xml
-
+    ```
 - Sauvegarder et redémarrer complétement Home Assistant.
 - Après le redémarrage vous devriez voir apparaitre de nouveaux sensors dans Home Assistant
 
