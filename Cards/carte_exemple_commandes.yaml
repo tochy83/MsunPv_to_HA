@@ -1,0 +1,162 @@
+#   Les integrations et interfaces HACS utilisées pour cette carte :
+#
+#   - lovelace-mushroom : https://github.com/piitaya/lovelace-mushroom
+#   - lovelace-card-mod : https://github.com/thomasloven/lovelace-card-mod
+#
+#
+#   Les sensors, scripts créés pour cette carte :
+#
+#   - Tous les sensors sont définis dans l'intégration msunpv_x_x.yaml
+#   - Les scripts sont définis dans l'intégration msunpv_scripts_x_x.yaml
+
+
+type: vertical-stack
+cards:
+# La carte titre
+  - type: custom:mod-card
+    card:
+      type: custom:mushroom-title-card
+      title: ''
+      subtitle: Commandes cumulus
+    card_mod:
+      style:
+        mushroom-title-card$: |
+          .subtitle {
+            border-bottom: 1px solid var(--ha-card-border-color,var(--divider-color,#e0e0e0));
+            padding-bottom: 5px;
+          }
+          .header {
+            margin-bottom: -27px;
+          }
+# La carte bouton de commandes          
+  - type: custom:mushroom-chips-card
+    chips:
+      - type: spacer
+      - type: template
+        tap_action:
+          action: call-service
+          service: script.msunpv_s1_off
+          target: {}
+        hold_action:
+          action: none
+        double_tap_action:
+          action: none
+        icon: mdi:power-off
+        content: Routage
+        icon_color: |-
+          {% if states('sensor.msunpv_cmd_s1') in ['0','4','8'] %}
+            blue
+          {% else %}
+            disabled
+          {% endif %}
+      - type: spacer
+      - type: template
+        tap_action:
+          action: call-service
+          service: script.msunpv_s1_manuel
+          target: {}
+        hold_action:
+          action: none
+        double_tap_action:
+          action: none
+        icon: mdi:power-cycle
+        content: Manuel
+        icon_color: |-
+          {% if states('sensor.msunpv_cmd_s1') in ['1','5','9'] %}
+            blue
+          {% else %}
+            disabled
+          {% endif %}
+      - type: spacer
+      - type: template
+        tap_action:
+          action: call-service
+          service: script.msunpv_s1_auto
+          target: {}
+        hold_action:
+          action: none
+        double_tap_action:
+          action: none
+        icon: mdi:clock-outline
+        content: Auto
+        icon_color: |-
+          {% if states('sensor.msunpv_cmd_s1') in ['2','6','10'] %}
+            blue
+          {% else %}
+            disabled
+          {% endif %}     
+      - type: spacer
+    alignment: center
+  - type: custom:mod-card
+    card:
+      type: custom:mushroom-title-card
+      title: ''
+      subtitle: Commandes sortie 2
+    card_mod:
+      style:
+        mushroom-title-card$: |
+          .subtitle {
+            border-bottom: 1px solid var(--ha-card-border-color,var(--divider-color,#e0e0e0));
+            padding-bottom: 5px;
+          }
+          .header {
+            margin-bottom: -27px;
+          }
+  - type: custom:mushroom-chips-card
+    chips:
+      - type: spacer
+      - type: template
+        tap_action:
+          action: call-service
+          service: script.msunpv_s2_off
+          target: {}
+        hold_action:
+          action: none
+        double_tap_action:
+          action: none
+        icon: mdi:power-off
+        content: Routage
+        icon_color: |-
+          {% if states('sensor.msunpv_cmd_s1') in ['0','1','2'] %}
+            blue
+          {% else %}
+            disabled
+          {% endif %}
+      - type: spacer
+      - type: template
+        tap_action:
+          action: call-service
+          service: script.msunpv_s2_manuel
+          target: {}
+        hold_action:
+          action: none
+        double_tap_action:
+          action: none
+        icon: mdi:power-cycle
+        content: Manuel
+        icon_color: |-
+          {% if states('sensor.msunpv_cmd_s1') in ['4','5','6'] %}
+            blue
+          {% else %}
+            disabled
+          {% endif %}
+      - type: spacer
+      - type: template
+        tap_action:
+          action: call-service
+          service: script.msunpv_s2_auto
+          target: {}
+        hold_action:
+          action: none
+        double_tap_action:
+          action: none
+        icon: mdi:clock-outline
+        content: Auto
+        icon_color: |-
+          {% if states('sensor.msunpv_cmd_s1') in ['8','9','10'] %}
+            blue
+          {% else %}
+            disabled
+          {% endif %}     
+      - type: spacer
+    alignment: center
