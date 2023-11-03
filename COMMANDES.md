@@ -539,7 +539,8 @@ cards:
     
 Elle fonctionne avec les scripts fournis dans le fichier 'msunpv_scripts_2_2.yaml'.</br></br>
 
-On peut très bien imaginer un autre comportement, mais celà necessite de créer des scripts supplémentaires. Par exemple :
+On peut très bien imaginer un autre comportement, mais celà necessite de créer des scripts supplémentaires.</br>
+Par exemple :
 
-Dans ce second exemple j'ai refait 3 scripts, un par bouton, sur le même principe que les précédents mais avec un comportement différent puisque ici les boutons ne sont plus en On/Off mais suivent un cycle prédéfini.
+Dans ce second exemple j'ai refait 2 scripts, un pour le bouton 'cumulus' et un pour le bouton 'sortie 2', sur le même principe que les précédents mais avec un comportement différent puisque ici les boutons ne sont plus en On/Off mais suivent un cycle prédéfini.
 </br></br></br>
