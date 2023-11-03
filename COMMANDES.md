@@ -239,4 +239,6 @@ Ce dernier script appelle la 'shell_command' qui va piloter le MsunPv, puis fait
 </br></br>
 
 ## Exemple du fonctionnement en image
+![](images/carte_exemple_commandes_sorties.gif)
+
 </br></br></br>
