@@ -44,7 +44,7 @@ Le 2 à la fin 'pars=9;0;0;0;0;0;0;2;' correspond quand à lui à la commande 'T
 | 2 | Moyen |
 | 4 | Fort |
 
-Sur notre exemple du dessus avec 'pars=9;0;0;0;0;0;0;2;' celà correspondrait donc à l'image ci-dessous sur le routeur :
+Sur notre exemple du dessus avec 'pars=9;0;0;0;0;0;0;2;' cela correspondrait donc à l'image ci-dessous sur le routeur :
 
 ![](images/manubal_autorad_on.png)
 
