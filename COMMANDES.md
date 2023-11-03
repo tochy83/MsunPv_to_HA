@@ -245,7 +245,8 @@ On peut apercevoir que les commandes fonctionnent dans les 2 sens, aussi bien de
 
 </br>
 
-Le code de la carte utilisée dans cet exemple :
+<details>
+  <summary>Le code de la carte utilisée dans cet exemple : (Cliquer pour derouler)</summary>
 
 ```yml
 #   Les integrations et interfaces HACS utilisées pour cette carte :
@@ -534,5 +535,11 @@ cards:
       - type: spacer
     alignment: center
 ```
-Elle fonctionne avec les scripts fournis dans le fichier 'msunpv_scripts_2_2.yaml'.
+</details>
+    
+Elle fonctionne avec les scripts fournis dans le fichier 'msunpv_scripts_2_2.yaml'.</br></br>
+
+On peut très bien imaginer un autre comportement, mais celà necessite de créer des scripts supplémentaires. Par exemple :
+
+Dans ce second exemple j'ai refait 3 scripts, un par bouton, sur le même principe que les précédents mais avec un comportement différent puisque ici les boutons ne sont plus en On/Off mais suivent un cycle prédéfini.
 </br></br></br>
