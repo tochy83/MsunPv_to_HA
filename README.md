@@ -64,7 +64,11 @@ Précision préalable, le code de ce fichier a été écrit à la base pour une 
 - Sauvegarder et redémarrer complétement Home Assistant.
 - Après le redémarrage vous devriez voir apparaitre de nouveaux sensors dans Home Assistant
 
-    ![](images/some_sensors_created.jpg)
+    ![](images/some_sensors_created.jpg)</br></br>
+
+    >Une vidéo youtube montant toute la manip est dispo: [Comment installer msunpv.yaml](https://youtu.be/zj8lhvfRkjQ).
+
+</br>
 
 - A partir de là on peut créer des cartes dans Home Assistant pour afficher les valeurs que l'on souhaite :</br></br>
     ![](images/cartes_base_msunpv.jpg)
