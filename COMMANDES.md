@@ -246,7 +246,7 @@ On peut apercevoir que les commandes fonctionnent dans les 2 sens, aussi bien de
 </br>
 
 <details>
-  <summary>Le code de la carte utilisée dans cet exemple : (Cliquer pour derouler)</summary>
+  <summary>Le code de la carte utilisée dans cet exemple : (Cliquer pour dérouler)</summary>
 
 ```yml
 #   Les integrations et interfaces HACS utilisées pour cette carte :
@@ -541,6 +541,6 @@ Elle fonctionne avec les scripts fournis dans le fichier 'msunpv_scripts_2_2.yam
 
 On peut très bien imaginer un autre comportement, mais celà necessite de créer des scripts supplémentaires.</br>
 Par exemple :
-
+![](images/carte_exemple_2_commandes_sorties.gif)
 Dans ce second exemple j'ai refait 2 scripts, un pour le bouton 'cumulus' et un pour le bouton 'sortie 2', sur le même principe que les précédents mais avec un comportement différent puisque ici les boutons ne sont plus en On/Off mais suivent un cycle prédéfini.
 </br></br></br>
