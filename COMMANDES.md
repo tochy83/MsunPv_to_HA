@@ -5,7 +5,7 @@
 </br>
 
 - [Explication du fonctionnement](#explication-du-fonctionnement)
-- [Détails du fichier msunpv_script_x_x.yaml](#détails-du-fichier-msunpv_script_x_xyaml)
+- [Détails du fichier msunpv_scripts_x_x.yaml](#détails-du-fichier-msunpv_scripts_x_xyaml)
 - [Exemple du fonctionnement en image](#exemple-du-fonctionnement-en-image)
 </br>
 
@@ -55,7 +55,7 @@ C'est ce comportement que reproduisent les scripts. Ils analysent l'état de cha
 
 </br>
 
-## Détails du fichier msunpv_script_x_x.yaml
+## Détails du fichier msunpv_scripts_x_x.yaml
 J'ai fait le choix pour rester simple de créer 3 scripts par commandes. Un premier script pour faire un reset de la commande, le second pour activer le mode MANUEL et le troisième pour le mode AUTO.</br>
 
 Exemple avec la sortie 1 :
