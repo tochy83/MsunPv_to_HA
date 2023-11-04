@@ -23,10 +23,10 @@ Précision préalable, le code de ce fichier a été écrit à la base pour une 
 </br>
 
 ## 🛠️ Installation
-- Télécharger les fichiers 'msunpv_2_2.yaml', 'msunpv_scripts_2_2.yaml' et 'msunpv_addons_2_2.yaml' ou les fichiers 'msunpv_4_4.yaml', 'msunpv_scripts_4_4.yaml' et 'msunpv_addons_4_4.yaml' selon que vous disposez d'une version 2 sorties ou 4 sorties et selon vos besoins.
+- Télécharger les fichiers 'msunpv_2_2.yaml', 'msunpv_scripts_2_2.yaml' et 'msunpv_addons_progh_2_2.yaml' ou les fichiers 'msunpv_4_4.yaml', 'msunpv_scripts_4_4.yaml' et 'msunpv_addons_progh_4_4.yaml' selon que vous disposez d'une version 2 sorties ou 4 sorties et selon vos besoins.
     >Le fichier 'msunpv_x_x.yaml' récupère toutes les infos nécessaires au fonctionnement et crée les sensors pour Home Assistant.</br>
     >Le fichier 'msunpv_scripts_x_x.yaml' contient tous les scripts pour commander le MsunPv depuis Home Assistant (Il est inutile si vous ne souhaitez pas le faire).</br>
-    >Le fichier 'msunpv_addons_x_x.yaml' contient les sensors permettant de visualiser les programmations horaires du MsunPv depuis Home Assistant (Il est inutile si vous ne souhaitez pas les afficher).
+    >Le fichier 'msunpv_addons_progh_x_x.yaml' contient les sensors permettant de visualiser les programmations horaires du MsunPv depuis Home Assistant (Il est inutile si vous ne souhaitez pas les afficher).
 - Ajouter dans le fichier 'configuration.yaml' de Home Assistant les lignes suivantes
 
     ```yml
