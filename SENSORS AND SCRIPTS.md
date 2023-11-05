@@ -132,12 +132,12 @@ Je vous recommande pour l'utlisation des scripts, de passer des boutons pour les
 Ils peuvent également être appelés dans des automatisations ou dans d'autres scripts.
 
 </br></br>
-## Changer les noms des sensors.
+## Renommer les sensors.
 
 Pour changer les noms des sensors, je vous déconseille de le faire directement dans les divers fichiers '.yaml' car certains sensors servent dans différents fichiers. De plus en cas de mise à jour des fichiers il faudra tout recommencer. Si vous le faites tout de même je vous conseille de bien commenter vos changement dans les fichiers.</br></br>
 Utiliser plutot l'UI de Home Assistant pour faire ces changements :
 
-![](images/changer_noms_sensors.gif)
+![](images/renommer_sensors.gif)
 
 </br></br>
 
