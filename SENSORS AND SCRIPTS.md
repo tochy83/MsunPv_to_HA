@@ -1,6 +1,14 @@
 <p align="center"><img src="/images/msunpv_to_ha.jpg?token=GHSAT0AAAAAACH6VDSSWYHXPXZIN7LRLMMQZJWRDEQ"></p>
 
-    
+
+# Aperçu des sensors et scripts remontés par l'intégration
+</br>
+
+- [Tous les sensors de l'intégration MsunPv](#tous-les-sensors-de-lint%C3%A9gration-msunpv)
+- [Tous les scripts de l'intégration MsunPv.](#tous-les-scripts-de-lint%C3%A9gration-msunpv)
+- [Renommer les sensors.](/SENSORS%20AND%20SCRIPTS.md#renommer-les-sensors)
+</br>
+   
 ## Tous les sensors de l'intégration MsunPv.
 
 ![](images/tous_les_sensors_2_2.jpg)
