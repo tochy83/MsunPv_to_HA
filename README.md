@@ -13,7 +13,7 @@
 
 ## Introduction
 Une intégration par le biais d'un fichier .yaml pour faire communiquer le routeur solaire MsunPv de [Ard-tek](https://ard-tek.com/) et Home Assistant.</br></br>
-Précision préalable, le code de ce fichier a été écrit à la base pour une version 2 entrées, 2 sorties du MsunPv avec PowPV en négatif et les compteurs EnConso, EnInj, EnPV_J, EnPV_P en négatifs également (Projet MS_PV2_2b). Je l'ai décliné (par déduction) en une version 4 entrées, 4 sorties avec les compteurs en négatifs également (Projet MS_PV4_4b). Tout cela est bien sur facilement adaptable si vous êtes sur une configuration différente sur votre MsunPv (ex. compteurs en positifs).</br></br></br>
+Précision préalable, le code de ce fichier a été écrit à la base pour une version 2 entrées, 2 sorties du MsunPv avec PowPV en négatif et les compteurs EnConso, EnInj, EnPV_J, EnPV_P en négatifs également (Projet MS_PV2_2b). Je l'ai décliné (par déduction) en une version 4 entrées, 4 sorties avec les compteurs en négatifs également (Projet MS_PV4_4b). Tout cela est bien sur facilement adaptable si vous êtes sur une configuration différente sur votre MsunPv (ex. [compteurs en positifs](/FAQ.md#cest-bien-beau-ton-truc-mais-mes-compteurs-sont-en-positifs-comment-je-fais-)).</br></br></br>
 
 ## 🧐 Fonctionnalités
 - Récupére les infos fournies par le MsunPv (Puissances, % de routage, températures, tension ...)
