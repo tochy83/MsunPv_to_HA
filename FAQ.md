@@ -10,7 +10,13 @@
 </br></br></br>
 
 ## C'est bien beau ton truc mais mes compteurs sont en positifs, comment je fais ?
-Une première solution serait de passer vos compteurs en négatif par l'outil msapp_pv fournit sur le site [Ard-tek](https://ard-tek.com/) pour paramétrer en profondeur le MsunPv.</br></br>
+Avant tout pour savoir si les compteurs sont en négatif ou en positif il suffit de regarder sur l'interface web du MsunPv.
+
+![](images/compteurs.jpg)
+
+On se rend compte sur l'exemple ci-dessus que dans mon cas les compteurs sont en négatif (pas besoin de faire de modifications).</br></br>
+
+Si vos compteurs sont en positif, une première solution serait de passer vos compteurs en négatif par l'outil msapp_pv fournit sur le site [Ard-tek](https://ard-tek.com/) pour paramétrer le MsunPv. Je propose cette solution car certains préfèrent voir les compteurs en négatif et dans ce cas c'est la façon de faire.</br></br>
 
 Sinon il faut modifier les lignes suivantes :
 
