@@ -73,7 +73,10 @@ Précision préalable, le code de ce fichier a été écrit à la base pour une 
 
 - A partir de là on peut créer des cartes dans Home Assistant pour afficher les valeurs que l'on souhaite :</br></br>
     ![](images/cartes_base_msunpv.jpg)
-</br></br>- Intégrer les compteurs dans le dashboard energy de Home Assistant :</br></br>
+  
+    >[Tous les sensors remontés par l'intégration.](/SENSORS%20AND%20SCRIPTS.md#aper%C3%A7u-des-sensors-et-scripts-remont%C3%A9s-par-lint%C3%A9gration)
+
+</br>- Intégrer les compteurs dans le dashboard energy de Home Assistant :</br></br>
     ![](images/dashboard_energy_msunpv.jpg)
 </br></br>- Envoyer des ordres au routeur à l'aide des services :</br></br>
     ![](images/exemple_scripts_commandes.jpg)
