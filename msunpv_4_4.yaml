@@ -220,7 +220,7 @@ template:
 ### Choix des commandes à envoyer au MsunPv
 input_select:
   msunpv_command_sortie_1: #Commande à envoyer à sortie 1 et 2
-    name: msunpv - command_sortie_1
+    name: Msunpv - Commande sortie 1 et 2
     options:
       - "0"
       - "1"
@@ -234,7 +234,7 @@ input_select:
     icon: mdi:format-list-bulleted
 
   msunpv_command_sortie_3: #Commande à envoyer à sortie 3 et 4
-    name: msunpv - command_sortie_3
+    name: Msunpv - Commande sortie 3 et 4
     options:
       - "0"
       - "1"
@@ -248,7 +248,7 @@ input_select:
     icon: mdi:format-list-bulleted    
 
   msunpv_command_test_routeur: #Commande à envoyer à test routeur
-    name: msunpv - command_test_routeur
+    name: Msunpv - Command test routeur
     options:
       - "1"
       - "2"
