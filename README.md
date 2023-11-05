@@ -24,10 +24,10 @@ Précision préalable, le code de ce fichier a été écrit à la base pour une 
 
 ## 🛠️ Installation
 - Télécharger les fichiers 'msunpv_2_2.yaml' et 'msunpv_scripts_2_2.yaml' ou les fichiers 'msunpv_4_4.yaml' et 'msunpv_scripts_4_4.yaml' selon que vous disposez d'une version 2 sorties ou 4 sorties et selon vos besoins.
-    >Le fichier 'msunpv_x_x.yaml' récupère toutes les infos nécessaires au fonctionnement et crée les sensors pour Home Assistant.</br>
-    >Le fichier 'msunpv_scripts_x_x.yaml' contient tous les scripts pour commander le MsunPv depuis Home Assistant (Il est inutile si vous ne souhaitez pas le faire).</br>
-    >Un fichier 'msunpv_addons_progh_x_x.yaml' est disponible et contient les sensors permettant de visualiser les programmations horaires du MsunPv depuis Home Assistant (Il est inutile si vous ne souhaitez pas les afficher).</br>
-    >Un fichier 'msunpv_addons_moresensors.yaml' est disponible et contient des sensors supplémentaires. Consommtion totale, production consommée, taux d'auto-consommation, taux d'auto-suffisance et des infos sur le MsunPv. (Il est inutile si vous ne souhaitez pas les afficher).
+    >- Le fichier 'msunpv_x_x.yaml' récupère toutes les infos nécessaires au fonctionnement et crée les sensors pour Home Assistant.</br>
+    >- Le fichier 'msunpv_scripts_x_x.yaml' contient tous les scripts pour commander le MsunPv depuis Home Assistant. Sans ce fichier pas de pilotage du MsunPv depuis Home Assistant (Il est inutile si vous ne souhaitez pas le faire).</br>
+    >- Un fichier 'msunpv_addons_progh_x_x.yaml' est disponible et contient les sensors permettant de visualiser les programmations horaires du MsunPv depuis Home Assistant (Il est inutile si vous ne souhaitez pas les afficher).</br>
+    >- Un fichier 'msunpv_addons_moresensors.yaml' est disponible et contient des sensors supplémentaires. Consommtion totale, production consommée, taux d'auto-consommation, taux d'auto-suffisance et des infos sur le MsunPv. (Il est inutile si vous ne souhaitez pas les afficher).
 - Ajouter dans le fichier 'configuration.yaml' de Home Assistant les lignes suivantes
 
     ```yml
@@ -71,19 +71,31 @@ Précision préalable, le code de ce fichier a été écrit à la base pour une 
 
 </br>
 
-- A partir de là on peut créer des cartes dans Home Assistant pour afficher les valeurs que l'on souhaite :</br></br>
+- A partir de là on peut :
+
+    </br>
+    - Créer des cartes dans Home Assistant pour afficher les valeurs que l'on souhaite :</br>
+    
     ![](images/cartes_base_msunpv.jpg)
   
     >[Tous les sensors remontés par l'intégration.](/SENSORS%20AND%20SCRIPTS.md#aper%C3%A7u-des-sensors-et-scripts-remont%C3%A9s-par-lint%C3%A9gration)
 
-</br>- Intégrer les compteurs dans le dashboard energy de Home Assistant :</br></br>
+    </br>
+    - Intégrer les compteurs dans le dashboard energy de Home Assistant :</br></br>
+    
     ![](images/dashboard_energy_msunpv.jpg)
-</br></br>- Envoyer des ordres au routeur à l'aide des services :</br></br>
+    
+    </br>
+    - Envoyer des ordres au routeur à l'aide des services :</br></br>
+    
     ![](images/exemple_scripts_commandes.jpg)
-</br></br>- Ou encore Par le biais d'automatisations :</br></br>
+    
+    </br>
+    - Ou encore Par le biais d'automatisations :</br></br>
+    
     ![](images/exemple_automatisation_commandes.jpg)
 
-    >Une page est dédiée à l'explication du fonctionnement des [commandes](/COMMANDES.md#les-scripts-des-commandes-du-msunpv)
+    >Une page est dédiée à l'explication du fonctionnement des [commandes.](/COMMANDES.md#les-scripts-des-commandes-du-msunpv)
   
 </br></br></br>
 
