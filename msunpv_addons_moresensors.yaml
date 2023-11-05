@@ -1,0 +1,87 @@
+# Name :msunpv_addons_moresensors.yaml
+# Addons pour afficher des sensors supplémentaires facilement dans Home Assistant
+# Cet addons n'est pas rattaché à une version spécifique du MsunPv, il fonctionne pour toutes.
+#
+# Ne pas oublier de remplacer IP_DU_MSUNPV par l'adresse ip de votre MsunPv partout où c'est nécessaire dans le fichier.
+
+
+### Récupération des données
+rest:
+  - resource: http://IP_DU_MSUNPV/status.xml
+    scan_interval: 3600 #Temps de récupération des données ici fixé à 3600 secondes
+    method: GET
+    sensor:
+      - name: "msunpv_moresensors_xml"
+        json_attributes_path: "$.xml"
+        value_template: "OK"
+        json_attributes:
+          - "rssi"
+          - "paramSys"
+
+### Tous les sensors créés avec mise en forme des données
+template:
+  - sensor:
+      - name: msunpv_conso_totale #Total de consommation journalière (réseau + PV)
+        unique_id: "msunpv_conso_totale"
+        unit_of_measurement: "Wh"
+        state: "{{ (states('sensor.msunpv_enpv_j')|float(0) *-1 + states('sensor.msunpv_eninj')|float(0) + states('sensor.msunpv_enconso')|float(0))|round(2) }}"
+        # Si votre compteur EnPV_J est en positif sur le MsunPv enlever '*-1' dans la ligne ci-dessus
+        device_class: energy
+
+      - name: msunpv_prod_consommee #Total journalier de la production PV consommée
+        unique_id: "msunpv_prod_consommee"
+        unit_of_measurement: "Wh"
+        state: "{{ (states('sensor.msunpv_enpv_j')|float(0) *-1 + states('sensor.msunpv_eninj')|float(0))|round(2) }}"
+        # Si votre compteur EnPV_J est en positif sur le MsunPv enlever '*-1' dans la ligne ci-dessus
+        device_class: energy
+
+      - name: msunpv_taux_autoconsommation #Taux d'autoconsommation PV
+        unique_id: "msunpv_taux_autoconsommation"
+        unit_of_measurement: "%"
+        state: "{{ ((states('sensor.msunpv_prod_consommee')|float(0) / (states('sensor.energie_msunpv_enpv_j')|float(0) *1000))*100)|round(1) if (states('sensor.energie_msunpv_enpv_j')|float(0)) !=0 else 0.0 }}"
+
+      - name: msunpv_taux_autosuffisance #Taux d'autosuffisance PV
+        unique_id: "msunpv_taux_autosuffisance"
+        unit_of_measurement: "%"
+        state: "{{ ((states('sensor.msunpv_prod_consommee')|float(0) / (states('sensor.msunpv_conso_totale')|float(0)))*100)|round(1) }}"
+
+      - name: msunpv_rssi_percent #Puissance du signal wifi en %
+        unique_id: "msunpv_rssi_percent"
+        icon: mdi:wifi
+        state: >-
+          {{ (state_attr('sensor.msunpv_moresensors_xml', 'rssi')).split(";")[0] |int }}
+        unit_of_measurement: "%"
+
+      - name: msunpv_rssi_dB #Puissance du signal wifi en %
+        unique_id: "msunpv_rssi_dB"
+        icon: mdi:wifi
+        state: >-
+          {{ (state_attr('sensor.msunpv_moresensors_xml', 'rssi')).split(";")[1] |int }}
+        unit_of_measurement: "dB"
+
+      - name: msunpv_infos_nomprojet #Nom de projet MsunPv (ex. Projet MS_PV2_2b)
+        unique_id: "msunpv_nom_projet"
+        state: >-
+          {{ (state_attr('sensor.msunpv_moresensors_xml', 'paramSys')).split(";")[5] }}
+
+      - name: msunpv_infos_version #Numéro de version MsunPv
+        unique_id: "msunpv_infos_version"
+        state: >-
+          {{ (state_attr('sensor.msunpv_moresensors_xml', 'paramSys')).split(";")[6] }}
+
+      - name: msunpv_infos_numsérie #Numéro de série du MsunPv
+        unique_id: "msunpv_infos_numsérie"
+        state: >-
+          {{ (state_attr('sensor.msunpv_moresensors_xml', 'paramSys')).split(";")[7] }}
+
+      - name: msunpv_infos_firmwarewifi #Version du firmware wifi
+        unique_id: "msunpv_infos_firmwarewifi"
+        state: >-
+          {{ (state_attr('sensor.msunpv_moresensors_xml', 'paramSys')).split(";")[8] }}
+
+      - name: msunpv_infos_firmwarerouteur #Version du firmware routeur
+        unique_id: "msunpv_infos_firmwarerouteur"
+        state: >-
+          {{ (state_attr('sensor.msunpv_moresensors_xml', 'paramSys')).split(";")[9] }}
+
+
