@@ -24,9 +24,9 @@ Précision préalable, le code de ce fichier a été écrit à la base pour une 
 
 ## 🛠️ Installation
 - Télécharger les fichiers 'msunpv_2_2.yaml' et 'msunpv_scripts_2_2.yaml' ou les fichiers 'msunpv_4_4.yaml' et 'msunpv_scripts_4_4.yaml' selon que vous disposez d'une version 2 sorties ou 4 sorties et selon vos besoins.
-    >- Le fichier 'msunpv_x_x.yaml' récupère toutes les infos nécessaires au fonctionnement et crée les sensors pour Home Assistant.</br>
-    >- Le fichier 'msunpv_scripts_x_x.yaml' contient tous les scripts pour commander le MsunPv depuis Home Assistant. Sans ce fichier pas de pilotage du MsunPv depuis Home Assistant (Il est inutile si vous ne souhaitez pas le faire).</br>
-    >- Un fichier 'msunpv_addons_progh_x_x.yaml' est disponible et contient les sensors permettant de visualiser les programmations horaires du MsunPv depuis Home Assistant (Il est inutile si vous ne souhaitez pas les afficher).</br>
+    >- Le fichier 'msunpv_x_x.yaml' récupère toutes les infos nécessaires au fonctionnement et crée les sensors pour Home Assistant.</br></br>
+    >- Le fichier 'msunpv_scripts_x_x.yaml' contient tous les scripts pour commander le MsunPv depuis Home Assistant. Sans ce fichier pas de pilotage du MsunPv depuis Home Assistant (Il est inutile si vous ne souhaitez pas le faire).</br></br>
+    >- Un fichier 'msunpv_addons_progh_x_x.yaml' est disponible et contient les sensors permettant de visualiser les programmations horaires du MsunPv depuis Home Assistant (Il est inutile si vous ne souhaitez pas les afficher).</br></br>
     >- Un fichier 'msunpv_addons_moresensors.yaml' est disponible et contient des sensors supplémentaires. Consommtion totale, production consommée, taux d'auto-consommation, taux d'auto-suffisance et des infos sur le MsunPv. (Il est inutile si vous ne souhaitez pas les afficher).
 - Ajouter dans le fichier 'configuration.yaml' de Home Assistant les lignes suivantes
 
