@@ -45,43 +45,22 @@ template:
         unit_of_measurement: "%"
         state: "{{ ((states('sensor.msunpv_prod_consommee')|float(0) / (states('sensor.msunpv_conso_totale')|float(0)))*100)|round(1) }}"
 
-      - name: msunpv_rssi_percent #Puissance du signal wifi en %
-        unique_id: "msunpv_rssi_percent"
-        icon: mdi:wifi
-        state: >-
-          {{ (state_attr('sensor.msunpv_moresensors_xml', 'rssi')).split(";")[0] |int }}
-        unit_of_measurement: "%"
-
-      - name: msunpv_rssi_dB #Puissance du signal wifi en %
-        unique_id: "msunpv_rssi_dB"
-        icon: mdi:wifi
-        state: >-
-          {{ (state_attr('sensor.msunpv_moresensors_xml', 'rssi')).split(";")[1] |int }}
-        unit_of_measurement: "dB"
-
-      - name: msunpv_infos_nomprojet #Nom de projet MsunPv (ex. Projet MS_PV2_2b)
-        unique_id: "msunpv_nom_projet"
+      - name: msunpv_infos #Nom de projet MsunPv (ex. Projet MS_PV2_2b)
+        unique_id: "msunpv_infos"
         state: >-
           {{ (state_attr('sensor.msunpv_moresensors_xml', 'paramSys')).split(";")[5] }}
-
-      - name: msunpv_infos_version #Numéro de version MsunPv
-        unique_id: "msunpv_infos_version"
-        state: >-
-          {{ (state_attr('sensor.msunpv_moresensors_xml', 'paramSys')).split(";")[6] }}
-
-      - name: msunpv_infos_numsérie #Numéro de série du MsunPv
-        unique_id: "msunpv_infos_numsérie"
-        state: >-
-          {{ (state_attr('sensor.msunpv_moresensors_xml', 'paramSys')).split(";")[7] }}
-
-      - name: msunpv_infos_firmwarewifi #Version du firmware wifi
-        unique_id: "msunpv_infos_firmwarewifi"
-        state: >-
-          {{ (state_attr('sensor.msunpv_moresensors_xml', 'paramSys')).split(";")[8] }}
-
-      - name: msunpv_infos_firmwarerouteur #Version du firmware routeur
-        unique_id: "msunpv_infos_firmwarerouteur"
-        state: >-
-          {{ (state_attr('sensor.msunpv_moresensors_xml', 'paramSys')).split(";")[9] }}
+        attributes:
+          version: >-
+              {{ (state_attr('sensor.msunpv_moresensors_xml', 'paramSys')).split(";")[6] }}
+          num_de_serie: >-
+              {{ (state_attr('sensor.msunpv_moresensors_xml', 'paramSys')).split(";")[7] }}
+          firmware_wifi: >-
+              {{ (state_attr('sensor.msunpv_moresensors_xml', 'paramSys')).split(";")[8] }}
+          firmware_routeur: >-
+              {{ (state_attr('sensor.msunpv_moresensors_xml', 'paramSys')).split(";")[9] }}
+          rssi_percent: >-
+              {{ (state_attr('sensor.msunpv_moresensors_xml', 'rssi')).split(";")[0] }}
+          rssi_db: >-
+              {{ (state_attr('sensor.msunpv_moresensors_xml', 'rssi')).split(";")[1] }}
 
 
