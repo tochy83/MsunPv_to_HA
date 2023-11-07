@@ -71,5 +71,5 @@ template:
 #        # Un sensor un peu particulier qui s'adresse à ceux qui ont la sortie cumulus en %.
 #        # Il fait une conversion du % routé vers le cumulus, vers une esitmation de puissance en W pour ceux désirant afficher cette valeur.
 #        # Il ne faut pas perdre de vue que cela ne reste qu'une estimation et en aucun cas la puissance réelle.
-#        # Dé-commenter les lignes ci-dessus pour l'afficher. Plus d'explications sur comment ajuster cette valeur sont disponibles sur FAQ du GitHub.
+#        # Décommenter les lignes ci-dessus pour l'afficher. Plus d'explications sur comment ajuster cette valeur sont disponibles sur FAQ du GitHub.
 
