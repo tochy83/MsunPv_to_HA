@@ -9,6 +9,7 @@
 - [Et si je veux faire apparaitre un capteur autre que ceux déjà présent, comment je fais ?](/FAQ.md#et-si-je-veux-faire-apparaitre-un-capteur-autre-que-ceux-d%C3%A9j%C3%A0-pr%C3%A9sent-comment-je-fais-)
 - [Renommer les sensors.](/SENSORS%20AND%20SCRIPTS.md#renommer-les-sensors)
 - [Je n'ai plus de MsunPv ou je souhaite repartir de zéro, comment je fais ?](/FAQ.md#je-nai-plus-de-msunpv-ou-je-souhaite-repartir-de-z%C3%A9ro-comment-je-fais-)
+- [Commenter, décommenter rapidement des sections de code avec File éditor.](/FAQ.md#commenter-d%C3%A9commenter-rapidement-des-sections-de-code-avec-file-%C3%A9ditor)
 
 </br></br></br>
 
@@ -259,3 +260,13 @@ Rien de plus simple, il suffit de supprimer le dossier 'msunpv' (ou tous les fic
 
 ![](images/delete_integration.jpg)
 
+</br></br>
+## Commenter, décommenter rapidement des sections de code avec File éditor.
+Pour commenter ou décommenter rapidement des sections de code dans les fichiers '.yaml' à l'aide du File éditor de Home Assistant, il existe une petite astuce bien pratique pour faire une selection verticale.
+- Je place mon curseur en tout début de la première ligne de code que je veux commenter (ou décommenter).
+- Je maintien appuyer les touches CTRL et ALT et j'appui sur la flèche BAS pour étendre ma selection jusqu'a la dernière ligne à commenter (ou décommenter).
+- Maintenant je peux appuyer sur # pour commenter toutes les lignes d'un coup (ou sur SUPPR pour décommenter).
+
+Démonstration :
+
+![](images/commenter_rapidement.gif)
