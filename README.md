@@ -219,6 +219,7 @@ Vous pouvez bien sur faire de même pour tous les capteurs qui ne vous interress
 - [Et si je veux faire apparaitre un capteur autre que ceux déjà présent, comment je fais ?](/FAQ.md#et-si-je-veux-faire-apparaitre-un-capteur-autre-que-ceux-d%C3%A9j%C3%A0-pr%C3%A9sent-comment-je-fais-)
 - [Renommer les sensors.](/SENSORS%20AND%20SCRIPTS.md#renommer-les-sensors)
 - [Je n'ai plus de MsunPv ou je souhaite repartir de zéro, comment je fais ?](/FAQ.md#je-nai-plus-de-msunpv-ou-je-souhaite-repartir-de-z%C3%A9ro-comment-je-fais-)
+- [Commenter, décommenter rapidement des sections de code avec File éditor.](/FAQ.md#commenter-d%C3%A9commenter-rapidement-des-sections-de-code-avec-file-%C3%A9ditor)
 
 </br></br></br>J'ai essayé de faire le plus complet possible, mais il se peut qu'il manque des infos. N'hésitez pas à poser vos questions [sur la page dédiée dans le forum ArdTek](https://ard-tek.com/index.php/forum/vos-installations-mspv/1127-tuto-home-assistant-et-msunpv) ou sur la [page dédiée du forum HACF](https://forum.hacf.fr/t/routeur-solaire-msunpv-et-ha/30312).
 
