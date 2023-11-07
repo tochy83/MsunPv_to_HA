@@ -198,8 +198,8 @@ On sait donc maintenant que si je veux récupérer la valeur de 'Outbal' il faud
 
 Exemple de code pour récupérer la valeur de 'Compt 5' qui n'ai pas dans la version mSunPv2_2 de base et imaginons que cela corresponde au compteur de la pince qui mesure la puissance en W envoyée au cumulus chaque jour, le code à ajouter serait :
 ```yml
-      - name: msunpv_powcumulus #Consommation cumulus journalière
-        unique_id: "msunpv_powcumulus"
+      - name: msunpv_energie_cumulus #Consommation cumulus journalière
+        unique_id: "msunpv_energie_cumulus"
         state: >-
           {% set cptVals =state_attr('sensor.msunpv_xml', 'cptVals')|replace(" ","") %}
           {{ cptVals.split(";")[4]|int(base=16)/10 |float }}
@@ -221,20 +221,20 @@ Le |int(base=16) assure la conversion de la valeur hexadecimale du compteur vale
 </br></br>Si je prends le compteur EnConso dans le tableau au dessus sa valeur hex est de 6333 qui une fois converti donne 25395.</br>
 Le /10 |float est pour récupérer la décimale de la valeur du compteur. Du coup l'exemple EnConso devient 2539,5 qui est la valeur affichée sur ma page web du MsunPv.
 
-</br>Si la puissance est en kW :
+</br>Si le compteur est en kWh :
 ```yml
-      - name: msunpv_powcumulus #Consommation cumulus journalière
-        unique_id: "msunpv_powcumulus"
+      - name: msunpv_energie_cumulus #Consommation cumulus journalière
+        unique_id: "msunpv_energie_cumulus"
         state: >-
           {% set cptVals =state_attr('sensor.msunpv_xml', 'cptVals')|replace(" ","") %}
           {{ cptVals.split(";")[4]|int(base=16)/10 |float }}
         unit_of_measurement: "kWh"
         device_class: power
 ```
-</br>Et si la puissance est en W et que je veux ma valeur en kWh, je divise par 1000 et je fais un arrondi à 3 chiffre après la virgule :
+</br>Et si le compteur est en Wh et que je veux ma valeur en kWh, je divise par 1000 et je fais un arrondi à 3 chiffre après la virgule :
 ```yml
-      - name: msunpv_powcumulus #Consommation cumulus journalière
-        unique_id: "msunpv_powcumulus"
+      - name: msunpv_energie_cumulus #Consommation cumulus journalière
+        unique_id: "msunpv_energie_cumulus"
         state: >-
           {% set cptVals =state_attr('sensor.msunpv_xml', 'cptVals')|replace(" ","") %}
           {{ (cptVals.split(";")[4]|int(base=16)/10 |float /1000)|round(3) }}
