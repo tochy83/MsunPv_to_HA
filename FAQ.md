@@ -250,9 +250,8 @@ Le /10 |float est pour récupérer la décimale de la valeur du compteur. Du cou
 - Je crée un petit tableau pour savoir ce que je veux ajouter comme sensor
 - Si le sensor que je veux ajouter est du type 'entrées', je copie dans le 'yaml' un sensor de type 'entrées' et je le colle à la suite des autres sensors 'entrées' puis je modifie le chiffre entre crochets pour correspondre à celui que je souhaite ajouter. Je modifie également le nom, l'unique_id et l'unité de mesure.
 - Si le sensor que je veux ajouter est du type 'compteurs', je copie dans le 'yaml' un sensor de type 'compteurs' et je le colle à la suite des autres sensors 'compteurs' puis je modifie le chiffre entre crochets pour correspondre à celui que je souhaite ajouter. Je modifie également le nom, l'unique_id, le device_class et l'unité de mesure si besoin.
-
+- 
 **Rien de bien compliqué en somme**
-</br></br>J'ai essayé de faire le plus complet possible, mais il se peut qu'il manque des infos. N'hésitez pas à poser vos questions [sur la page dédié dans le forum ArdTek](https://ard-tek.com/index.php/forum/vos-installations-mspv/1127-tuto-home-assistant-et-msunpv)
 
 </br></br>
 ## Je n'ai plus de MsunPv ou je souhaite repartir de zéro, comment je fais ?
@@ -270,3 +269,5 @@ Pour commenter ou décommenter rapidement des sections de code dans les fichiers
 Démonstration :
 
 ![](images/commenter_rapidement.gif)
+
+</br></br></br>J'ai essayé de faire le plus complet possible, mais il se peut qu'il manque des infos. N'hésitez pas à poser vos questions [sur la page dédiée dans le forum ArdTek](https://ard-tek.com/index.php/forum/vos-installations-mspv/1127-tuto-home-assistant-et-msunpv) ou sur la [page dédiée du forum HACF](https://forum.hacf.fr/t/routeur-solaire-msunpv-et-ha/30312)
