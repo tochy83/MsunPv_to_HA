@@ -128,6 +128,9 @@ title: Infos routeur
 ```
 </details>
 
+</br>
+Concernant les sensors programation horaire, ils ne sont là que pour l'affichage des diverses programmations faites sur le MsunPv et ne servent pas à faire les programmations horaires du MsunPv depuis Home Assitant.
+
 </br></br>
 
 ## Tous les scripts de l'intégration MsunPv.
