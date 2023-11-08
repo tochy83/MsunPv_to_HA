@@ -8,6 +8,7 @@
 - [Installation](#%EF%B8%8F-installation)
 - [Comment ça fonctionne ?](#-comment-%C3%A7a-fonctionne-)
 - [Exemple du résultat dans mon dashboard Home Assistant](#exemple-du-r%C3%A9sultat-dans-mon-dashboard-home-assistant)
+- [Mises à jour](https://github.com/tochy83/MsunPv_to_HA/edit/main/README.md#mises-%C3%A0-jour)
 - [FAQ](#faq)
 </br>
 
@@ -211,7 +212,7 @@ Vous pouvez bien sur faire de même pour tous les capteurs qui ne vous interress
 
 </br></br>
 
-## Changelog et update
+## Mises à jour
 Seule la dernière entrée apparait ici. Consulter [la liste complète](/CHANGELOG.md).
 
 </br>**2023-11-08 - Bug Fixes**
