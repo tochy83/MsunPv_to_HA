@@ -149,6 +149,6 @@ Utiliser plutot l'UI de Home Assistant pour faire ces changements :
 
 </br></br>
 
-[Retour à l'accueil](README.md#msunpv-to-ha)
+[Retour au README.md](README.md#msunpv-to-ha)
 
 </br></br>
