@@ -543,4 +543,9 @@ On peut très bien imaginer un autre comportement, mais celà necessite de crée
 Par exemple :
 ![](images/carte_exemple_2_commandes_sorties.gif)
 Dans ce second exemple j'ai refait 2 scripts, un pour le bouton 'cumulus' et un pour le bouton 'sortie 2', sur le même principe que les précédents mais avec un comportement différent puisque ici les boutons ne sont plus en On/Off mais suivent un cycle prédéfini.
-</br></br></br>
+
+</br></br>
+
+[Retour au README.md](README.md#msunpv-to-ha)
+
+</br></br>
