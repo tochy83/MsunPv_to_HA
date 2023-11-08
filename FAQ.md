@@ -270,4 +270,8 @@ Démonstration :
 
 ![](images/commenter_rapidement.gif)
 
-</br></br></br>J'ai essayé de faire le plus complet possible, mais il se peut qu'il manque des infos. N'hésitez pas à poser vos questions [sur la page dédiée dans le forum ArdTek](https://ard-tek.com/index.php/forum/vos-installations-mspv/1127-tuto-home-assistant-et-msunpv) ou sur la [page dédiée du forum HACF](https://forum.hacf.fr/t/routeur-solaire-msunpv-et-ha/30312)
+</br></br>
+
+[Retour au README.md](README.md#msunpv-to-ha)
+
+</br></br>
