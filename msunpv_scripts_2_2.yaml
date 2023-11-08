@@ -38,7 +38,7 @@ script:
             {% elif states('sensor.msunpv_cmd_s1') in ['2','6','10'] %}
               {{ states('sensor.msunpv_cmd_s1')|int -1 }}
             {% else %}
-              {{ states('sensor.msunpv_cmd_s1')|int }}
+              {{ states('sensor.msunpv_cmd_s1')|int -1 }}
             {% endif %}
         target:
           entity_id: input_select.msunpv_command_sortie_1
@@ -62,7 +62,7 @@ script:
             {% elif states('sensor.msunpv_cmd_s1') in ['0','4','8'] %}
               {{ states('sensor.msunpv_cmd_s1')|int +2 }}
             {% else %}
-              {{ states('sensor.msunpv_cmd_s1')|int }}
+              {{ states('sensor.msunpv_cmd_s1')|int -2 }}
             {% endif %}
         target:
           entity_id: input_select.msunpv_command_sortie_1
@@ -110,7 +110,7 @@ script:
             {% elif states('sensor.msunpv_cmd_s1') in ['8','9','10'] %}
               {{ states('sensor.msunpv_cmd_s1')|int -4 }}
             {% else %}
-              {{ states('sensor.msunpv_cmd_s1')|int }}
+              {{ states('sensor.msunpv_cmd_s1')|int -4 }}
             {% endif %}
         target:
           entity_id: input_select.msunpv_command_sortie_1
@@ -134,7 +134,7 @@ script:
             {% elif states('sensor.msunpv_cmd_s1') in ['0','1','2'] %}
               {{ states('sensor.msunpv_cmd_s1')|int +8 }}
             {% else %}
-              {{ states('sensor.msunpv_cmd_s1')|int }}
+              {{ states('sensor.msunpv_cmd_s1')|int -8 }}
             {% endif %}
         target:
           entity_id: input_select.msunpv_command_sortie_1
@@ -169,7 +169,7 @@ script:
         data: {}
     mode: single
 
-  msunpv_commandes_routeur: #Envoi des commandes au MsunPv
+  msunpv_commande_routeur: #Envoi des commandes au MsunPv
     alias: msunpv_commande_routeur
     sequence:
       - service: shell_command.msunpv_commandes
