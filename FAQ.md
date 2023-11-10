@@ -109,7 +109,7 @@ Par :
         state_class: total_increasing
 ```
 
->Attention il est possible que le compteur EnInj du MsunPv soit en négatif et les autres en positif comme sur la photo ci-dessous :
+>Attention, il est possible que le compteur (notamment sur les versions Projet MS_PV2_2c et Projet MS_PV4_4c) EnInj du MsunPv soit en négatif et les autres en positif comme sur la photo ci-dessous :
 >
 >![](images/compteurs_negatif_positif.png)
 >
