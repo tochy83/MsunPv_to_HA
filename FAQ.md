@@ -20,7 +20,7 @@ Avant tout pour savoir si les compteurs sont en négatif ou en positif il suffit
 
 On se rend compte sur l'exemple ci-dessus que dans mon cas les compteurs sont en négatif (pas besoin de faire de modifications).</br></br>
 
-Si vos compteurs sont en positif, une première solution serait de passer vos compteurs en négatif par l'outil msapp_pv fournit sur le site [Ard-tek](https://ard-tek.com/) pour paramétrer le MsunPv. Je propose cette solution car certains préfèrent voir les compteurs en négatif et dans ce cas c'est la façon de faire.</br></br>
+Si tous vos compteurs sont en positif, une première solution serait de passer vos compteurs en négatif par l'outil msapp_pv fournit sur le site [Ard-tek](https://ard-tek.com/) pour paramétrer le MsunPv. Je propose cette solution car certains préfèrent voir les compteurs en négatif et dans ce cas c'est la façon de faire.</br></br>
 
 Sinon il faut modifier les lignes suivantes :
 
@@ -108,6 +108,13 @@ Par :
         device_class: energy
         state_class: total_increasing
 ```
+
+>Attention il est possible que le compteur EnInj du MsunPv soit en négatif et les autres en positif comme sur la photo ci-dessous :
+>
+>![](images/compteurs_negatif_positif.png)
+>
+>Dans ce cas là on ne modifiera pas les lignes concernant 'msunpv_eninj' et 'energie_msunpv_eninj'.
+
 </br></br>
 ## J'ai une sonde qui mesure la puissance du cumulus, comment je fais ?
 De base sur une la version 2 entrées, 2 sorties la mesure pour le cumulus se fait en pourcentage, mais on peut très bien y adjoindre une pince de mesure pour exprimer cette entrée en W. Dans ce cas là, je remplace simplement la ligne :
