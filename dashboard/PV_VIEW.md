@@ -23,7 +23,7 @@ La page est découpée en 4 blocs :
 - Une premier bloc vertical reprenant les infos de production (bloc 3)
 - Un second bloc vertical reprenant le reste des infos (bloc 4)</br></br>
 
-Pour arriver à ce résultat il convient dans un prmier temps de configurer la vue :</br></br>
+Pour arriver à ce résultat il convient dans un premier temps de configurer la vue :</br></br>
 ![](vue_pv.jpg)</br>
 [Le code de la vue](vue_pv.yaml)</br></br></br>
 L'entête :</br></br>
@@ -31,7 +31,8 @@ L'entête :</br></br>
 [Le code de l'entête](bloc_1.yaml)</br></br></br>
 La zone de notification :</br></br>
 ![](bloc_2.jpg)</br>
-[Le code de la zone notification](bloc_2.yaml)</br></br></br>
+[Le code de la zone notification](bloc_2.yaml)</br>
+Les notifications présentent dans le code ne correspondent pas forcément à celles que j'aurai au final pour cette page mais je les ai laissée à titre d'exemple.</br></br></br>
 Le bloc vertical gauche :</br></br>
 ![](bloc_3.jpg)</br>
 [Le code du bloc gauche](bloc_3.yaml)</br></br></br>
