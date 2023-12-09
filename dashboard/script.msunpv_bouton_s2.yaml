@@ -1,0 +1,20 @@
+alias: Msunpv - Bouton S2
+sequence:
+  - service: input_select.select_option
+    data:
+      option: |-
+        {% if states('sensor.msunpv_cmd_s1') in ['0','1','2','4','5','6'] %}
+          {{ states('sensor.msunpv_cmd_s1')|int +4 }}
+        {% else %}
+          {{ states('sensor.msunpv_cmd_s1')|int -8 }}
+        {% endif %}
+    target:
+      entity_id: input_select.msunpv_command_sortie_1
+  - service: input_select.select_option
+    data:
+      option: "{{ states('sensor.msunpv_cmd_test') }}"
+    target:
+      entity_id: input_select.msunpv_command_test_routeur
+  - service: script.msunpv_commande_routeur
+    data: {}
+mode: single

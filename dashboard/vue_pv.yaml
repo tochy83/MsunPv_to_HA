@@ -1,0 +1,21 @@
+title: Pv
+path: pv
+views: null
+type: custom:grid-layout
+layout:
+  grid-template-columns: 100%
+  grid-column-gap: 20px
+  grid-template-areas: |
+    "header"
+    "messages"
+    "."
+  mediaquery:
+    "(min-width: 1400px)":
+      grid-template-columns: 33% 33%
+      grid-template-areas: |
+        "header header"
+        "messages messages"
+        ". ."
+      place-content: center
+icon: mdi:solar-power-variant-outline
+badges: []

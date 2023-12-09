@@ -1,0 +1,351 @@
+type: vertical-stack
+cards:
+  - type: custom:mod-card
+    card:
+      type: custom:mushroom-title-card
+      title: ''
+      subtitle: Infos complémentaires
+    card_mod:
+      style:
+        mushroom-title-card$: |
+          .subtitle {
+            border-bottom: 1px solid var(--ha-card-border-color,var(--divider-color,#e0e0e0));
+            padding-bottom: 5px;
+          }
+          .header {
+            margin-bottom: -27px;
+          }
+  - type: custom:mushroom-template-card
+    primary: Suivi production
+    secondary: Google sheets
+    icon: mdi:google-spreadsheet
+    icon_color: green
+    tap_action:
+      action: url
+      url_path: >-
+        https://url_googledoc
+    hold_action:
+      action: more-info
+    double_tap_action:
+      action: none
+    badge_icon: |-
+      {% if not is_state('binary_sensor.ping_ecuc', 'on') %}
+        mdi:alert-circle-outline
+      {% endif %}
+    badge_color: |-
+      {% if not is_state('binary_sensor.ping_ecuc', 'on') %}
+        red
+      {% endif %}
+  - type: horizontal-stack
+    cards:
+      - type: custom:mushroom-template-card
+        primary: Status Ds3-L
+        secondary: ''
+        icon: mdi:router-wireless
+        icon_color: orange
+        tap_action:
+          action: url
+          url_path: http://url_ecu_statuts
+        hold_action:
+          action: none
+        double_tap_action:
+          action: none
+  - type: horizontal-stack
+    cards:
+      - type: custom:mushroom-template-card
+        primary: MsunPv
+        secondary: |-
+          {% if is_state('sensor.msunpv_xml', "OK") %}
+            Connecté
+          {% else %}
+            Déconnecté
+          {% endif %}
+        icon: |-
+          {% if is_state('sensor.msunpv_xml', "OK") %}
+            mdi:check-network-outline   
+          {% else %}
+            mdi:network-off-outline
+          {% endif %}
+        icon_color: |-
+          {% if is_state('sensor.msunpv_xml', "OK") %}
+            light-blue
+          {% else %}
+            red
+          {% endif %}
+        tap_action:
+          action: more-info
+        hold_action:
+          action: none
+        double_tap_action:
+          action: none
+        entity: sensor.msunpv_xml
+      - type: custom:mushroom-template-card
+        primary: APsystems Ecu-c
+        secondary: |-
+          {% if is_state('binary_sensor.ping_ecuc', 'on') %}
+            Connecté
+          {% else %}
+            Déconnecté
+          {% endif %}
+        icon: |-
+          {% if is_state('binary_sensor.ping_ecuc', 'on') %}
+            mdi:check-network-outline   
+          {% else %}
+            mdi:network-off-outline
+          {% endif %}
+        icon_color: |-
+          {% if is_state('binary_sensor.ping_ecuc', 'on') %}
+            light-blue
+          {% else %}
+            red
+          {% endif %}
+        tap_action:
+          action: more-info
+        hold_action:
+          action: none
+        double_tap_action:
+          action: none
+        entity: binary_sensor.ping_ecuc
+  - type: custom:mod-card
+    card:
+      type: custom:mushroom-title-card
+      title: ''
+      subtitle: Cumulus
+    card_mod:
+      style:
+        mushroom-title-card$: |
+          .subtitle {
+            border-bottom: 1px solid var(--ha-card-border-color,var(--divider-color,#e0e0e0));
+            padding-bottom: 5px;
+          }
+          .header {
+            margin-bottom: -27px;
+          }
+  - type: custom:config-template-card
+    entities:
+      - input_select.offset_jour_graph_routage
+    variables:
+      offset: |
+        -states['input_select.offset_jour_graph_routage'].state +'d'
+    card:
+      type: custom:stack-in-card
+      mode: vertical
+      cards:
+        - type: custom:apexcharts-card
+          card_mod:
+            style: |
+              ha-card {                    
+                border: none;
+              }  
+          apex_config:
+            chart:
+              height: 150px
+            stroke:
+              width: 1
+          yaxis:
+            - id: sensor.msunpv_outbal
+              max: 100
+              decimals: 0
+              apex_config:
+                tickAmount: 4
+            - id: binary_sensor.msunpv_s2
+              opposite: true
+              max: 1
+              decimals: 0
+              apex_config:
+                tickAmount: 1
+          experimental:
+            hidden_by_default: true
+          update_interval: 300s
+          span:
+            start: day
+            offset: '${offset === ''0d'' ? '''' : offset}'
+          graph_span: 24h
+          cache: true
+          series:
+            - entity: sensor.msunpv_outbal
+              yaxis_id: sensor.msunpv_outbal
+              transform: return x / 4;
+              fill_raw: last
+              group_by:
+                func: last
+                duration: 600s
+              type: column
+              show:
+                legend_value: false
+            - entity: binary_sensor.msunpv_s2
+              yaxis_id: binary_sensor.msunpv_s2
+              extend_to: now
+              name: Sortie 2
+              transform: 'return x === ''on'' ? 1 : 0;'
+              fill_raw: last
+              group_by:
+                func: last
+                duration: 600s
+              type: line
+              show:
+                legend_value: false
+                hidden_by_default: true
+        - type: horizontal-stack
+          cards:
+            - type: custom:mushroom-chips-card
+              chips:
+                - type: spacer
+                - type: template
+                  card_mod:
+                    style: |
+                      ha-card {
+                        margin-top: -5px;
+                        margin-bottom: 15px;
+                      }                 
+                  tap_action:
+                    action: call-service
+                    service: input_select.select_option
+                    target:
+                      entity_id: input_select.offset_jour_graph_routage
+                    data:
+                      option: '0'
+                  content: Aujourd'hui
+                  icon: mdi:calendar-filter-outline
+                  icon_color: >-
+                    {% if states('input_select.offset_jour_graph_routage') ==
+                    '0' %}
+                      blue
+                    {% endif %}
+                - type: spacer
+                - type: template
+                  card_mod:
+                    style: |
+                      ha-card {
+                        margin-top: -5px;
+                        margin-bottom: 15px;
+                      }              
+                  tap_action:
+                    action: call-service
+                    service: input_select.select_option
+                    target:
+                      entity_id: input_select.offset_jour_graph_routage
+                    data:
+                      option: '1'
+                  content: Hier
+                  icon: mdi:calendar-filter-outline
+                  icon_color: >-
+                    {% if states('input_select.offset_jour_graph_routage') ==
+                    '1' %}
+                      blue
+                    {% endif %}              
+                - type: spacer
+                - type: template
+                  card_mod:
+                    style: |
+                      ha-card {
+                        margin-top: -5px;
+                        margin-bottom: 15px;
+                      }                 
+                  tap_action:
+                    action: call-service
+                    service: input_select.select_option
+                    target:
+                      entity_id: input_select.offset_jour_graph_routage
+                    data:
+                      option: '2'
+                  content: Avant-hier
+                  icon: mdi:calendar-filter-outline
+                  icon_color: >-
+                    {% if states('input_select.offset_jour_graph_routage') ==
+                    '2' %}
+                      blue
+                    {% endif %}              
+                - type: spacer
+              alignment: center
+  - type: custom:mushroom-template-card
+    primary: Le cumulus est {{ states('sensor.statut_cumulus') }}
+    secondary: >
+      {% if (((as_timestamp(now()) -
+      as_timestamp(states('input_text.last_chauffe_solaire_cumulus'))) / 3600) |
+      round(2)) < 1 %}
+        Dernière chauffe complète il y'a {{((as_timestamp(now()) - as_timestamp(states('input_text.last_chauffe_solaire_cumulus'))) / 60) | round(0)}} minute(s)
+      {% elif (((as_timestamp(now()) -
+      as_timestamp(states('input_text.last_chauffe_solaire_cumulus'))) / 3600) |
+      round(2)) < 72 %}
+        Dernière chauffe complète il y'a {{((as_timestamp(now()) - as_timestamp(states('input_text.last_chauffe_solaire_cumulus'))) / 3600) | round(0)}} heure(s)
+      {% else %}
+        Dernière chauffe complète il y'a {{((as_timestamp(now()) - as_timestamp(states('input_text.last_chauffe_solaire_cumulus'))) / 86400) | round(0)}} jour(s)
+      {% endif %}
+    multiline_secondary: true
+    icon: mdi:water-boiler
+    icon_color: |-
+      {% if is_state('sensor.statut_cumulus', 'chaud') %}
+        light-green
+      {% elif is_state('sensor.statut_cumulus', 'tiède') %}
+        orange
+      {% else %}
+        red
+      {% endif %}
+    badge_icon: ''
+    badge_color: ''
+    entity: sensor.statut_cumulus
+    tap_action:
+      action: more-info
+  - type: custom:stack-in-card
+    mode: vertical
+    cards:
+      - type: custom:mushroom-template-card
+        card_mod:
+          style: |
+            ha-card {                    
+              border: none;
+              
+            }    
+        primary: Programmation horaire cumulus
+        icon: mdi:clock-outline
+        icon_color: |-
+          {% if states('sensor.msunpv_cmd_s1') in ['2','6','10'] %}
+            light-green
+          {% endif %}     
+        tap_action:
+          action: call-service
+          service: automation.trigger
+          target:
+            entity_id: automation.msunpv_mise_a_jour_affichage_programmation_horaire_2
+          data:
+            skip_condition: true
+        double_tap_action:
+          action: none
+        hold_action:
+          action: call-service
+          service: script.msunpv_s1_auto
+          target: {}
+      - type: custom:mushroom-template-card
+        card_mod:
+          style: |
+            ha-card {                    
+              border: none;
+              margin-top: -35px;
+              text-align: center;
+            }  
+        secondary: |-
+          {% if not is_state('sensor.msunpv_timerballon_count', '0')  %}
+            {% set timers = '' %}
+            {% set timers = timers+states('sensor.msunpv_timerballon_1')+', ' if not is_state('sensor.msunpv_timerballon_1', 'N/A') else timers %}
+            {% set timers = timers+states('sensor.msunpv_timerballon_2')+', ' if not is_state('sensor.msunpv_timerballon_2', 'N/A') else timers %}
+            {% set timers = timers+states('sensor.msunpv_timerballon_3')+', ' if not is_state('sensor.msunpv_timerballon_3', 'N/A') else timers %}
+            {% set timers = timers+states('sensor.msunpv_timerballon_4')+', ' if not is_state('sensor.msunpv_timerballon_4', 'N/A') else timers %}
+            De {{ timers[:-2] }}
+          {{ states('sensor.msunpv_timerballon_jours') }}
+          {% else %}
+            Aucune
+          {% endif %}
+        tap_action:
+          action: call-service
+          service: automation.trigger
+          target:
+            entity_id: automation.msunpv_mise_a_jour_affichage_programmation_horaire_2
+          data:
+            skip_condition: true
+        double_tap_action:
+          action: none
+        hold_action:
+          action: call-service
+          service: script.msunpv_s1_auto
+          target: {}

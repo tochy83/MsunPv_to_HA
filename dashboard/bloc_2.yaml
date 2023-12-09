@@ -1,0 +1,17 @@
+type: conditional
+conditions:
+  - entity: binary_sensor.alert_messages
+    state: 'on'
+card:
+  type: markdown
+  content: >-
+    {% if is_state("binary_sensor.bt_stuck", "on") %}
+      <ha-alert alert-type="error">Le bluetooth ne repond plus !</ha-alert>
+    {% endif %}
+
+    {% if is_state("binary_sensor.d1mini_garage_detection_etat_portail", "on")
+    %}
+      <ha-alert alert-type="warning">Attention le portail est ouvert !</ha-alert>
+    {% endif %}
+view_layout:
+  grid-area: messages
