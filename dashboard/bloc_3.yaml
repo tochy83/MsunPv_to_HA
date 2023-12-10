@@ -1,0 +1,476 @@
+type: vertical-stack
+cards:
+  - type: custom:mod-card
+    card:
+      type: custom:mushroom-title-card
+      title: ''
+      subtitle: Relevés
+    card_mod:
+      style:
+        mushroom-title-card$: |
+          .subtitle {
+            border-bottom: 1px solid var(--ha-card-border-color,var(--divider-color,#e0e0e0));
+            padding-bottom: 5px;
+          }
+          .header {
+            margin-bottom: -27px;
+          }
+  - type: horizontal-stack
+    cards:
+      - type: custom:mushroom-template-card
+        primary: ''
+        secondary: '{{ states(''sensor.msunpv_powreso'')|round(0) }} W'
+        icon: |-
+          {% if -1 < states('sensor.msunpv_powreso')|float(0) < 1 %}
+            mdi:transmission-tower
+          {% elif states('sensor.msunpv_powreso')|float(0) < 1 %}
+            mdi:transmission-tower-import
+          {% else %}
+            mdi:transmission-tower-export
+          {% endif %}
+        icon_color: |-
+          {% if states('sensor.msunpv_powreso')|float(0) < 1 %}
+            light-green
+          {% else %}
+            deep-orange
+          {% endif %}
+        layout: vertical
+        badge_color: |-
+          {% if states('sensor.msunpv_powreso')|float(0) < 1 %}
+            amber
+          {% endif %}
+        badge_icon: >-
+          {% if (states('sensor.msunpv_powreso')|float(0) < 1) and
+          (states('sensor.msunpv_powpv')|float(0) < 1) %}
+            mdi:weather-sunny
+          {% endif %}
+        tap_action:
+          action: more-info
+        hold_action:
+          action: none
+        double_tap_action:
+          action: none
+        entity: sensor.msunpv_powreso
+      - type: custom:mushroom-template-card
+        primary: ''
+        secondary: |-
+          {% if states('sensor.msunpv_powpv')|float(0) < -5 %}
+           {{ states('sensor.msunpv_powpv')|round(0) *-1 }} W
+          {% else %}
+            0 W
+          {% endif %}
+        icon: mdi:solar-power-variant-outline
+        icon_color: |-
+          {% if states('sensor.msunpv_powpv')|float(0) < -5 %}
+           light-green
+          {% endif %}
+        layout: vertical
+        badge_icon: |-
+          {% if is_state('binary_sensor.msunpv_s2', "on") %}
+            mdi:electric-switch
+          {% elif states('sensor.msunpv_outbal')|float(0) > 0 %}
+            mdi:water-boiler
+          {% elif states('sensor.msunpv_powpv')|float(0) < -5 %}
+            mdi:weather-sunny
+          {% endif %}
+        badge_color: >-
+          {% if (states('sensor.msunpv_powpv')|float(0) < -5) or
+          (states('sensor.msunpv_outbal')|float(0) > 0) or
+          is_state('binary_sensor.msunpv_s2', "on")%}
+            amber
+          {% endif %}
+        tap_action:
+          action: more-info
+        hold_action:
+          action: none
+        double_tap_action:
+          action: none
+        entity: sensor.msunpv_powpv
+      - type: custom:mushroom-template-card
+        primary: ''
+        secondary: '{{ states(''sensor.msunpv_voltres'')|round(0) }} V'
+        icon: mdi:sine-wave
+        icon_color: |-
+          {% if 220 < states('sensor.msunpv_voltres')|float(0) < 250 %}
+            light-green
+          {% else %}
+            red
+          {% endif %}
+        layout: vertical
+        badge_color: ''
+        entity: sensor.msunpv_voltres
+        badge_icon: ''
+        tap_action:
+          action: more-info
+      - type: custom:mushroom-template-card
+        primary: ''
+        secondary: |-
+          {% if states('sensor.msunpv_outbal')|float(0) > 0 %}
+            {{ states('sensor.msunpv_outbal')|float(0) /4 }} %
+          {% else %}
+            Off
+          {% endif %}
+        icon: mdi:water-boiler
+        icon_color: |-
+          {% if states('sensor.msunpv_outbal')|float(0) > 0 %}
+            amber
+          {% endif %}
+        layout: vertical
+        badge_icon: |-
+          {% if is_state('sensor.statut_cumulus', 'froid') %}
+            mdi:alert
+          {% else %}
+            mdi:check-bold
+          {% endif %}
+        badge_color: |-
+          {% if is_state('sensor.statut_cumulus', 'chaud') %}
+            light-green
+          {% elif is_state('sensor.statut_cumulus', 'tiède') %}
+            orange
+          {% else %}
+            red
+          {% endif %}
+        entity: sensor.msunpv_outbal
+        tap_action:
+          action: more-info
+      - type: custom:mushroom-template-card
+        primary: ''
+        secondary: |-
+          {% if is_state('binary_sensor.msunpv_s2', 'on') %}
+            S2 {{ states('binary_sensor.msunpv_s2') }}
+          {% else %}
+            S2 {{ states('binary_sensor.msunpv_s2') }}
+          {% endif %}
+        icon: mdi:electric-switch
+        icon_color: |-
+          {% if is_state('binary_sensor.msunpv_s2', 'on') %}
+            amber
+          {% endif %}
+        layout: vertical
+        tap_action:
+          action: more-info
+        entity: binary_sensor.msunpv_s2
+        badge_color: ''
+        badge_icon: ''
+  - type: horizontal-stack
+    cards:
+      - type: custom:mushroom-template-card
+        primary: |-
+          {% if (states('sensor.msunpv_enpv_j')|float(0) == 0) %}
+            {{ (states('sensor.msunpv_enpv_j')|float(0))|round(2) }} Wh
+          {% else %}  
+            {{ (states('sensor.msunpv_enpv_j')|float(0) *-1)|round(2) }} Wh
+          {% endif %}
+        secondary: Production
+        icon: mdi:solar-power-variant-outline
+        icon_color: light-green
+        entity: sensor.msunpv_enpv_j
+        tap_action:
+          action: more-info
+        hold_action:
+          action: none
+        double_tap_action:
+          action: none
+      - type: custom:mushroom-template-card
+        primary: |-
+          {% if (states('sensor.msunpv_eninj')|float(0) == 0) %}
+            {{ (states('sensor.msunpv_eninj')|float(0))|round(2) }} Wh
+          {% else %}  
+            {{ (states('sensor.msunpv_eninj')|float(0) *-1)|round(2) }} Wh
+          {% endif %}
+        secondary: Injection
+        icon: mdi:transmission-tower-import
+        icon_color: light-blue
+        tap_action:
+          action: more-info
+        hold_action:
+          action: none
+        double_tap_action:
+          action: none
+        entity: sensor.msunpv_eninj
+  - type: horizontal-stack
+    cards:
+      - type: custom:mushroom-template-card
+        primary: '{{ states(''sensor.msunpv_prod_consommee'')}} Wh'
+        secondary: Conso. solaire
+        icon: mdi:solar-power
+        icon_color: amber
+        entity: sensor.msunpv_prod_consommee
+      - type: custom:mushroom-template-card
+        primary: '{{ states(''sensor.msunpv_conso_totale'') }} Wh'
+        secondary: Conso. totale
+        icon: mdi:transmission-tower
+        icon_color: purple
+        entity: sensor.msunpv_conso_totale
+        tap_action:
+          action: navigate
+          navigation_path: /dashboard-test/conso
+  - type: custom:swipe-card
+    parameters:
+      spaceBetween: 8
+      grabCursor: true
+      scrollbar:
+        hide: false
+        draggable: true
+        snapOnRelease: true
+    cards:
+      - type: custom:apexcharts-card
+        apex_config:
+          chart:
+            height: 200px
+          stroke:
+            width: 1
+        update_interval: 300s
+        graph_span: 1d
+        cache: true
+        series:
+          - entity: sensor.msunpv_powreso
+            group_by:
+              func: max
+              duration: 300s
+            show:
+              legend_value: false
+          - entity: sensor.msunpv_powpv
+            group_by:
+              func: min
+              duration: 300s
+            show:
+              legend_value: false
+      - type: custom:apexcharts-card
+        apex_config:
+          chart:
+            height: 200px
+          stroke:
+            width: 1
+        update_interval: 300s
+        span:
+          end: day
+        graph_span: 15d
+        cache: true
+        series:
+          - entity: sensor.energie_msunpv_enpv_j
+            type: column
+            name: Production
+            color: ffc107
+            float_precision: 2
+            group_by:
+              func: max
+              duration: 1d
+            statistics:
+              type: state
+            show:
+              legend_value: false
+          - entity: sensor.energie_msunpv_enconso
+            type: column
+            name: Consommation
+            color: 2196f3
+            float_precision: 2
+            group_by:
+              func: max
+              duration: 1d
+            statistics:
+              type: state
+            show:
+              legend_value: false
+          - entity: sensor.energie_msunpv_eninj
+            type: column
+            name: Injection
+            color: 8bc34a
+            invert: true
+            float_precision: 2
+            group_by:
+              func: max
+              duration: 1d
+            statistics:
+              type: state
+            show:
+              legend_value: false
+  - type: custom:mod-card
+    card:
+      type: custom:mushroom-title-card
+      title: ''
+      subtitle: Commandes routeur
+    card_mod:
+      style:
+        mushroom-title-card$: |
+          .subtitle {
+            border-bottom: 1px solid var(--ha-card-border-color,var(--divider-color,#e0e0e0));
+            padding-bottom: 5px;
+          }
+          .header {
+            margin-bottom: -27px;
+          }
+  - type: custom:mushroom-chips-card
+    chips:
+      - type: spacer
+      - type: template
+        content: Cumulus
+        icon: |-
+          {% if states('sensor.msunpv_cmd_test') in ['1'] %}
+            mdi:stop-circle-outline
+          {% elif states('sensor.msunpv_cmd_test') in ['4','8'] %}
+            mdi:power-on  
+          {% elif states('sensor.msunpv_cmd_s1') in ['0','4','8'] %}
+            mdi:power-off
+          {% elif states('sensor.msunpv_cmd_s1') in ['1','5','9'] %}
+            mdi:power-on
+          {% elif states('sensor.msunpv_cmd_s1') in ['2','6','10'] %}
+            mdi:clock-outline
+          {% endif %}
+        icon_color: |-
+          {% if states('sensor.msunpv_cmd_test') in ['1'] %}
+            red
+          {% elif states('sensor.msunpv_cmd_test') in ['4','8'] %}
+            blue  
+          {% elif states('sensor.msunpv_cmd_s1') in ['0','4','8'] %}
+            disabled
+          {% elif states('sensor.msunpv_cmd_s1') in ['1','5','9'] %}
+            red
+          {% else %}
+            blue
+          {% endif %}
+        tap_action:
+          action: none
+        double_tap_action:
+          action: none
+        hold_action:
+          action: call-service
+          service: script.msunpv_bouton_cumulus
+          target: {}
+      - type: spacer
+      - type: template
+        content: |-
+          {% if states('sensor.msunpv_cmd_test') == '1' %}
+            Injection
+          {% elif states('sensor.msunpv_cmd_test') == '2' %}
+            Routage
+          {% else %}
+            Soutirage
+          {% endif %}
+        icon: |-
+          {% if states('sensor.msunpv_cmd_test') == '1' %}
+            mdi:power-off
+          {% else %}
+            mdi:circle
+          {% endif %}
+        icon_color: |-
+          {% if states('sensor.msunpv_cmd_test') == '1' %}
+            disabled
+          {% elif states('sensor.msunpv_cmd_test') == '2' %}
+            blue
+          {% else %}
+            red
+          {% endif %}
+        tap_action:
+          action: none
+        double_tap_action:
+          action: none
+        hold_action:
+          action: call-service
+          service: script.msunpv_bouton_routage
+          target: {}
+      - type: spacer
+      - type: template
+        content: Sortie 2
+        icon: |-
+          {% if states('sensor.msunpv_cmd_test') in ['1'] %}
+            mdi:stop-circle-outline
+          {% elif states('sensor.msunpv_cmd_test') in ['4','8'] %}
+            mdi:power-on  
+          {% elif states('sensor.msunpv_cmd_s1') in ['0','1','2'] %}
+            mdi:power-off
+          {% elif states('sensor.msunpv_cmd_s1') in ['4','5','6'] %}
+            mdi:power-on
+          {% elif states('sensor.msunpv_cmd_s1') in ['8','9','10'] %}
+            mdi:clock-outline
+          {% endif %}
+        icon_color: |-
+          {% if states('sensor.msunpv_cmd_test') in ['1'] %}
+            red
+          {% elif states('sensor.msunpv_cmd_test') in ['4','8'] %}
+            blue  
+          {% elif states('sensor.msunpv_cmd_s1') in ['0','1','2'] %}
+            disabled
+          {% elif states('sensor.msunpv_cmd_s1')  in ['4','5','6'] %}
+            red
+          {% else %}
+            blue
+          {% endif %}
+        tap_action:
+          action: none
+        double_tap_action:
+          action: none
+        hold_action:
+          action: call-service
+          service: script.msunpv_bouton_s2
+          target: {}
+      - type: spacer
+    alignment: justify
+  - type: custom:mod-card
+    card:
+      type: custom:mushroom-title-card
+      title: ''
+      subtitle: Appareils
+    card_mod:
+      style:
+        mushroom-title-card$: |
+          .subtitle {
+            border-bottom: 1px solid var(--ha-card-border-color,var(--divider-color,#e0e0e0));
+            padding-bottom: 5px;
+          }
+          .header {
+            margin-bottom: -27px;
+          }
+  - type: custom:mushroom-template-card
+    primary: MsunPv
+    secondary: >-
+      Taux auto-consommation : {{ states('sensor.msunpv_taux_autoconsommation')
+      }} %
+    icon: mdi:sun-compass
+    icon_color: |-
+      {% if is_state('sensor.msunpv_xml', "OK") %}
+        light-green   
+      {% else %}
+        red
+      {% endif %}
+    entity: sensor.msunpv_taux_autoconsommation
+    tap_action:
+      action: url
+      url_path: http://http://url_du_msunpv
+    hold_action:
+      action: more-info
+    double_tap_action:
+      action: none
+    badge_icon: |-
+      {% if not is_state('sensor.msunpv_xml', "OK") %}
+        mdi:alert-circle-outline
+      {% endif %}
+    badge_color: |-
+      {% if not is_state('sensor.msunpv_xml', "OK") %}
+        red
+      {% endif %}
+  - type: custom:mushroom-template-card
+    primary: APsystems Ecu-c
+    secondary: ''
+    icon: mdi:radioactive
+    icon_color: |-
+      {% if is_state('binary_sensor.ping_ecuc', 'on') %}
+        orange
+      {% endif %}
+    tap_action:
+      action: url
+      url_path: http://url_locale_ecu
+    hold_action:
+      action: url
+      url_path: >-
+        https://url_apsystems_dashboard
+    double_tap_action:
+      action: none
+    badge_icon: |-
+      {% if not is_state('binary_sensor.ping_ecuc', 'on') %}
+        mdi:alert-circle-outline
+      {% endif %}
+    badge_color: |-
+      {% if not is_state('binary_sensor.ping_ecuc', 'on') %}
+        red
+      {% endif %}
