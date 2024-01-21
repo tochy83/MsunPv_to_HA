@@ -40,10 +40,10 @@ On peut répéter ce schéma pour les comandes 3-4, 5-6 et 7-8.</br></br>
 Le 2 à la fin de 'pars=9;0;0;0;0;0;0;2;' correspond quand à lui à la commande 'Test routeur' du MsunPv. Elle est codée comme ceci:
 | Valeur | Cmd 1 | 
 | --------- | --- |
-| 0 | Inject |
-| 1 | Zéro |
-| 2 | Moyen |
-| 4 | Fort |
+| 1 | Inject |
+| 2 | Zéro |
+| 4 | Moyen |
+| 8 | Fort |
 
 Sur notre exemple du dessus avec 'pars=9;0;0;0;0;0;0;2;' cela correspondrait donc à l'image ci-dessous sur le routeur :
 
