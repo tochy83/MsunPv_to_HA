@@ -212,7 +212,7 @@ Exemple de code pour récupérer la valeur de 'Compt 5' qui n'ai pas dans la ver
           {% set cptVals =state_attr('sensor.msunpv_xml', 'cptVals')|replace(" ","") %}
           {{ cptVals.split(";")[4]|int(base=16)/10 |float }}
         unit_of_measurement: "Wh"
-        device_class: power
+        device_class: energy
 ```
 
 La ligne ci dessous sert à mettre en forme la ligne 'cptVals' en supprimant les espaces inutiles.
@@ -237,7 +237,7 @@ Le /10 |float est pour récupérer la décimale de la valeur du compteur. Du cou
           {% set cptVals =state_attr('sensor.msunpv_xml', 'cptVals')|replace(" ","") %}
           {{ cptVals.split(";")[4]|int(base=16)/10 |float }}
         unit_of_measurement: "kWh"
-        device_class: power
+        device_class: energy
 ```
 </br>Et si le compteur est en Wh et que je veux ma valeur en kWh, je divise par 1000 et je fais un arrondi à 3 chiffre après la virgule :
 ```yml
@@ -247,7 +247,7 @@ Le /10 |float est pour récupérer la décimale de la valeur du compteur. Du cou
           {% set cptVals =state_attr('sensor.msunpv_xml', 'cptVals')|replace(" ","") %}
           {{ (cptVals.split(";")[4]|int(base=16)/10 |float /1000)|round(3) }}
         unit_of_measurement: "kWh"
-        device_class: power
+        device_class: energy
 ```
 
 >Pour le 'name' du sensor vous pouvez mettre ce que bon vous semble ainsi que pour son 'unique_id'. Il faut juste que 'unique_id' soit unique par contre.
