@@ -1,0 +1,51 @@
+# Sensors et automatisation pour la sauvegarde des fichiers csv du msunpv sur le disque dur de home assistant
+# 
+# curl -O http://192.168.0.38/MS_2024/MARS/MS[01-23]0324.CSV
+#
+# Ne pas oublier de remplacer IP_DU_MSUNPV par l'adresse ip de votre MsunPv partout où c'est nécessaire dans le fichier.
+
+template:
+# Template sensors qui update toutes les minutes
+  - trigger:
+      - platform: time
+        at: "00:10:00"
+    sensor:
+      - name: "msunpv_url_csv_file"
+        state: >-
+          {% set year = now().strftime('%Y') %}
+          {% set year_short = now().strftime('%y') %}
+          {% set month = now().strftime('%m') %}
+          {% set day = now().strftime('%d') %}
+          {% set month_list = ["JANV", "FEVR", "MARS", "AVRI", "MAI", "JUIN", "JUIL", "AOUT", "SETP", "OCTO", "NOVE", "DECE"] %}
+          {% set month_name = month_list[now().month - 1] %}
+          http://192.168.0.38/MS_{{ year }}/{{ month_name }}/MS{{ day }}{{ month }}{{ year_short }}.CSV
+          
+      - name: "msunpv_folder_csv_file"
+        state: >-
+          {% set year = now().strftime('%Y') %}
+          {% set month_list = ["JANV", "FEVR", "MARS", "AVRI", "MAI", "JUIN", "JUIL", "AOUT", "SETP", "OCTO", "NOVE", "DECE"] %}
+          {% set month_name = month_list[now().month - 1] %}
+          msunpv_csv/MS_{{ year }}/{{ month_name }}
+
+automation:
+  - id: 'msunpv_save_sd_file'
+    alias: msunpv - Sauvegarde des fichiers de la carte sd
+    description: >-
+      Sauvegarde les fichiers présents sur la carte sd du msunpv, sur le disque dur
+      de home assistant. Tous les jours à 00h05 le fichier de la veille est
+      sauvegardé.
+    trigger:
+      - platform: time
+        at: "00:05:00"
+    condition: []
+    action:
+      - service: downloader.download_file
+        metadata: {}
+        data:
+          overwrite: false
+          subdir: "{{ states('sensor.msunpv_folder_csv_file') }}"
+          url: "{{ states('sensor.msunpv_url_csv_file') }}"
+    mode: single
+
+
+
