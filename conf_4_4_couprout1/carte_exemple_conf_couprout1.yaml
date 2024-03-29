@@ -1,0 +1,69 @@
+#   Les integrations et interfaces HACS utilisées pour cette carte :
+#
+#   - lovelace-mushroom : https://github.com/piitaya/lovelace-mushroom
+#   - lovelace-card-mod : https://github.com/thomasloven/lovelace-card-mod
+#
+#
+#   Les sensors, scripts créés pour cette carte :
+#
+#   - Tous les sensors sont définis dans l'intégration msunpv_x_x.yaml
+#   - Les scripts sont définis dans l'intégration msunpv_scripts_x_x.yaml
+
+
+type: vertical-stack
+cards:
+  - type: custom:mod-card
+    card:
+      type: custom:mushroom-title-card
+      title: ''
+      subtitle: Commandes routeur
+    card_mod:
+      style:
+        mushroom-title-card$: |
+          .subtitle {
+            border-bottom: 1px solid var(--ha-card-border-color,var(--divider-color,#e0e0e0));
+            padding-bottom: 5px;
+          }
+          .header {
+            margin-bottom: -7px;
+          }
+  - type: custom:mushroom-chips-card
+    chips:
+      - type: template
+        content: |-
+          {% if states('sensor.msunpv_cmd_routage_ballon') in ['1'] %}
+            Routage 0%
+          {% elif states('sensor.msunpv_cmd_routage_ballon') in ['2'] %}
+            Routage 25%
+          {% elif states('sensor.msunpv_cmd_routage_ballon') in ['4'] %}
+            Routage 50%
+          {% elif states('sensor.msunpv_cmd_routage_ballon') in ['8'] %}
+            Routage 100%
+          {% endif %}
+        icon: |-
+          {% if states('sensor.msunpv_cmd_routage_ballon') in ['1'] %}
+            mdi:circle-outline
+          {% elif states('sensor.msunpv_cmd_routage_ballon') in ['2'] %}
+            mdi:circle-slice-2
+          {% elif states('sensor.msunpv_cmd_routage_ballon') in ['4'] %}
+            mdi:circle-slice-4
+          {% elif states('sensor.msunpv_cmd_routage_ballon') in ['8'] %}
+            mdi:circle
+          {% endif %}
+        icon_color: |-
+          {% if states('sensor.msunpv_cmd_routage_ballon') == '1' %}
+            disabled
+          {% else %}
+            blue
+          {% endif %}
+        tap_action:
+          action: call-service
+          service: script.msunpv_bouton_routage
+          target: {}
+        double_tap_action:
+          action: none
+        hold_action:
+          action: none
+    alignment: center
+
+

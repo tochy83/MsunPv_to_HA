@@ -1,0 +1,280 @@
+# Name : msunpv_4_4_couprout1conf.yaml
+# Ce fichier est spécifique aux MsunPv utlisant la configuration "MSun_180523_4_4b+coup_Rout1.conf" permettant de couper de définir un niveau de routage à 0%, 25%, 50%, 100%.
+#
+# Intégration de récupération et configuration des sensors msunpv pour le routeur solaire MsunPv de Ard-tek.
+#
+# Précision préalable, ce fichier est codé pour une version 4 entrées, 4 sorties du MsunPv avec PowPV en négatif et les compteurs EnConso, EnInj, EnPV_J, EnPV_P en négatifs également
+# et avec pince de mesure sur les sorties 1 et 2. Tout cela est bien sur facilement adaptable si votre configuration est différente.
+#
+# Ne pas oublier de remplacer IP_DU_MSUNPV par l'adresse ip de votre MsunPv partout où c'est nécessaire dans le fichier.
+
+
+### Récupération des données
+rest:
+  - resource: http://IP_DU_MSUNPV/status.xml
+    scan_interval: 30 #Temps de récupération des données ici fixé à 30 secondes
+    method: GET
+    sensor:
+      - name: "msunpv_xml"
+        json_attributes_path: "$.xml"
+        value_template: "OK"
+        json_attributes:
+          - "inAns"
+          - "cmdPos"
+          - "cptVals"
+
+### Tous les sensors créés avec mise en forme des données
+template:
+  - sensor:
+####### Les entrées
+      - name: msunpv_powreso #Puissance réseau
+        unique_id: "msunpv_powreso"
+        icon: mdi:lightning-bolt
+        state: >-
+          {{ (state_attr('sensor.msunpv_xml', 'inAns')|replace(" ","")|replace(",",".")).split(";")[0] |float }}
+        device_class: power
+        unit_of_measurement: "W"
+
+      - name: msunpv_powpv #Puissance panneaux
+        unique_id: "msunpv_powpv"
+        icon: mdi:solar-power
+        state: >-
+          {{ (state_attr('sensor.msunpv_xml', 'inAns')|replace(" ","")|replace(",",".")).split(";")[1] |float }}
+        device_class: power
+        unit_of_measurement: "W"
+
+      - name: msunpv_powbal #Puissance cumulus
+        unique_id: "msunpv_powbal"
+        icon: mdi:lightning-bolt
+        state: >-
+          {{ (state_attr('sensor.msunpv_xml', 'inAns')|replace(" ","")|replace(",",".")).split(";")[2] |float }}
+        device_class: power
+        unit_of_measurement: "W"
+
+      - name: msunpv_powrad #Puissance radiateur
+        unique_id: "msunpv_powrad"
+        icon: mdi:lightning-bolt
+        state: >-
+          {{ (state_attr('sensor.msunpv_xml', 'inAns')|replace(" ","")|replace(",",".")).split(";")[3] |float }}
+        device_class: power
+        unit_of_measurement: "W"
+
+      - name: msunpv_voltres #Tension réseau
+        unique_id: "msunpv_voltres"
+        icon: mdi:sine-wave
+        state: >-
+          {{ (state_attr('sensor.msunpv_xml', 'inAns')|replace(" ","")|replace(",",".")).split(";")[4] |float }}
+        unit_of_measurement: "V"
+
+      - name: msunpv_t_bal1 #Température cumulus
+        unique_id: "msunpv_t_bal1"
+        icon: mdi:thermometer
+        state: >-
+          {{ (state_attr('sensor.msunpv_xml', 'inAns')|replace(" ","")|replace(",",".")).split(";")[5] |float }}
+        unit_of_measurement: "°C"
+
+      - name: msunpv_t_sdb #Température salle de bain
+        unique_id: "msunpv_t_sdb"
+        icon: mdi:thermometer
+        state: >-
+          {{ (state_attr('sensor.msunpv_xml', 'inAns')|replace(" ","")|replace(",",".")).split(";")[6] |float }}
+        unit_of_measurement: "°C"
+
+      - name: msunpv_t_amb #Température ambiante
+        unique_id: "msunpv_t_amb"
+        icon: mdi:thermometer
+        state: >-
+          {{ (state_attr('sensor.msunpv_xml', 'inAns')|replace(" ","")|replace(",",".")).split(";")[7] |float }}
+        unit_of_measurement: "°C"
+
+####### Les compteurs
+      - name: msunpv_enconso #Consommation réseau journalière
+        unique_id: "msunpv_enconso"
+        icon: mdi:transmission-tower-export
+        state: >-
+          {% set cptVals =state_attr('sensor.msunpv_xml', 'cptVals')|replace(" ","") %}
+          {{ cptVals.split(";")[0]|int(base=16)/10 |float }}
+        unit_of_measurement: "Wh"
+        device_class: energy
+
+      - name: msunpv_eninj #Production injectée journalière
+        unique_id: "msunpv_eninj"
+        icon: mdi:transmission-tower-import
+        state: >-
+          {% set cptVals =state_attr('sensor.msunpv_xml', 'cptVals')|replace(" ","") %}
+          {{ (0 if cptVals.split(";")[1]|int(base=16)|int == 0 else ((0xFFFFFFFF - cptVals.split(";")[1]|int(base=16)) * -1)/10) |float }}
+        unit_of_measurement: "Wh"
+        device_class: energy
+
+      - name: msunpv_enpv_j #Production panneaux journalière
+        unique_id: "msunpv_enpv_j"
+        icon: mdi:solar-power-variant-outline
+        state: >-
+          {% set cptVals =state_attr('sensor.msunpv_xml', 'cptVals')|replace(" ","") %}
+          {{ (0 if cptVals.split(";")[2]|int(base=16)|int == 0 else ((0xFFFFFFFF - cptVals.split(";")[2]|int(base=16)) * -1)/10) |float }}
+        unit_of_measurement: "Wh"
+        device_class: energy
+
+      - name: msunpv_enpv_p #Production panneaux totale
+        unique_id: "msunpv_enpv_p"
+        icon: mdi:solar-power-variant-outline
+        state: >-
+          {% set cptVals =state_attr('sensor.msunpv_xml', 'cptVals')|replace(" ","") %}
+          {{ (0 if cptVals.split(";")[3]|int(base=16)|int == 0 else ((0xFFFFFFFF - cptVals.split(";")[3]|int(base=16)) * -1)/10) |float }}
+        unit_of_measurement: "Wh"
+        device_class: energy
+
+      - name: msunpv_routbal #Consommation cumulus journalière
+        unique_id: "msunpv_routbal"
+        icon: mdi:water-boiler
+        state: >-
+          {% set cptVals =state_attr('sensor.msunpv_xml', 'cptVals')|replace(" ","") %}
+          {{ cptVals.split(";")[4]|int(base=16)/10 |float }}
+        unit_of_measurement: "Wh"
+        device_class: energy
+
+      - name: msunpv_routrad #Consommation radiateur journalière
+        unique_id: "msunpv_routrad"
+        icon: mdi:radiator
+        state: >-
+          {% set cptVals =state_attr('sensor.msunpv_xml', 'cptVals')|replace(" ","") %}
+          {{ cptVals.split(";")[5]|int(base=16)/10 |float }}
+        unit_of_measurement: "Wh"
+        device_class: energy
+
+####### Sensors pour le dashboard energie. J'aurai très bien pu modifier directement les compteurs
+####### mais j'ai fait le choix de créer de nouveaux sensors pour garder les compteurs tels qu'ils etaient à la base c'est à dire en négatif sur ma configuration.
+      - name: "energie_msunpv_enconso" #Consommation journalière
+        unique_id: "energie_msunpv_enconso"
+        icon: mdi:counter
+        state: "{{ (states('sensor.msunpv_enconso')|float /1000) }}"
+        unit_of_measurement: "kWh"
+        device_class: energy
+        state_class: total_increasing
+
+      - name: "energie_msunpv_enpv_j" #Production panneaux journalière
+        unique_id: "energie_msunpv_enpv_j"
+        icon: mdi:counter
+        state: "{{ 0 if (states('sensor.msunpv_enpv_j')|float /1000) == 0 else (states('sensor.msunpv_enpv_j')|float /1000 *-1) }}"
+        unit_of_measurement: "kWh"
+        device_class: energy
+        state_class: total_increasing
+
+      - name: "energie_msunpv_eninj" #Production injectée journalière
+        unique_id: "energie_msunpv_eninj"
+        icon: mdi:counter
+        state: "{{ 0 if (states('sensor.msunpv_eninj')|float /1000) == 0 else (states('sensor.msunpv_eninj')|float /1000 *-1) }}"
+        unit_of_measurement: "kWh"
+        device_class: energy
+        state_class: total_increasing
+
+      - name: "energie_msunpv_routbal" #Consommation cumulus journalière
+        unique_id: "energie_msunpv_routbal"
+        icon: mdi:counter
+        state: "{{ (states('sensor.msunpv_routbal')|float /1000) }}"
+        unit_of_measurement: "kWh"
+        device_class: energy
+        state_class: total_increasing
+
+      - name: "energie_msunpv_routrad" #Consommation radiateur journalière
+        unique_id: "energie_msunpv_routrad"
+        icon: mdi:counter
+        state: "{{ (states('sensor.msunpv_routrad')|float /1000) }}"
+        unit_of_measurement: "kWh"
+        device_class: energy
+        state_class: total_increasing
+
+      - name: "energie_msunpv_pow_reso"
+        unique_id: "energie_msunpv_pow_reso"
+        unit_of_measurement: "W"
+        state: "{{ (states('sensor.msunpv_powreso')|float) }}"
+        device_class: power
+        state_class: measurement
+
+      - name: "energie_msunpv_powpv"
+        unique_id: "energie_msunpv_powpv"
+        unit_of_measurement: "W"
+        state: "{{ (states('sensor.msunpv_powpv')|float) }}"
+        device_class: power
+        state_class: measurement
+
+####### L'état des commandes du MsunPv      
+      - name: msunpv_cmdpos #L'état des commandes manu/auto/test routeur
+        unique_id: "msunpv_cmdpos"
+        state: >-
+          {{ state_attr('sensor.msunpv_xml', 'cmdPos') }}
+
+      - name: msunpv_cmd_s1 #Etat commande 1 et 2 - Sorties 1 et 2 du MsunPv
+        unique_id: "msunpv_cmd_s1"
+        state: >-
+          {{ (state_attr('sensor.msunpv_xml', 'cmdPos')|replace("a","10")).split(";")[0] }}
+
+      - name: msunpv_cmd_s3 #Etat commande 3 et 4 - Sorties 3 et 4 du MsunPv
+        unique_id: "msunpv_cmd_s3"
+        state: >-
+          {{ (state_attr('sensor.msunpv_xml', 'cmdPos')|replace("a","10")).split(";")[1] }}
+          
+      - name: msunpv_cmd_test # Etat commande 8 - Test routeur
+        unique_id: "msunpv_cmd_test"
+        state: >-
+          {{ state_attr('sensor.msunpv_xml', 'cmdPos').split(";")[7] }}
+
+      - name: msunpv_cmd_routage_ballon # Etat commande 7 - Pourcentage routage ballon
+        unique_id: "msunpv_cmd_routage_ballon"
+        state: >-
+          {{ state_attr('sensor.msunpv_xml', 'cmdPos').split(";")[6] }}          
+
+### Choix des commandes à envoyer au MsunPv
+input_select:
+  msunpv_command_sortie_1: #Commande à envoyer à sortie 1 et 2
+    name: Msunpv - Commande sortie 1 et 2
+    options:
+      - "0"
+      - "1"
+      - "2"
+      - "4"
+      - "5"
+      - "6"
+      - "8"
+      - "9"
+      - "10"
+    icon: mdi:format-list-bulleted
+
+  msunpv_command_sortie_3: #Commande à envoyer à sortie 3 et 4
+    name: Msunpv - Commande sortie 3 et 4
+    options:
+      - "0"
+      - "1"
+      - "2"
+      - "4"
+      - "5"
+      - "6"
+      - "8"
+      - "9"
+      - "10"
+    icon: mdi:format-list-bulleted    
+
+  msunpv_command_test_routeur: #Commande à envoyer à test routeur
+    name: Msunpv - Commande test routeur
+    options:
+      - "1"
+      - "2"
+      - "4"
+      - "8"
+    icon: mdi:format-list-bulleted
+
+  msunpv_command_routage_ballon: #Commande à envoyer à routage ballon
+    name: Msunpv - Commande routage ballon
+    options:
+      - "1"
+      - "2"
+      - "4"
+      - "8"
+    icon: mdi:format-list-bulleted
+
+### Les commandes utilisables pour piloter le MsunPv
+shell_command:
+#  msunpv_reset_commandes: "curl -X POST -d 'parS=0;0;0;0;0;0;0;2;' http://IP_DU_MSUNPV/index.xml"
+#  msunpv_arret_routage: "curl -X POST -d 'parS=0;0;0;0;0;0;0;1;' http://IP_DU_MSUNPV/index.xml"
+  msunpv_commandes: "curl -X POST -d 'parS={{ states('input_select.msunpv_command_sortie_1') }};{{ states('input_select.msunpv_command_sortie_3') }};0;0;0;0;{{ states('input_select.msunpv_command_routage_ballon') }};{{ states('input_select.msunpv_command_test_routeur') }};' http://IP_DU_MSUNPV/index.xml"
+
