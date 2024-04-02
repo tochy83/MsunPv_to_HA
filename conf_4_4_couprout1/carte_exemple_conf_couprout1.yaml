@@ -14,34 +14,34 @@ type: custom:mushroom-chips-card
 chips:
   - type: template
     content: |-
-      {% if states('sensor.msunpv_cmd_test') in ['1'] %}
+      {% if states('sensor.msunpv_cmd_routage_ballon') in ['1'] %}
         Routage 0%
-      {% elif states('sensor.msunpv_cmd_test') in ['2'] %}
+      {% elif states('sensor.msunpv_cmd_routage_ballon') in ['2'] %}
         Routage 25%
-      {% elif states('sensor.msunpv_cmd_test') in ['4'] %}
+      {% elif states('sensor.msunpv_cmd_routage_ballon') in ['4'] %}
         Routage 50%
-      {% elif states('sensor.msunpv_cmd_test') in ['8'] %}
+      {% elif states('sensor.msunpv_cmd_routage_ballon') in ['8'] %}
         Routage 100%
       {% endif %}
     icon: |-
-      {% if states('sensor.msunpv_cmd_test') in ['1'] %}
+      {% if states('sensor.msunpv_cmd_routage_ballon') in ['1'] %}
         mdi:circle-outline
-      {% elif states('sensor.msunpv_cmd_test') in ['2'] %}
+      {% elif states('sensor.msunpv_cmd_routage_ballon') in ['2'] %}
         mdi:circle-slice-2
-      {% elif states('sensor.msunpv_cmd_test') in ['4'] %}
+      {% elif states('sensor.msunpv_cmd_routage_ballon') in ['4'] %}
         mdi:circle-slice-4
-      {% elif states('sensor.msunpv_cmd_test') in ['8'] %}
+      {% elif states('sensor.msunpv_cmd_routage_ballon') in ['8'] %}
         mdi:circle
       {% endif %}
     icon_color: |-
-      {% if states('sensor.msunpv_cmd_test') == '1' %}
+      {% if states('sensor.msunpv_cmd_routage_ballon') == '1' %}
         disabled
       {% else %}
         blue
       {% endif %}
     tap_action:
       action: call-service
-      service: script.msunpv_bouton_routage
+      service: script.msunpv_percent_routage_ballon
       target: {}
     double_tap_action:
       action: none
