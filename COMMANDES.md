@@ -7,6 +7,7 @@
 - [Explication du fonctionnement](#explication-du-fonctionnement)
 - [Détails du fichier msunpv_scripts_x_x.yaml](#détails-du-fichier-msunpv_scripts_x_xyaml)
 - [Exemple du fonctionnement en image](#exemple-du-fonctionnement-en-image)
+- [Ajout de la commande Test routeur](#ajout-de-la-commande-test-routeur)
 </br>
 
 ## Explication du fonctionnement
@@ -547,7 +548,7 @@ Dans ce second exemple j'ai refait 2 scripts, un pour le bouton 'cumulus' et un 
 </br></br>
 
 ## Ajout de la commande Test routeur
-![](images/carte_exemple_commandes_sorties.gif)
+![](images/cartes_exemple_commandes_test_routeur.gif)
 La commande fonctionne dans les 2 sens, aussi bien de Home Assistant vers le MsunPv que l'inverse.
 >La vitesse de remontée des infos quand on passe la commande depuis le MsunPv dépend du paramètre 'scan_interval' defini dans le fichier 'msunpv_x_x.yaml'.
 
