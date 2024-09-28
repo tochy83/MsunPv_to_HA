@@ -378,6 +378,37 @@ script:
         data: {}
     mode: single
 
+  msunpv_test_routeur: #Choix de la commande test routeur
+    alias: msunpv_test_routeur
+    sequence:
+      - service: input_select.select_option
+        data:
+          option: "{{ choix }}"
+        target:
+          entity_id: input_select.msunpv_command_test_routeur
+      - service: input_select.select_option
+        data:
+          option: "{{ states('sensor.msunpv_cmd_s1') }}"
+        target:
+          entity_id: input_select.msunpv_command_sortie_1
+      - service: input_select.select_option
+        data:
+          option: "{{ states('sensor.msunpv_cmd_s3') }}"
+        target:
+          entity_id: input_select.msunpv_command_sortie_3          
+      - service: script.msunpv_commande_routeur
+        data: {}
+    mode: single
+    fields:
+      choix:
+        selector:
+          number:
+            min: 1
+            max: 8
+        name: choix
+        required: true
+        default: 2
+
   msunpv_commande_routeur: #Envoi des commandes au MsunPv
     alias: msunpv_commande_routeur
     sequence:
