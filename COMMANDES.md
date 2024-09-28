@@ -660,6 +660,18 @@ cards:
 </details>
     
 Elle fonctionne avec le scripts 'msunpv_test_routeur' fournis dans les fichier 'msunpv_scripts_2_2.yaml' et 'msunpv_scripts_4_4.yaml'.</br></br>
+
+**Ce script peut également être appeler dans une automatisation**
+![](images/automatisation_commande_test_routeur.jpg)
+
+Pour cela il faut lors de l'appel du script dans l'automatisation bien penser à renseigner le choix de l'action à effectuer (Voir la partie entourée en orange sur l'image ci-dessus).</br></br>
+Les choix possibles sont:
+- 1 pour Injection
+- 2 pour Zéro
+- 4 pour Moyen
+- 8 pour Fort
+>Attention à bien mettre 1, 2, 4 ou 8 et non pas 3, 5, 6, 7 sinon cela ne fonctionnera pas et le routeur restera sur la dernière commande utilisée.
+
 </br></br>
 
 [Retour au README.md](README.md#msunpv-to-ha)
