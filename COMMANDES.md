@@ -546,6 +546,121 @@ Dans ce second exemple j'ai refait 2 scripts, un pour le bouton 'cumulus' et un 
 
 </br></br>
 
+## Ajout de la commande Test routeur
+![](images/carte_exemple_commandes_sorties.gif)
+La commande fonctionne dans les 2 sens, aussi bien de Home Assistant vers le MsunPv que l'inverse.
+>La vitesse de remontée des infos quand on passe la commande depuis le MsunPv dépend du paramètre 'scan_interval' defini dans le fichier 'msunpv_x_x.yaml'.
+
+</br>
+
+<details>
+  <summary>Le code de la carte utilisée dans cet exemple : (Cliquer pour dérouler)</summary>
+
+```yml
+#   Les integrations et interfaces HACS utilisées pour cette carte :
+#
+#   - lovelace-mushroom : https://github.com/piitaya/lovelace-mushroom
+#
+#
+#   Les sensors, scripts créés pour cette carte :
+#
+#   - Tous les sensors sont définis dans l'intégration msunpv_x_x.yaml
+#   - Les scripts sont définis dans l'intégration msunpv_scripts_x_x.yaml
+
+
+type: vertical-stack
+cards:
+  - type: custom:mushroom-title-card
+    subtitle: Commandes routeur
+  - type: custom:mushroom-chips-card
+    chips:
+      - type: template
+        tap_action:
+          action: perform-action
+          target: {}
+          perform_action: script.msunpv_test_routeur
+          data:
+            choix: 1
+        icon: |-
+          {% if states('sensor.msunpv_cmd_test') in ['1'] %}
+            mdi:circle
+          {% else %}
+            mdi:circle-outline
+          {% endif %}
+        content: Injection
+        icon_color: |-
+          {% if states('sensor.msunpv_cmd_test') in ['1'] %}
+            blue
+          {% else %}
+            disabled
+          {% endif %}
+      - type: template
+        tap_action:
+          action: perform-action
+          target: {}
+          perform_action: script.msunpv_test_routeur
+          data:
+            choix: 2
+        icon: |-
+          {% if states('sensor.msunpv_cmd_test') in ['2'] %}
+            mdi:circle
+          {% else %}
+            mdi:circle-outline
+          {% endif %}
+        content: Zero
+        icon_color: |-
+          {% if states('sensor.msunpv_cmd_test') in ['2'] %}
+            blue
+          {% else %}
+            disabled
+          {% endif %}
+      - type: template
+        tap_action:
+          action: perform-action
+          target: {}
+          perform_action: script.msunpv_test_routeur
+          data:
+            choix: 4
+        icon: |-
+          {% if states('sensor.msunpv_cmd_test') in ['4'] %}
+            mdi:circle
+          {% else %}
+            mdi:circle-outline
+          {% endif %}
+        content: Moyen
+        icon_color: |-
+          {% if states('sensor.msunpv_cmd_test') in ['4'] %}
+            blue
+          {% else %}
+            disabled
+          {% endif %}
+      - type: template
+        tap_action:
+          action: perform-action
+          target: {}
+          perform_action: script.msunpv_test_routeur
+          data:
+            choix: 8
+        icon: |-
+          {% if states('sensor.msunpv_cmd_test') in ['8'] %}
+            mdi:circle
+          {% else %}
+            mdi:circle-outline
+          {% endif %}
+        content: Fort
+        icon_color: |-
+          {% if states('sensor.msunpv_cmd_test') in ['8'] %}
+            blue
+          {% else %}
+            disabled
+          {% endif %}
+    alignment: justify
+```
+</details>
+    
+Elle fonctionne avec le scripts 'msunpv_test_routeur' fournis dans les fichier 'msunpv_scripts_2_2.yaml' et 'msunpv_scripts_4_4.yaml'.</br></br>
+</br></br>
+
 [Retour au README.md](README.md#msunpv-to-ha)
 
 </br></br>
