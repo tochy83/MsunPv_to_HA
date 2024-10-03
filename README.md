@@ -224,6 +224,7 @@ Seule la dernière entrée apparait ici. Consulter [la liste complète](/CHANGEL
   Devient :
     {% set month_list = ["JANV", "FEVR", "MARS", "AVRI", "MAI", "JUIN", "JUIL", "AOUT", "SEPT", "OCTO", "NOVE", "DECE"] %}
   ```
+  Attention cette ligne est présente à 2 endroit dans le fichier et il faut bien corriger les deux.
 </br></br>
 ## FAQ
 - Accédez à la [FAQ](/FAQ.md#faq)
