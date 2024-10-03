@@ -16,14 +16,14 @@ template:
           {% set year_short = now().strftime('%y') %}
           {% set month = now().strftime('%m') %}
           {% set day = now().strftime('%d') %}
-          {% set month_list = ["JANV", "FEVR", "MARS", "AVRI", "MAI", "JUIN", "JUIL", "AOUT", "SETP", "OCTO", "NOVE", "DECE"] %}
+          {% set month_list = ["JANV", "FEVR", "MARS", "AVRI", "MAI", "JUIN", "JUIL", "AOUT", "SEPT", "OCTO", "NOVE", "DECE"] %}
           {% set month_name = month_list[now().month - 1] %}
           http://IP_DU_MSUNPV/MS_{{ year }}/{{ month_name }}/MS{{ day }}{{ month }}{{ year_short }}.CSV
           
       - name: "msunpv_folder_csv_file"
         state: >-
           {% set year = now().strftime('%Y') %}
-          {% set month_list = ["JANV", "FEVR", "MARS", "AVRI", "MAI", "JUIN", "JUIL", "AOUT", "SETP", "OCTO", "NOVE", "DECE"] %}
+          {% set month_list = ["JANV", "FEVR", "MARS", "AVRI", "MAI", "JUIN", "JUIL", "AOUT", "SEPT", "OCTO", "NOVE", "DECE"] %}
           {% set month_name = month_list[now().month - 1] %}
           msunpv_csv/MS_{{ year }}/{{ month_name }}
 
