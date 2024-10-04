@@ -144,20 +144,6 @@ template:
         device_class: energy
         state_class: total_increasing
 
-      - name: "energie_msunpv_pow_reso"
-        unique_id: "energie_msunpv_pow_reso"
-        unit_of_measurement: "W"
-        state: "{{ (states('sensor.msunpv_powreso')|float) }}"
-        device_class: power
-        state_class: measurement
-
-      - name: "energie_msunpv_powpv"
-        unique_id: "energie_msunpv_powpv"
-        unit_of_measurement: "W"
-        state: "{{ (states('sensor.msunpv_powpv')|float) }}"
-        device_class: power
-        state_class: measurement
-
 ####### L'état des commandes du MsunPv      
       - name: msunpv_cmdpos #L'état des commandes manu/auto/test routeur
         unique_id: "msunpv_cmdpos"
