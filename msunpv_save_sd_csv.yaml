@@ -34,12 +34,12 @@ automation:
       Sauvegarde les fichiers présents sur la carte sd du msunpv, sur le disque dur
       de home assistant. Tous les jours à 00h05 le fichier de la veille est
       sauvegardé.
-    trigger:
-      - platform: time
+    triggers:
+      - trigger: time
         at: "00:05:00"
-    condition: []
-    action:
-      - service: downloader.download_file
+    conditions: []
+    actions:
+      - action: downloader.download_file
         metadata: {}
         data:
           overwrite: false
