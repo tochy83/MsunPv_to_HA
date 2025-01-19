@@ -215,6 +215,10 @@ Vous pouvez bien sur faire de même pour tous les capteurs qui ne vous interress
 ## Mises à jour
 Seule la dernière entrée apparait ici. Consulter [la liste complète](/CHANGELOG.md).
 
+#### 2025-19-01 - MaJ
+* Mise à jour de toutes les automatisations et scripts pour prendre en compte la nouvelle syntaxe de HA.
+</br></br>
+
 #### 2024-10-04 - Bug Fixes
 * Correction d'une petite coquille qui empêchait les sauvegardes des fichiers CSV de septembre dans le fichier 'msunpv_save_sd_csv.yaml'. ([637a0e3](https://github.com/tochy83/MsunPv_to_HA/commit/637a0e3953eb1c184afbf797d3ab185edb5dead8))
   ```yml
