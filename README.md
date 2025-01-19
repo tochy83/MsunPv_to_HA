@@ -8,7 +8,7 @@
 - [Installation](#%EF%B8%8F-installation)
 - [Comment ça fonctionne ?](#-comment-%C3%A7a-fonctionne-)
 - [Exemple du résultat dans mon dashboard Home Assistant](#exemple-du-r%C3%A9sultat-dans-mon-dashboard-home-assistant)
-- [Mises à jour](https://github.com/tochy83/MsunPv_to_HA/README.md#mises-%C3%A0-jour)
+- [Mises à jour](#mises-%C3%A0-jour)
 - [FAQ](#faq)
 </br>
 
