@@ -227,8 +227,8 @@ automation:
   - id: 'msunpv_update_progh'
     alias: msunpv - Mise à jour affichage programmation horaire
     description: "Force un refresh de msunpv_proghoraire_xml après avoir charger le page correspondante du routeur à l'aide de la shell_command.msunpv_enable_progh."
-    trigger:
-    - platform: state
+    triggers:
+    - trigger: state
       entity_id:
       - sensor.msunpv_timerballon_1
       to: unavailable
@@ -236,16 +236,16 @@ automation:
         hours: 0
         minutes: 2
         seconds: 0
-    condition: []
-    action:
-    - service: shell_command.msunpv_enable_progh
+    conditions: []
+    actions:
+    - action: shell_command.msunpv_enable_progh
       data: {}
     - delay:
         hours: 0
         minutes: 0
         seconds: 5
         milliseconds: 0
-    - service: homeassistant.update_entity
+    - action: homeassistant.update_entity
       data: {}
       target:
         entity_id: sensor.msunpv_proghoraire_xml
