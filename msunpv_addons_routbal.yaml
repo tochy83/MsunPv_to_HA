@@ -1,0 +1,80 @@
+# Name : msunpv_addons_routbal.yaml
+# Addons permettant de faire la différence entre l'énergie envoyé au cumulus par routage solaire et celle envoyé par forçage (manubal).
+# Au total 6 compteurs de services seront créés. 2 journaliers (msunpv_routbal_daily forcee et msunpv_routbal_daily routee),
+# 2 mensuels (msunpv_routbal_monthly forcee et msunpv_routbal_monthly routee) et 2 annuels ((msunpv_routbal_yearly forcee et msunpv_routbal_yearly routee)).
+#
+# Cet addons n'est pas rattaché à une version spécifique du MsunPv, il peut fonctionner pour toutes, à condition d'avoir une pince sur la sortie cumulus du MsunPv.
+# On peut toutefois utiliser une pince ou autre dispositif de comptage d'énergie non raccordé au MsunPv,
+# il suffira dans ce cas de remplacer le sensor source dans les 3 utility_meter.
+#
+# Précision préalable pour la mise en route du comptage, il faudra trigger une première fois l'automatisation (sinon celà comptera  d'office en energie forcée).
+# Pour ce faire il suffit de basculer le MsunPv en manubal, d'attendre que ça remonte dans HA et de rebasculer manubal à 0.
+
+
+### Compteurs faisant la différence entre l'energie routée ou forcée dans le cumulus
+# Compteur journalier
+utility_meter:
+  msunpv_routbal_daily:
+    name: msunpv_routbal_daily
+    unique_id: msunpv_routbal_daily
+    source: sensor.msunpv_routbal
+    cycle: daily
+    tariffs:
+      - forcee
+      - routee
+# Compteur mensuel
+  msunpv_routbal_monthly:
+    name: msunpv_routbal_monthly
+    unique_id: msunpv_routbal_monthly
+    source: sensor.msunpv_routbal
+    cycle: monthly
+    tariffs:
+      - forcee
+      - routee
+# Compteur annuel
+  msunpv_routbal_yearly:
+    name: msunpv_routbal_yearly
+    unique_id: msunpv_routbal_yearly
+    source: sensor.msunpv_routbal
+    cycle: yearly
+    tariffs:
+      - forcee
+      - routee
+
+
+automation:
+  - id: 'msunpv_compteurs_cumulus_forcage_routage'
+    alias: msunpv_compteurs_cumulus_forcage_routage
+    description: "Permet de faire la bascule entre l'energie forcée et l'energie routée dans le cumulus"
+    triggers:
+      - trigger: template
+        value_template: >-
+          {{ is_state('sensor.msunpv_cmd_s1', ['0','4','8']) }}
+        variables:
+          tariff: routee
+      - trigger: template
+        value_template: >-
+          {{ is_state('sensor.msunpv_cmd_s1', ['1','5','9']) }}
+        variables:
+          tariff: forcee
+    conditions: []
+    actions:
+      - action: select.select_option
+        metadata: {}
+        data:
+          option: "{{ tariff}} "
+        target:
+          entity_id: select.msunpv_routbal_daily
+      - action: select.select_option
+        metadata: {}
+        data:
+          option: "{{ tariff}} "
+        target:
+          entity_id: select.msunpv_routbal_monthly
+      - action: select.select_option
+        metadata: {}
+        data:
+          option: "{{ tariff}} "
+        target:
+          entity_id: select.msunpv_routbal_yearly
+    mode: single
