@@ -8,7 +8,7 @@
 # il suffira dans ce cas de remplacer le sensor source dans les 3 utility_meter.
 #
 # Précision préalable pour la mise en route du comptage, il faudra trigger une première fois l'automatisation (sinon celà comptera  d'office en energie forcée).
-# Pour ce faire il suffit de basculer le MsunPv en manubal, d'attendre que ça remonte dans HA et de rebasculer manubal à 0.
+# Pour ce faire il suffit de basculer manubal sur le MsunPv, d'attendre que ça remonte dans HA et de rebasculer manubal à son étét initial.
 
 
 ### Compteurs faisant la différence entre l'energie routée ou forcée dans le cumulus
