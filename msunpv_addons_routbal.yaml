@@ -24,24 +24,24 @@ utility_meter:
       - routee
       
 # Compteur mensuel
-#  msunpv_routbal_monthly:
-#    name: msunpv_routbal_monthly
-#    unique_id: msunpv_routbal_monthly
-#    source: sensor.msunpv_routbal
-#    cycle: monthly
-#    tariffs:
-#      - forcee
-#      - routee
+  msunpv_routbal_monthly:
+    name: msunpv_routbal_monthly
+    unique_id: msunpv_routbal_monthly
+    source: sensor.msunpv_routbal
+    cycle: monthly
+    tariffs:
+      - forcee
+      - routee
 
 # Compteur annuel
-#  msunpv_routbal_yearly:
-#    name: msunpv_routbal_yearly
-#    unique_id: msunpv_routbal_yearly
-#    source: sensor.msunpv_routbal
-#    cycle: yearly
-#    tariffs:
-#      - forcee
-#      - routee
+  msunpv_routbal_yearly:
+    name: msunpv_routbal_yearly
+    unique_id: msunpv_routbal_yearly
+    source: sensor.msunpv_routbal
+    cycle: yearly
+    tariffs:
+      - forcee
+      - routee
 
 
 automation:
@@ -67,16 +67,16 @@ automation:
           option: "{{ tariff}} "
         target:
           entity_id: select.msunpv_routbal_daily
-#      - action: select.select_option
-#        metadata: {}
-#        data:
-#          option: "{{ tariff}} "
-#        target:
-#          entity_id: select.msunpv_routbal_monthly
-#      - action: select.select_option
-#        metadata: {}
-#        data:
-#          option: "{{ tariff}} "
-#        target:
-#          entity_id: select.msunpv_routbal_yearly
+      - action: select.select_option
+        metadata: {}
+        data:
+          option: "{{ tariff}} "
+        target:
+          entity_id: select.msunpv_routbal_monthly
+      - action: select.select_option
+        metadata: {}
+        data:
+          option: "{{ tariff}} "
+        target:
+          entity_id: select.msunpv_routbal_yearly
     mode: single
