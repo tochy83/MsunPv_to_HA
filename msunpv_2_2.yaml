@@ -199,5 +199,6 @@ shell_command:
 #  msunpv_autobal_autorad_on: "curl -X POST -d 'parS=10;0;0;0;0;0;0;2;' http://IP_DU_MSUNPV/index.xml"
 #  msunpv_reset_commandes: "curl -X POST -d 'parS=0;0;0;0;0;0;0;2;' http://IP_DU_MSUNPV/index.xml"
 #  msunpv_arret_routage: "curl -X POST -d 'parS=0;0;0;0;0;0;0;1;' http://IP_DU_MSUNPV/index.xml"
-  msunpv_commandes: "curl -X POST -d 'parS={{ states('input_select.msunpv_command_sortie_1') }};0;0;0;0;0;0;{{ states('input_select.msunpv_command_test_routeur') }};' http://IP_DU_MSUNPV/index.xml"
+#  msunpv_commandes: "curl -X POST -d 'parS={{ states('input_select.msunpv_command_sortie_1') }};0;0;0;0;0;0;{{ states('input_select.msunpv_command_test_routeur') }};' http://IP_DU_MSUNPV/index.xml"
+  msunpv_commandes: "curl -X POST --data-urlencode 'parS={{ states('input_select.msunpv_command_sortie_1') }};0;0;0;0;0;0;{{ states('input_select.msunpv_command_test_routeur') }};' http://IP_DU_MSUNPV/index.xml"
 
