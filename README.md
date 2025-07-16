@@ -90,6 +90,8 @@ Précision préalable, le code de ce fichier a été écrit à la base pour une 
     - Envoyer des ordres au routeur à l'aide des services :</br></br>
     
     ![](images/exemple_scripts_commandes.jpg)
+
+    nb: Depuis les versions récentes de Home Assistant les services sont devenus des actions.
     
     </br>
     - Ou encore Par le biais d'automatisations :</br></br>

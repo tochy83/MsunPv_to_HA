@@ -68,7 +68,7 @@ script:
   msunpv_s1_off: #Mode routage actif sortie 1
     alias: msunpv_s1_off
     sequence:
-      - service: input_select.select_option
+      - action: input_select.select_option
         data:
           option: |-
             {% if states('sensor.msunpv_cmd_s1') in ['1','5','9'] %}
@@ -80,19 +80,19 @@ script:
             {% endif %}
         target:
           entity_id: input_select.msunpv_command_sortie_1
-      - service: input_select.select_option
+      - action: input_select.select_option
         data:
           option: "{{ states('sensor.msunpv_cmd_test') }}"
         target:
           entity_id: input_select.msunpv_command_test_routeur
-      - service: script.msunpv_commande_routeur
+      - action: script.msunpv_commande_routeur
         data: {}
     mode: single
     
   msunpv_s1_manuel: #Mode forçage sortie 1
     alias: msunpv_s1_manuel
     sequence:
-      - service: input_select.select_option
+      - action: input_select.select_option
         data:
           option: |-
             {% if states('sensor.msunpv_cmd_s1') in ['0','4','8'] %}
@@ -104,19 +104,19 @@ script:
             {% endif %}
         target:
           entity_id: input_select.msunpv_command_sortie_1
-      - service: input_select.select_option
+      - action: input_select.select_option
         data:
           option: "{{ states('sensor.msunpv_cmd_test') }}"
         target:
           entity_id: input_select.msunpv_command_test_routeur
-      - service: script.msunpv_commande_routeur
+      - action: script.msunpv_commande_routeur
         data: {}
     mode: single
     
   msunpv_s1_auto: #Mode programmation horaire sortie 1
     alias: msunpv_s1_auto
     sequence:
-      - service: input_select.select_option
+      - action: input_select.select_option
         data:
           option: |-
             {% if states('sensor.msunpv_cmd_s1') in ['1','5','9'] %}
@@ -128,18 +128,18 @@ script:
             {% endif %}
         target:
           entity_id: input_select.msunpv_command_sortie_1
-      - service: input_select.select_option
+      - action: input_select.select_option
         data:
           option: "{{ states('sensor.msunpv_cmd_test') }}"
         target:
           entity_id: input_select.msunpv_command_test_routeur
-      - service: script.msunpv_commande_routeur
+      - action: script.msunpv_commande_routeur
         data: {}
     mode: single
 ```
 - Pour chacun des scripts on retrouve 3 parties :
 ```yml
-      - service: input_select.select_option
+      - action: input_select.select_option
         data:
           option: |-
             {% if states('sensor.msunpv_cmd_s1') in ['1','5','9'] %}
@@ -158,7 +158,7 @@ La 1ère vérifie l'état actuel des sorties 1 et 2 et choisi la valeur à envoy
 </br>
 
 ```yml
-      - service: input_select.select_option
+      - action: input_select.select_option
         data:
           option: "{{ states('sensor.msunpv_cmd_test') }}"
         target:
@@ -170,14 +170,14 @@ La 2ème récupère l'état de la sortie 'Test routeur' et renvoie sa valeur par
 </br>
 
 ```yml
-      - service: script.msunpv_commande_routeur
+      - action: script.msunpv_commande_routeur
         data: {}
 ```
 La 3ème appelle le script 'msunpv_commande_routeur' qui permet d'envoyer les commandes au routeur.</br>
 
 >Sur la version _4_4 il y'a une partie supplémentaire qui se charge de récupérer l'état des sorties 3 et 4 également.
 >```yml
->      - service: input_select.select_option
+>      - action: input_select.select_option
 >        data:
 >          option: "{{ states('sensor.msunpv_cmd_s3') }}"
 >        target:
@@ -191,7 +191,7 @@ La 3ème appelle le script 'msunpv_commande_routeur' qui permet d'envoyer les co
   msunpv_routage_on_off: #Bascule entre routage et injection
     alias: msunpv_routage_on_off
     sequence:
-      - service: input_select.select_option
+      - action: input_select.select_option
         data:
           option: |-
             {% if states('sensor.msunpv_cmd_test') in ['1','4','8'] %}
@@ -201,12 +201,12 @@ La 3ème appelle le script 'msunpv_commande_routeur' qui permet d'envoyer les co
             {% endif %}
         target:
           entity_id: input_select.msunpv_command_test_routeur
-      - service: input_select.select_option
+      - action: input_select.select_option
         data:
           option: "{{ states('sensor.msunpv_cmd_s1') }}"
         target:
           entity_id: input_select.msunpv_command_sortie_1
-      - service: script.msunpv_commande_routeur
+      - action: script.msunpv_commande_routeur
         data: {}
     mode: single
 ```
@@ -217,14 +217,14 @@ Fait la même chose que les précédents mais pour la sortie 'Test routeur'.</br
   msunpv_commandes_routeur: #Envoi des commandes au MsunPv
     alias: msunpv_commande_routeur
     sequence:
-      - service: shell_command.msunpv_commandes
+      - action: shell_command.msunpv_commandes
         data: {}
       - delay:
           hours: 0
           minutes: 0
           seconds: 1
           milliseconds: 0
-      - service: homeassistant.update_entity
+      - action: homeassistant.update_entity
         data: {}
         target:
           entity_id: sensor.msunpv_xml
@@ -287,8 +287,8 @@ cards:
       - type: spacer
       - type: template
         tap_action:
-          action: call-service
-          service: script.msunpv_s1_off
+          action: perform-action
+          perform_action: script.msunpv_s1_off
           target: {}
         hold_action:
           action: none
@@ -325,8 +325,8 @@ cards:
       - type: spacer
       - type: template
         tap_action:
-          action: call-service
-          service: script.msunpv_s1_manuel
+          action: perform-action
+          perform_action: script.msunpv_s1_manuel
           target: {}
         hold_action:
           action: none
@@ -343,8 +343,8 @@ cards:
       - type: spacer
       - type: template
         tap_action:
-          action: call-service
-          service: script.msunpv_s1_auto
+          action: perform-action
+          perform_action: script.msunpv_s1_auto
           target: {}
         hold_action:
           action: none
@@ -384,8 +384,8 @@ cards:
       - type: spacer
       - type: template
         tap_action:
-          action: call-service
-          service: script.msunpv_s2_off
+          action: perform-action
+          perform_action: script.msunpv_s2_off
           target: {}
         hold_action:
           action: none
@@ -422,8 +422,8 @@ cards:
       - type: spacer
       - type: template
         tap_action:
-          action: call-service
-          service: script.msunpv_s2_manuel
+          action: perform-action
+          perform_action: script.msunpv_s2_manuel
           target: {}
         hold_action:
           action: none
@@ -440,8 +440,8 @@ cards:
       - type: spacer
       - type: template
         tap_action:
-          action: call-service
-          service: script.msunpv_s2_auto
+          action: perform-action
+          perform_action: script.msunpv_s2_auto
           target: {}
         hold_action:
           action: none
@@ -481,8 +481,8 @@ cards:
       - type: spacer
       - type: template
         tap_action:
-          action: call-service
-          service: script.msunpv_routage_on_off
+          action: perform-action
+          perform_action: script.msunpv_routage_on_off
           target: {}
         hold_action:
           action: none
@@ -513,8 +513,8 @@ cards:
       - type: spacer
       - type: template
         tap_action:
-          action: call-service
-          service: script.msunpv_routage_on_off
+          action: perform-action
+          perform_action: script.msunpv_routage_on_off
           target: {}
         hold_action:
           action: none
