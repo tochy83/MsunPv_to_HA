@@ -1,4 +1,4 @@
-<p align="center"><img src="/images/msunpv_to_ha.jpg?token=GHSAT0AAAAAACH6VDSSWYHXPXZIN7LRLMMQZJWRDEQ"></p>
+<p align="center"><img src="/images/msunpv_to_ha.jpg"></p>
     
 # MsunPv to HA
 </br>
