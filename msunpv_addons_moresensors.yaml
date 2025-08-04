@@ -10,6 +10,7 @@ rest:
   - resource: http://IP_DU_MSUNPV/status.xml
     scan_interval: 3600 #Temps de récupération des données ici fixé à 3600 secondes
     method: GET
+    encoding: iso-8859-1
     sensor:
       - name: "msunpv_moresensors_xml"
         json_attributes_path: "$.xml"
@@ -72,4 +73,5 @@ template:
 #        # Il fait une conversion du % routé vers le cumulus, vers une esitmation de puissance en W pour ceux désirant afficher cette valeur.
 #        # Il ne faut pas perdre de vue que cela ne reste qu'une estimation et en aucun cas la puissance réelle.
 #        # Décommenter les lignes ci-dessus pour l'afficher. Plus d'explications sur comment commenter, decommenter rapidement plusieurs lignes de code sont disponibles sur la FAQ du GitHub.
+
 
