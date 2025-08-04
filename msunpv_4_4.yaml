@@ -12,6 +12,7 @@ rest:
   - resource: http://IP_DU_MSUNPV/status.xml
     scan_interval: 30 #Temps de récupération des données ici fixé à 30 secondes
     method: GET
+    encoding: iso-8859-1
     sensor:
       - name: "msunpv_xml"
         json_attributes_path: "$.xml"
@@ -248,4 +249,5 @@ shell_command:
 #  msunpv_arret_routage: "curl -X POST -d 'parS=0;0;0;0;0;0;0;1;' http://IP_DU_MSUNPV/index.xml"
 #  msunpv_commandes: "curl -X POST -d 'parS={{ states('input_select.msunpv_command_sortie_1') }};{{ states('input_select.msunpv_command_sortie_3') }};0;0;0;0;0;{{ states('input_select.msunpv_command_test_routeur') }};' http://IP_DU_MSUNPV/index.xml"
   msunpv_commandes: "curl -X POST --data-urlencode 'parS={{ states('input_select.msunpv_command_sortie_1') }};{{ states('input_select.msunpv_command_sortie_3') }};0;0;0;0;0;{{ states('input_select.msunpv_command_test_routeur') }};' http://IP_DU_MSUNPV/index.xml"
+
 
