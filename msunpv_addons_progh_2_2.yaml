@@ -12,6 +12,7 @@ rest:
   - resource: http://IP_DU_MSUNPV/param.xml?typmod=5
     scan_interval: 600
     method: GET
+    encoding: iso-8859-1
     sensor:
       - name: "msunpv_proghoraire_xml"
         json_attributes_path: "$.xml"
