@@ -145,6 +145,20 @@ template:
         device_class: energy
         state_class: total_increasing
 
+      - name: "energie_msunpv_powreso" #Puissance du réseau pour le dashboard energie
+        unique_id: "energie_msunpv_powreso"
+        unit_of_measurement: "W"
+        state: "{{ (states('sensor.msunpv_powreso')|float) }}"
+        device_class: power
+        state_class: measurement
+
+      - name: "energie_msunpv_powpv" #Puissance des panneaux pour le dashboard energie
+        unique_id: "energie_msunpv_powpv"
+        unit_of_measurement: "W"
+        state: "{{ min(0, states('sensor.msunpv_powpv')|float)|abs }}" #Valeur absolue de powpv si powpv négative, sinon 0
+        device_class: power
+        state_class: measurement        
+
 ####### L'état des commandes du MsunPv      
       - name: msunpv_cmdpos #L'état des commandes manu/auto/test routeur
         unique_id: "msunpv_cmdpos"
@@ -202,5 +216,6 @@ shell_command:
 #  msunpv_arret_routage: "curl -X POST -d 'parS=0;0;0;0;0;0;0;1;' http://IP_DU_MSUNPV/index.xml"
 #  msunpv_commandes: "curl -X POST -d 'parS={{ states('input_select.msunpv_command_sortie_1') }};0;0;0;0;0;0;{{ states('input_select.msunpv_command_test_routeur') }};' http://IP_DU_MSUNPV/index.xml"
   msunpv_commandes: "curl -X POST --data-urlencode 'parS={{ states('input_select.msunpv_command_sortie_1') }};0;0;0;0;0;0;{{ states('input_select.msunpv_command_test_routeur') }};' http://IP_DU_MSUNPV/index.xml"
+
 
 
