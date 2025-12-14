@@ -124,7 +124,7 @@ template:
       - name: "energie_msunpv_enconso" #Consommation journalière
         unique_id: "energie_msunpv_enconso"
         icon: mdi:counter
-        state: "{{ (states('sensor.msunpv_enconso')|float /1000) }}"
+        state: "{{ (states('sensor.msunpv_enconso')|float(0) /1000) }}"
         unit_of_measurement: "kWh"
         device_class: energy
         state_class: total_increasing
@@ -132,7 +132,7 @@ template:
       - name: "energie_msunpv_enpv_j" #Production panneaux journalière
         unique_id: "energie_msunpv_enpv_j"
         icon: mdi:counter
-        state: "{{ 0 if (states('sensor.msunpv_enpv_j')|float /1000) == 0 else (states('sensor.msunpv_enpv_j')|float /1000 *-1) }}"
+        state: "{{ 0 if (states('sensor.msunpv_enpv_j')|float(0) /1000) == 0 else (states('sensor.msunpv_enpv_j')|float /1000(0) *-1) }}"
         unit_of_measurement: "kWh"
         device_class: energy
         state_class: total_increasing
@@ -140,7 +140,7 @@ template:
       - name: "energie_msunpv_eninj" #Production injectée journalière
         unique_id: "energie_msunpv_eninj"
         icon: mdi:counter
-        state: "{{ 0 if (states('sensor.msunpv_eninj')|float /1000) == 0 else (states('sensor.msunpv_eninj')|float /1000 *-1) }}"
+        state: "{{ 0 if (states('sensor.msunpv_eninj')|float(0) /1000) == 0 else (states('sensor.msunpv_eninj')|float(0) /1000 *-1) }}"
         unit_of_measurement: "kWh"
         device_class: energy
         state_class: total_increasing
@@ -148,14 +148,14 @@ template:
       - name: "energie_msunpv_powreso" #Puissance du réseau pour le dashboard energie
         unique_id: "energie_msunpv_powreso"
         unit_of_measurement: "W"
-        state: "{{ (states('sensor.msunpv_powreso')|float) }}"
+        state: "{{ (states('sensor.msunpv_powreso')|float(0)) }}"
         device_class: power
         state_class: measurement
 
       - name: "energie_msunpv_powpv" #Puissance des panneaux pour le dashboard energie
         unique_id: "energie_msunpv_powpv"
         unit_of_measurement: "W"
-        state: "{{ min(0, states('sensor.msunpv_powpv')|float)|abs }}" #Valeur absolue de powpv si powpv négative, sinon 0
+        state: "{{ min(0, states('sensor.msunpv_powpv')|float(0))|abs }}" #Valeur absolue de powpv si powpv négative, sinon 0
         device_class: power
         state_class: measurement        
 
@@ -216,6 +216,7 @@ shell_command:
 #  msunpv_arret_routage: "curl -X POST -d 'parS=0;0;0;0;0;0;0;1;' http://IP_DU_MSUNPV/index.xml"
 #  msunpv_commandes: "curl -X POST -d 'parS={{ states('input_select.msunpv_command_sortie_1') }};0;0;0;0;0;0;{{ states('input_select.msunpv_command_test_routeur') }};' http://IP_DU_MSUNPV/index.xml"
   msunpv_commandes: "curl -X POST --data-urlencode 'parS={{ states('input_select.msunpv_command_sortie_1') }};0;0;0;0;0;0;{{ states('input_select.msunpv_command_test_routeur') }};' http://IP_DU_MSUNPV/index.xml"
+
 
 
 
