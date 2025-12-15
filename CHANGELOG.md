@@ -1,5 +1,5 @@
 #### 2025-12-15 - Nouveaux sensors
-* Ajout de nouveau sensors pour prendre en compte les ajouts du dashboard energy depuis la version 2025-12-0 de HA.
+* Ajout de nouveaux sensors pour prendre en compte les ajouts du dashboard energy depuis la version 2025-12-0 de HA.
 
   Pour la msunpv_2_2.yaml (lignes 148 à 160)
   ```yml
