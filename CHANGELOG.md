@@ -1,3 +1,59 @@
+#### 2025-12-15 - Nouveaux sensors
+* Ajout de nouveau sensors pour prendre en compte les ajouts du dashboard energy depuis la version 2025-12-0 de HA.
+
+  Pour la msunpv_2_2.yaml (lignes 148 à 160)
+  ```yml
+      - name: "energie_msunpv_powreso" #Puissance du réseau pour le dashboard energie
+        unique_id: "energie_msunpv_powreso"
+        unit_of_measurement: "W"
+        state: "{{ (states('sensor.msunpv_powreso')|float(0)) }}"
+        device_class: power
+        state_class: measurement
+
+      - name: "energie_msunpv_powpv" #Puissance des panneaux pour le dashboard energie
+        unique_id: "energie_msunpv_powpv"
+        unit_of_measurement: "W"
+        state: "{{ min(0, states('sensor.msunpv_powpv')|float(0))|abs }}" #Valeur absolue de powpv si powpv négative, sinon 0
+        device_class: power
+        state_class: measurement   
+  ```
+  
+  Pour la msunpv_4_4.yaml (lignes 186 à 212)
+  ```yml
+      - name: "energie_msunpv_powreso" #Puissance du réseau pour le dashboard energie
+        unique_id: "energie_msunpv_powreso"
+        unit_of_measurement: "W"
+        state: "{{ (states('sensor.msunpv_powreso')|float(0)) }}"
+        device_class: power
+        state_class: measurement
+
+      - name: "energie_msunpv_powpv" #Puissance des panneaux pour le dashboard energie
+        unique_id: "energie_msunpv_powpv"
+        unit_of_measurement: "W"
+        state: "{{ min(0, states('sensor.msunpv_powpv')|float(0))|abs }}" #Valeur absolue de powpv si powpv négative, sinon 0
+        device_class: power
+        state_class: measurement        
+
+      - name: "energie_msunpv_powbal" #Puissance du cumulus pour le dashboard energie
+        unique_id: "energie_msunpv_powbal"
+        unit_of_measurement: "W"
+        state: "{{ (states('sensor.msunpv_powbal')|float(0)) }}"
+        device_class: power
+        state_class: measurement
+
+      - name: "energie_msunpv_powrad" #Puissance du radiateur pour le dashboard energie
+        unique_id: "energie_msunpv_powrad"
+        unit_of_measurement: "W"
+        state: "{{ (states('sensor.msunpv_powrad')|float(0)) }}"
+        device_class: power
+        state_class: measurement 
+  ```
+Vous pouvez simplement rajouter les lignes ci dessus à votre fichier msunpv_2_2.yaml ou msunpv_4_4.yaml.
+</br></br>
+
+
+
+
 #### 2025-08-04 - Bug Fixes
 * Mise à jour des fichiers msunpv_2_2.yaml, msunpv_4_4.yaml, msunpv_addons_progh_2_2.yaml, msunpv_addons_progh_4_4.yaml, msunpv_addons_thermostats.yaml et msunpv_addons_moresensors.yaml pour ajouter un encodage lors de l'appel de l'intégration Restful, qui sans cet encodage, déclenchait une erreur dans les logs de Home Assistant sous certaines conditions. ([e15af79](https://github.com/tochy83/MsunPv_to_HA/commit/e15af798bf9c4f8d19aa5a69bc17ed9a873c9cad), [4e4a3be](https://github.com/tochy83/MsunPv_to_HA/commit/4e4a3bedbca51194ec0af0bb969c47fbd184894c), [b2b0302](https://github.com/tochy83/MsunPv_to_HA/commit/b2b03029e23fa05d8e15a125b68f0a670a1438e3), [eed83ef](https://github.com/tochy83/MsunPv_to_HA/commit/eed83ef0519a95962c47ccff0c0d34b9e127e84b), [16caa88](https://github.com/tochy83/MsunPv_to_HA/commit/16caa885a6af704c8652f85c015c3b20a57841ad))
   ```yml
