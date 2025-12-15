@@ -217,9 +217,9 @@ Vous pouvez bien sur faire de même pour tous les capteurs qui ne vous interress
 ## Mises à jour
 Seule la dernière entrée apparait ici. Consulter [la liste complète](/CHANGELOG.md).
 
-#### 2025-12-15 - Nouveau sensors
-* Ajout de nouveau sensors pour prendre en compte les ajouts du dashboard energy depuis la version 2025-12-0 de HA. Pour la version 2_2, les sensors ajoutés sont energie_msunpv_powreso et energie_msunpv_powpv. Pour la version 4_4, les sensors ajoutés sont energie_msunpv_powreso, energie_msunpv_powpv, energie_msunpv_powbal et energie_msunpv_powrad.
-
+#### 2025-12-15 - Nouveaux sensors
+* Ajout de nouveau sensors pour prendre en compte les ajouts du dashboard energy depuis la version 2025-12-0 de HA.
+  
   Pour la msunpv_2_2.yaml (lignes 148 à 160)
   ```yml
       - name: "energie_msunpv_powreso" #Puissance du réseau pour le dashboard energie
