@@ -269,6 +269,30 @@ Seule la dernière entrée apparait ici. Consulter [la liste complète](/CHANGEL
   ```
 Vous pouvez simplement rajouter les lignes ci dessus à votre fichier msunpv_2_2.yaml ou msunpv_4_4.yaml.
 </br></br>
+
+#### Rappel
+* Depuis la sortie des firmwares routeur en version 105 et supérieure, il y'a eu une mise à jour des commandes
+
+  Pour msunpv_2_2.yaml (dernière ligne) passe de :
+  
+  ```yml    
+    msunpv_commandes: "curl -X POST -d 'parS={{ states('input_select.msunpv_command_sortie_1') }};0;0;0;0;0;0;{{ states('input_select.msunpv_command_test_routeur') }};' http://IP_DU_MSUNPV/index.xml"
+  ```
+  à
+  ```yml    
+    msunpv_commandes: "curl -X POST --data-urlencode 'parS={{ states('input_select.msunpv_command_sortie_1') }};0;0;0;0;0;0;{{ states('input_select.msunpv_command_test_routeur') }};' http://IP_DU_MSUNPV/index.xml"
+  ```
+
+  Pour msunpv_4_4.yaml (dernière ligne) passe de :
+  ```yml    
+    msunpv_commandes: "curl -X POST --d 'parS={{ states('input_select.msunpv_command_sortie_1') }};{{ states('input_select.msunpv_command_sortie_3') }};0;0;0;0;0;{{ states('input_select.msunpv_command_test_routeur') }};' http://IP_DU_MSUNPV/index.xml"
+  ```
+  à
+  ```yml    
+    msunpv_commandes: "curl -X POST --data-urlencode 'parS={{ states('input_select.msunpv_command_sortie_1') }};{{ states('input_select.msunpv_command_sortie_3') }};0;0;0;0;0;{{ states('input_select.msunpv_command_test_routeur') }};' http://IP_DU_MSUNPV/index.xml"
+  ```
+</br></br>
+
 ## FAQ
 - Accédez à la [FAQ](/FAQ.md#faq)
 - [Comment installer msunpv.yaml](https://youtu.be/zj8lhvfRkjQ) Une vidéo qui montre comment installer l'intégration en moins de 5 minutes (lien Youtube).
