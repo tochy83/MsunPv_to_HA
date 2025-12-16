@@ -1,3 +1,27 @@
+#### 2025-12-16 - Rappel
+* Depuis la sortie des firmwares routeur en version 105 et supérieure, il y'a eu une mise à jour des commandes
+
+  Pour msunpv_2_2.yaml (dernière ligne) passe de :
+  
+  ```yml    
+    msunpv_commandes: "curl -X POST -d 'parS={{ states('input_select.msunpv_command_sortie_1') }};0;0;0;0;0;0;{{ states('input_select.msunpv_command_test_routeur') }};' http://IP_DU_MSUNPV/index.xml"
+  ```
+  à
+  ```yml    
+    msunpv_commandes: "curl -X POST --data-urlencode 'parS={{ states('input_select.msunpv_command_sortie_1') }};0;0;0;0;0;0;{{ states('input_select.msunpv_command_test_routeur') }};' http://IP_DU_MSUNPV/index.xml"
+  ```
+
+  Pour msunpv_4_4.yaml (dernière ligne) passe de :
+  ```yml    
+    msunpv_commandes: "curl -X POST --d 'parS={{ states('input_select.msunpv_command_sortie_1') }};{{ states('input_select.msunpv_command_sortie_3') }};0;0;0;0;0;{{ states('input_select.msunpv_command_test_routeur') }};' http://IP_DU_MSUNPV/index.xml"
+  ```
+  à
+  ```yml    
+    msunpv_commandes: "curl -X POST --data-urlencode 'parS={{ states('input_select.msunpv_command_sortie_1') }};{{ states('input_select.msunpv_command_sortie_3') }};0;0;0;0;0;{{ states('input_select.msunpv_command_test_routeur') }};' http://IP_DU_MSUNPV/index.xml"
+  ```
+</br></br>
+
+
 #### 2025-12-15 - Nouveaux sensors
 * Ajout de nouveaux sensors pour prendre en compte les ajouts du dashboard energy depuis la version 2025-12-0 de HA.
 
